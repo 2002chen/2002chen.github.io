@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#070919">
   <meta name="description" content="小菜鸟带你飞 - 在浏览器中互动学习 Python">
   <title>小菜鸟带你飞</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260724-2">
 </head>
 <body>
   <canvas id="stars" aria-hidden="true"></canvas>
@@ -14,18 +14,18 @@
 
   <header class="topbar">
     <nav class="shell nav">
-      <a class="brand" href="#home"><b>&lt;/&gt;</b> 小菜鸟带你飞</a>
+      <div class="brand-stack"><a class="brand" href="#home"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><span>POWER BY ChenDingDong</span></div>
       <div class="navlinks">
         <a href="#courses">&#35838;&#31243;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a>
       </div>
-      <button class="level-pill" id="levelButton" type="button"><span>LV.<b id="navLevel">1</b></span><i>PY</i></button>
+      <button class="level-pill" id="levelButton" type="button"><span>&#31561;&#32423; <b id="navLevel">1</b></span><i>PY</i></button>
     </nav>
   </header>
 
   <main id="home">
     <section class="hero shell">
       <div class="hero-copy reveal">
-        <div class="online"><i></i> LEARNING SYSTEM ONLINE</div>
+        <div class="online"><i></i> &#23398;&#20064;&#31995;&#32479;&#24050;&#19978;&#32447;</div>
         <h1>&#20174;&#31532;&#19968;&#34892;&#20195;&#30721;<br><em>&#36827;&#20837;&#21019;&#36896;&#32773;&#23431;&#23449;</em></h1>
         <p>&#30495;&#23454;&#36816;&#34892; Python&#65292;&#36880;&#20851;&#35299;&#38145;&#30693;&#35782;&#65292;&#29992;&#21363;&#26102;&#21453;&#39304;&#25226;&#27599;&#19968;&#20010;&#27010;&#24565;&#21464;&#25104;&#33021;&#21147;&#12290;</p>
         <div class="hero-actions"><button class="primary" id="startLearning" type="button">&#32487;&#32493;&#23398;&#20064; <span>&#8594;</span></button><button class="secondary" id="quickRun" type="button">&#9654; &#36816;&#34892;&#28436;&#31034;</button></div>
@@ -41,9 +41,9 @@
 
 <span class="purple">for</span> creator <span class="purple">in</span> creators:
     <span class="cyan">print</span>(<span class="yellow">f"{creator}，准备起飞！"</span>)</pre>
-        <div class="hero-output"><small>OUTPUT //</small><code id="demoOutput">Waiting for signal_</code></div>
-        <div class="window-foot"><span><i></i> PYTHON 3.12</span><button id="demoRun" type="button">RUN &#9654;</button></div>
-        <span class="float-xp">+20 XP</span><span class="float-streak">&#9889; 7 DAY STREAK</span>
+        <div class="hero-output"><small>&#36816;&#34892;&#32467;&#26524; //</small><code id="demoOutput">&#31561;&#24453;&#36816;&#34892;_</code></div>
+        <div class="window-foot"><span><i></i> PYTHON 3.12</span><button id="demoRun" type="button">&#36816;&#34892; &#9654;</button></div>
+        <span class="float-xp">+20 XP</span><span class="float-streak">&#9889; &#36830;&#32493;&#23398;&#20064; 7 &#22825;</span>
       </div>
     </section>
 
@@ -55,14 +55,14 @@
     </section>
 
     <section class="section shell" id="courses">
-      <div class="section-title reveal"><div><small>// LEARNING PATH</small><h2>&#28857;&#20142;&#20320;&#30340; Python &#25216;&#33021;&#26641;</h2></div><p>&#27599;&#20851; 5-10 &#20998;&#38047;&#65292;&#21253;&#21547;&#30693;&#35782;&#12289;&#20219;&#21153;&#12289;&#30495;&#23454;&#36816;&#34892;&#21644;&#33258;&#21160;&#21028;&#39064;&#12290;</p></div>
+      <div class="section-title reveal"><div><small>// &#23398;&#20064;&#36335;&#24452;</small><h2>&#28857;&#20142;&#20320;&#30340; Python &#25216;&#33021;&#26641;</h2></div><p>&#27599;&#20851; 5-10 &#20998;&#38047;&#65292;&#21253;&#21547;&#30693;&#35782;&#12289;&#20219;&#21153;&#12289;&#30495;&#23454;&#36816;&#34892;&#21644;&#33258;&#21160;&#21028;&#39064;&#12290;</p></div>
       <div class="course-layout reveal">
         <aside class="lesson-nav" id="lessonNav" aria-label="Course lessons"></aside>
         <article class="course-preview">
-          <div class="preview-top"><span id="previewNumber">MISSION 01</span><b id="previewStatus">READY</b></div>
+          <div class="preview-top"><span id="previewNumber">&#20219;&#21153; 01</span><b id="previewStatus">&#21487;&#24320;&#22987;</b></div>
           <div class="preview-icon" id="previewIcon">&#9889;</div>
-          <small id="previewKicker">PYTHON BASICS</small>
-          <h3 id="previewTitle">Hello, Python!</h3>
+          <small id="previewKicker">PYTHON &#22522;&#30784;</small>
+          <h3 id="previewTitle">&#20320;&#22909;&#65292;Python&#65281;</h3>
           <p id="previewDescription"></p>
           <div class="concepts" id="previewConcepts"></div>
           <button class="primary" id="openLesson" type="button">&#36827;&#20837;&#20851;&#21345; <span>&#8594;</span></button>
@@ -72,23 +72,23 @@
 
     <section class="lab-section" id="lab">
       <div class="shell">
-        <div class="section-title reveal"><div><small>// LIVE PYTHON LAB</small><h2 id="labTitle">Hello, Python!</h2></div><div class="runtime" id="runtimeStatus"><i></i><span>PYTHON ENGINE: IDLE</span></div></div>
+        <div class="section-title reveal"><div><small>// PYTHON &#22312;&#32447;&#23454;&#39564;&#23460;</small><h2 id="labTitle">&#20320;&#22909;&#65292;Python&#65281;</h2></div><div class="runtime" id="runtimeStatus"><i></i><span>PYTHON &#24341;&#25806;&#65306;&#24453;&#21629;</span></div></div>
         <div class="workspace reveal">
           <aside class="brief">
-            <div class="mission-label" id="missionLabel">MISSION 01</div>
+            <div class="mission-label" id="missionLabel">&#20219;&#21153; 01</div>
             <h3 id="missionTitle"></h3>
             <p id="missionDescription"></p>
-            <div class="knowledge"><small>CORE KNOWLEDGE</small><div id="knowledgeText"></div></div>
-            <h4>MISSION CHECKLIST</h4><ul id="checklist"></ul>
+            <div class="knowledge"><small>&#26680;&#24515;&#30693;&#35782;</small><div id="knowledgeText"></div></div>
+            <h4>&#20219;&#21153;&#26816;&#26597;&#39033;</h4><ul id="checklist"></ul>
             <div class="brief-actions"><button class="hint-btn" id="showHint" type="button">&#26174;&#31034;&#25552;&#31034;</button><button class="answer-btn" id="showAnswer" type="button">&#26597;&#30475;&#31572;&#26696;</button></div>
             <div class="assist" id="assistBox"></div>
           </aside>
           <section class="code-panel">
-            <div class="editor-tabs"><b>main.py</b><span id="dirtyState">SAVED</span><button id="resetCode" type="button">RESET</button></div>
+            <div class="editor-tabs"><b>main.py</b><span id="dirtyState">&#24050;&#20445;&#23384;</span><button id="resetCode" type="button">&#37325;&#32622;&#20195;&#30721;</button></div>
             <div class="editor-area"><div class="line-numbers" id="lineNumbers">1</div><textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Python code editor"></textarea></div>
-            <div class="console-head"><b>TERMINAL</b><button id="clearConsole" type="button">CLEAR</button></div>
-            <pre class="console" id="consoleOutput"><span>&gt; Python engine will load when you run code.</span></pre>
-            <div class="runbar"><span id="testSummary">0 / 0 TESTS</span><button class="secondary" id="runOnly" type="button">&#9654; RUN</button><button class="primary" id="runTests" type="button">RUN &amp; CHECK <span>&#9654;</span></button></div>
+            <div class="console-head"><b>&#36816;&#34892;&#32467;&#26524;</b><button id="clearConsole" type="button">&#28165;&#31354;</button></div>
+            <pre class="console" id="consoleOutput"><span>&gt; &#28857;&#20987;&#36816;&#34892;&#21518;&#20250;&#33258;&#21160;&#21152;&#36733; Python &#24341;&#25806;&#12290;</span></pre>
+            <div class="runbar"><span id="testSummary">0 / 0 &#39033;&#27979;&#35797;</span><button class="secondary" id="runOnly" type="button">&#9654; &#20165;&#36816;&#34892;</button><button class="primary" id="runTests" type="button">&#36816;&#34892;&#24182;&#26816;&#26597; <span>&#9654;</span></button></div>
           </section>
         </div>
         <div class="lesson-switcher reveal"><button id="previousLesson" type="button">&#8592; &#19978;&#19968;&#20851;</button><span id="lessonPosition">1 / 6</span><button id="nextLesson" type="button">&#19979;&#19968;&#20851; &#8594;</button></div>
@@ -96,20 +96,20 @@
     </section>
 
     <section class="section shell" id="progress">
-      <div class="section-title reveal"><div><small>// YOUR PROGRESS</small><h2>&#25104;&#38271;&#25968;&#25454;&#27491;&#22312;&#21457;&#20809;</h2></div><p>&#36827;&#24230;&#33258;&#21160;&#20445;&#23384;&#22312;&#27983;&#35272;&#22120;&#20013;&#65292;&#19979;&#27425;&#25171;&#24320;&#21487;&#32487;&#32493;&#23398;&#20064;&#12290;</p></div>
+      <div class="section-title reveal"><div><small>// &#25105;&#30340;&#23398;&#20064;&#36827;&#24230;</small><h2>&#25104;&#38271;&#25968;&#25454;&#27491;&#22312;&#21457;&#20809;</h2></div><p>&#36827;&#24230;&#33258;&#21160;&#20445;&#23384;&#22312;&#27983;&#35272;&#22120;&#20013;&#65292;&#19979;&#27425;&#25171;&#24320;&#21487;&#32487;&#32493;&#23398;&#20064;&#12290;</p></div>
       <div class="progress-grid reveal">
-        <article class="level-card"><div class="level-ring" id="levelRing"><span><small>LEVEL</small><b id="progressLevel">1</b></span></div><div><small>NEXT LEVEL</small><h3 id="progressXp">0 / 200 XP</h3><div class="progress-bar"><i id="xpBar"></i></div><p>&#36816;&#34892;&#20195;&#30721;&#12289;&#23436;&#25104;&#20851;&#21345;&#37117;&#20250;&#33719;&#21462; XP&#12290;</p></div></article>
-        <article class="achievement" id="achievementCard"><i>&#9733;</i><small>LATEST BADGE</small><b id="badgeName">SIGNAL LOST</b><p id="badgeDescription">&#23436;&#25104;&#31532;&#19968;&#20851;&#21518;&#28857;&#20142;&#24494;&#31456;&#12290;</p></article>
-        <article class="activity"><i>&#9889;</i><small>LEARNING STREAK</small><b>7 DAYS</b><p>&#26126;&#22825;&#32487;&#32493;&#26469;&#23454;&#39564;&#23460;&#65292;&#20445;&#25345;&#33021;&#37327;&#38142;&#12290;</p><div><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></article>
+        <article class="level-card"><div class="level-ring" id="levelRing"><span><small>&#31561;&#32423;</small><b id="progressLevel">1</b></span></div><div><small>&#19979;&#19968;&#31561;&#32423;</small><h3 id="progressXp">0 / 200 XP</h3><div class="progress-bar"><i id="xpBar"></i></div><p>&#36816;&#34892;&#20195;&#30721;&#12289;&#23436;&#25104;&#20851;&#21345;&#37117;&#20250;&#33719;&#21462; XP&#12290;</p></div></article>
+        <article class="achievement" id="achievementCard"><i>&#9733;</i><small>&#26368;&#26032;&#24494;&#31456;</small><b id="badgeName">&#23578;&#26410;&#35299;&#38145;</b><p id="badgeDescription">&#23436;&#25104;&#31532;&#19968;&#20851;&#21518;&#28857;&#20142;&#24494;&#31456;&#12290;</p></article>
+        <article class="activity"><i>&#9889;</i><small>&#36830;&#32493;&#23398;&#20064;</small><b>7 &#22825;</b><p>&#26126;&#22825;&#32487;&#32493;&#26469;&#23454;&#39564;&#23460;&#65292;&#20445;&#25345;&#33021;&#37327;&#38142;&#12290;</p><div><span>&#19968;</span><span>&#20108;</span><span>&#19977;</span><span>&#22235;</span><span>&#20116;</span><span>&#20845;</span><span>&#26085;</span></div></article>
       </div>
       <button class="reset-progress" id="resetProgress" type="button">&#37325;&#32622;&#25152;&#26377;&#23398;&#20064;&#36827;&#24230;</button>
     </section>
   </main>
 
-  <footer><div class="shell"><a class="brand" href="#home">POWER BY ChenDingDong</a><span>BUILD. RUN. LEARN. REPEAT.</span><span>&#169; 2026</span></div></footer>
+  <footer><div class="shell"><a class="brand" href="#home">&#23567;&#33756;&#40479;&#24102;&#20320;&#39134;</a><span>&#32534;&#20889; · &#36816;&#34892; · &#23398;&#20064; · &#36827;&#27493;</span><span>&#169; 2026</span></div></footer>
 
-  <div class="dialog" id="answerDialog" aria-hidden="true" role="dialog" aria-modal="true"><div class="dialog-backdrop" data-close-dialog></div><div class="dialog-card"><button class="dialog-close" data-close-dialog type="button">&#215;</button><small>// REFERENCE ANSWER</small><h3 id="answerTitle"></h3><pre id="answerCode"></pre><button class="primary" id="useAnswer" type="button">&#25918;&#20837;&#32534;&#36753;&#22120;</button></div></div>
+  <div class="dialog" id="answerDialog" aria-hidden="true" role="dialog" aria-modal="true"><div class="dialog-backdrop" data-close-dialog></div><div class="dialog-card"><button class="dialog-close" data-close-dialog type="button">&#215;</button><small>// &#21442;&#32771;&#31572;&#26696;</small><h3 id="answerTitle"></h3><pre id="answerCode"></pre><button class="primary" id="useAnswer" type="button">&#25918;&#20837;&#32534;&#36753;&#22120;</button></div></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js"></script>
+  <script src="app.js?v=20260724-2"></script>
 </body>
 </html>
