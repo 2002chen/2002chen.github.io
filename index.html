@@ -9,7 +9,7 @@
   <meta http-equiv="Expires" content="0">
   <meta name="description" content="小菜鸟带你飞 - 在浏览器中互动学习 Python">
   <title>小菜鸟带你飞</title>
-  <link rel="stylesheet" href="styles-mobile-refresh.css">
+  <link rel="stylesheet" href="styles.css?v=course-platform-2">
 </head>
 <body>
   <canvas id="stars" aria-hidden="true"></canvas>
@@ -19,9 +19,9 @@
     <nav class="shell nav">
       <div class="brand-stack"><a class="brand" href="#home"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><span>POWER BY 陈定栋</span></div>
       <div class="navlinks">
-        <a href="#quiz">&#39064;&#24211;</a><a href="#courses">&#35838;&#31243;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a><a href="#message">&#30041;&#35328;</a>
+        <a href="#tutorial">&#25945;&#31243;</a><a href="#quiz">&#39064;&#24211;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a><a href="#message">&#30041;&#35328;</a>
       </div>
-      <button class="level-pill" id="levelButton" type="button"><span>&#31561;&#32423; <b id="navLevel">1</b></span><i>PY</i></button>
+      <div class="account-area"><button class="sync-pill" id="syncStatus" type="button"><i></i><span>&#20113;&#31471;&#26410;&#36830;&#25509;</span></button><button class="level-pill" id="levelButton" type="button"><span id="accountName">&#26410;&#30331;&#24405;</span><i id="accountAvatar">PY</i></button><div class="account-menu" id="accountMenu"><b id="accountEmail"></b><button id="accountProgress" type="button">&#25105;&#30340;&#36827;&#24230;</button><button id="logoutButton" type="button">&#36864;&#20986;&#30331;&#24405;</button></div></div>
     </nav>
   </header>
 
@@ -55,6 +55,43 @@
       <article><i>&#9670;</i><div><b id="statLessons">0 / 6</b><span>&#24050;&#23436;&#25104;&#20851;&#21345;</span></div></article>
       <article><i>&#9889;</i><div><b id="statXp">0 XP</b><span>&#24403;&#21069;&#33021;&#37327;&#20540;</span></div></article>
       <article><i>&#9733;</i><div><b id="statPercent">0%</b><span>&#20837;&#38376;&#36335;&#24452;&#36827;&#24230;</span></div></article>
+    </section>
+
+    <section class="tutorial-section" id="tutorial">
+      <div class="shell">
+        <div class="section-title reveal"><div><small>// PYTHON &#31995;&#32479;&#25945;&#31243;</small><h2>&#19981;&#21482;&#26159;&#21047;&#39064;&#65292;&#32780;&#26159;&#30495;&#27491;&#23398;&#20250; Python</h2></div><p>&#27599;&#31456;&#20808;&#23398;&#25945;&#31243;&#65292;&#20877;&#20570;&#31456;&#33410;&#23567;&#32467;&#21644;&#35838;&#21518;&#32451;&#20064;&#12290;&#25152;&#26377;&#23398;&#20064;&#35760;&#24405;&#37117;&#20445;&#23384;&#22312;&#20320;&#30340;&#20010;&#20154;&#36134;&#25143;&#20013;&#12290;</p></div>
+        <div class="tutorial-layout reveal">
+          <aside class="chapter-sidebar">
+            <div class="chapter-sidebar-head"><b>&#35838;&#31243;&#30446;&#24405;</b><span id="courseProgressText">0% &#23436;&#25104;</span></div>
+            <div class="course-progress"><i id="courseProgressBar"></i></div>
+            <div id="chapterList" class="chapter-list"></div>
+          </aside>
+          <article class="lesson-reader">
+            <div class="reader-empty" id="readerEmpty"><i>&#128214;</i><h3>&#36873;&#25321;&#19968;&#20010;&#31456;&#33410;&#24320;&#22987;&#23398;&#20064;</h3><p>&#25945;&#31243;&#20869;&#23481;&#20250;&#20174;&#20113;&#31471;&#25968;&#25454;&#24211;&#21160;&#24577;&#21152;&#36733;&#12290;</p></div>
+            <div class="reader-content" id="readerContent">
+              <div class="reader-breadcrumb" id="readerBreadcrumb"></div>
+              <div class="reader-title"><div><small id="readerType">&#35838;&#31243;&#23567;&#33410;</small><h2 id="readerTitle"></h2><p id="readerSummary"></p></div><span id="readerReadTime"></span></div>
+              <div class="tutorial-body" id="tutorialBody"></div>
+              <div class="tutorial-code" id="tutorialCodeBox"><div><span>&#20195;&#30721;&#31034;&#20363;</span><button id="copyTutorialCode" type="button">&#22797;&#21046;&#20195;&#30721;</button></div><pre id="tutorialCode"></pre></div>
+              <div class="reader-actions"><button id="readerPrevious" type="button">&#8592; &#19978;&#19968;&#33410;</button><button class="complete-section" id="completeSection" type="button">&#26631;&#35760;&#26412;&#33410;&#24050;&#23398;&#23436; &#10003;</button><button id="readerNext" type="button">&#19979;&#19968;&#33410; &#8594;</button></div>
+            </div>
+          </article>
+          <aside class="chapter-task-panel" id="chapterTaskPanel">
+            <small>&#24403;&#21069;&#31456;&#33410;</small><h3 id="taskChapterTitle">&#23578;&#26410;&#36873;&#25321;</h3>
+            <div class="task-counts"><button data-exercise-view="after_class-choice" type="button"><i>&#10003;</i><span><b>10</b>&#36873;&#25321;&#39064;</span></button><button data-exercise-view="after_class-short_answer" type="button"><i>&#9998;</i><span><b>10</b>&#38382;&#31572;&#39064;</span></button><button data-exercise-view="after_class-coding" type="button"><i>&#128187;</i><span><b>5</b>&#21160;&#25163;&#39064;</span></button><button data-exercise-view="summary-all" type="button"><i>&#128161;</i><span><b>5</b>&#23567;&#32467;&#39064;</span></button></div>
+            <p>&#23436;&#25104;&#26412;&#31456;&#25945;&#31243;&#21518;&#65292;&#29992; 30 &#36947;&#39064;&#26816;&#39564;&#23398;&#20064;&#25104;&#26524;&#12290;</p>
+            <button class="primary" id="openChapterExercises" type="button">&#36827;&#20837;&#26412;&#31456;&#32451;&#20064;</button>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="exercise-center" id="chapterExercises">
+      <div class="shell">
+        <div class="section-title"><div><small>// &#31456;&#33410;&#32451;&#20064;&#20013;&#24515;</small><h2 id="exerciseCenterTitle">&#35838;&#21518;&#32451;&#20064;</h2></div><button class="close-exercises" id="closeExercises" type="button">&#36820;&#22238;&#25945;&#31243; &#8593;</button></div>
+        <div class="exercise-tabs" id="exerciseTabs"><button class="active" data-exercise-tab="choice" type="button">10 &#36947;&#36873;&#25321;&#39064;</button><button data-exercise-tab="short_answer" type="button">10 &#36947;&#38382;&#31572;&#39064;</button><button data-exercise-tab="coding" type="button">5 &#36947;&#21160;&#25163;&#39064;</button><button data-exercise-tab="summary" type="button">5 &#36947;&#23567;&#32467;&#39064;</button></div>
+        <div class="exercise-workspace"><div class="exercise-list" id="exerciseList"></div><article class="exercise-detail" id="exerciseDetail"><div class="reader-empty"><i>&#9997;</i><h3>&#36873;&#25321;&#19968;&#36947;&#39064;&#24320;&#22987;&#20316;&#31572;</h3></div></article></div>
+      </div>
     </section>
 
     <section class="quiz-section" id="quiz">
@@ -146,9 +183,8 @@
           <article class="message-intro">
             <div class="message-radar"><i></i><span>&#20449;&#21495;&#25509;&#25910;&#20013;</span></div>
             <h3>&#20320;&#30340;&#30041;&#35328;&#20250;&#21457;&#21040;&#21738;&#37324;&#65311;</h3>
-            <p>&#25552;&#20132;&#21518;&#20250;&#25171;&#24320; GitHub &#30041;&#35328;&#39029;&#24182;&#33258;&#21160;&#22635;&#20889;&#20869;&#23481;&#12290;&#20320;&#21482;&#38656;&#30830;&#35748;&#25552;&#20132;&#65292;&#31649;&#29702;&#21592;&#23601;&#33021;&#22312;&#21518;&#21488;&#26597;&#30475;&#21644;&#22238;&#22797;&#12290;</p>
-            <div class="message-steps"><span><b>01</b>&#22635;&#20889;&#30041;&#35328;</span><span><b>02</b>&#21069;&#24448; GitHub</span><span><b>03</b>&#31649;&#29702;&#21592;&#22238;&#22797;</span></div>
-            <a class="admin-link" href="https://github.com/2002chen/python-learning-lab/issues" target="_blank" rel="noopener">&#31649;&#29702;&#21592;&#30041;&#35328;&#21518;&#21488; &#8599;</a>
+            <p>&#25552;&#20132;&#21518;&#20250;&#20445;&#23384;&#21040;&#20113;&#31471;&#25968;&#25454;&#24211;&#65292;&#21482;&#26377;&#20320;&#33258;&#24049;&#21644;&#31649;&#29702;&#21592;&#21487;&#20197;&#26597;&#30475;&#12290;&#31649;&#29702;&#21592;&#33021;&#22312;&#31449;&#20869;&#21518;&#21488;&#36319;&#36827;&#24182;&#22238;&#22797;&#12290;</p>
+            <div class="message-steps"><span><b>01</b>&#22635;&#20889;&#30041;&#35328;</span><span><b>02</b>&#20113;&#31471;&#20445;&#23384;</span><span><b>03</b>&#31649;&#29702;&#21592;&#22238;&#22797;</span></div>
           </article>
           <form class="message-form" id="messageForm">
             <label><span>&#24744;&#30340;&#31216;&#21628; <i>*</i></span><input id="messageName" name="name" maxlength="30" required placeholder="&#20363;&#22914;&#65306;&#23567;&#26126;"></label>
@@ -156,7 +192,7 @@
             <label class="full"><span>&#30041;&#35328;&#26631;&#39064; <i>*</i></span><input id="messageTitle" name="title" maxlength="70" required placeholder="&#35831;&#31616;&#35201;&#25551;&#36848;&#20320;&#30340;&#38382;&#39064;"></label>
             <label class="full"><span>&#30041;&#35328;&#20869;&#23481; <i>*</i></span><textarea id="messageContent" name="content" maxlength="1000" required placeholder="&#35831;&#35814;&#32454;&#35828;&#26126;&#20320;&#30340;&#24819;&#27861;&#25110;&#38382;&#39064;..."></textarea><small><b id="messageCount">0</b> / 1000</small></label>
             <label class="full"><span>&#32852;&#31995;&#26041;&#24335;&#65288;&#21487;&#36873;&#65289;</span><input id="messageContact" name="contact" maxlength="80" placeholder="&#37038;&#31665;&#25110;&#20854;&#20182;&#26041;&#24335;&#65292;&#19981;&#22635;&#20063;&#21487;&#20197;"></label>
-            <div class="form-note full"><i></i><span>&#25552;&#20132;&#26102;&#20250;&#31163;&#24320;&#24403;&#21069;&#39029;&#38754;&#24182;&#21069;&#24448; GitHub&#65292;&#35831;&#21247;&#22635;&#20889;&#23494;&#30721;&#12289;&#36523;&#20221;&#35777;&#31561;&#25935;&#24863;&#20449;&#24687;&#12290;</span></div>
+            <div class="form-note full"><i></i><span>&#30041;&#35328;&#20250;&#20445;&#23384;&#21040;&#20320;&#30340;&#20010;&#20154;&#36134;&#25143;&#20013;&#65292;&#35831;&#21247;&#22635;&#20889;&#23494;&#30721;&#12289;&#36523;&#20221;&#35777;&#31561;&#25935;&#24863;&#20449;&#24687;&#12290;</span></div>
             <button class="primary full" id="submitMessage" type="submit">&#21457;&#36865;&#32473;&#31649;&#29702;&#21592; <span>&#8594;</span></button>
           </form>
         </div>
@@ -166,8 +202,34 @@
 
   <footer><div class="shell"><a class="brand" href="#home">&#23567;&#33756;&#40479;&#24102;&#20320;&#39134;</a><span>&#32534;&#20889; · &#36816;&#34892; · &#23398;&#20064; · &#36827;&#27493;</span><span>&#169; 2026</span></div></footer>
 
+  <div class="auth-gate" id="authGate">
+    <div class="auth-bubbles"><i></i><i></i><i></i></div>
+    <section class="auth-card">
+      <div class="auth-brand"><span>&lt;/&gt;</span><div><b>&#23567;&#33756;&#40479;&#24102;&#20320;&#39134;</b><small>POWER BY &#38472;&#23450;&#26635;</small></div></div>
+      <div class="auth-copy"><small>// &#20010;&#20154;&#23398;&#20064;&#31354;&#38388;</small><h2 id="authHeading">&#27426;&#36814;&#22238;&#26469;</h2><p id="authDescription">&#30331;&#24405;&#21518;&#65292;&#20320;&#30340;&#39064;&#24211;&#36827;&#24230;&#12289;&#38169;&#39064;&#26412;&#12289;XP &#21644;&#20195;&#30721;&#20250;&#23433;&#20840;&#20445;&#23384;&#22312;&#33258;&#24049;&#30340;&#36134;&#25143;&#20013;&#12290;</p></div>
+      <div class="auth-tabs"><button class="active" data-auth-tab="login" type="button">&#30331;&#24405;</button><button data-auth-tab="register" type="button">&#27880;&#20876;</button></div>
+      <form class="auth-form" id="authForm">
+        <label class="register-only"><span>&#26165;&#31216;</span><input id="authDisplayName" maxlength="30" autocomplete="nickname" placeholder="&#20320;&#24819;&#35201;&#30340;&#26165;&#31216;"></label>
+        <label><span>&#37038;&#31665;</span><input id="authEmail" type="email" required autocomplete="email" placeholder="name@example.com"></label>
+        <label><span>&#23494;&#30721;</span><input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="&#33267;&#23569; 6 &#20301;&#23494;&#30721;"></label>
+        <label class="register-only"><span>&#30830;&#35748;&#23494;&#30721;</span><input id="authPasswordConfirm" type="password" minlength="6" autocomplete="new-password" placeholder="&#20877;&#36755;&#20837;&#19968;&#27425;&#23494;&#30721;"></label>
+        <div class="auth-error" id="authError"></div>
+        <button class="primary" id="authSubmit" type="submit">&#30331;&#24405;&#24182;&#32487;&#32493;</button>
+        <button class="forgot-link" id="forgotPassword" type="button">&#24536;&#35760;&#23494;&#30721;&#65311;</button>
+      </form>
+      <div class="auth-security"><i>&#128274;</i><span>&#27599;&#20010;&#29992;&#25143;&#21482;&#33021;&#35775;&#38382;&#33258;&#24049;&#30340;&#23398;&#20064;&#25968;&#25454;&#65292;&#20854;&#20182;&#29992;&#25143;&#26080;&#27861;&#26597;&#30475;&#12290;</span></div>
+    </section>
+  </div>
+
   <div class="dialog" id="answerDialog" aria-hidden="true" role="dialog" aria-modal="true"><div class="dialog-backdrop" data-close-dialog></div><div class="dialog-card"><button class="dialog-close" data-close-dialog type="button">&#215;</button><small>// &#21442;&#32771;&#31572;&#26696;</small><h3 id="answerTitle"></h3><pre id="answerCode"></pre><button class="primary" id="useAnswer" type="button">&#25918;&#20837;&#32534;&#36753;&#22120;</button></div></div>
+  <div class="admin-panel" id="adminPanel" aria-hidden="true"><div class="admin-backdrop" data-close-admin></div><section class="admin-drawer"><div class="admin-head"><div><small>// &#31649;&#29702;&#21592;&#21518;&#21488;</small><h2>&#20869;&#23481;&#19982;&#30041;&#35328;&#31649;&#29702;</h2></div><button data-close-admin type="button">&#215;</button></div><div class="admin-tabs"><button class="active" data-admin-tab="questions" type="button">&#39064;&#24211;&#31649;&#29702;</button><button data-admin-tab="course" type="button">&#35838;&#31243;&#31649;&#29702;</button><button data-admin-tab="messages" type="button">&#29992;&#25143;&#30041;&#35328;</button></div><div class="admin-view active" id="adminQuestions"><form id="questionForm" class="question-form"><input type="hidden" id="questionId"><label><span>&#38590;&#24230;</span><select id="questionLevel"><option value="beginner">&#38646;&#22522;&#30784;</option><option value="basic">&#22522;&#30784;</option><option value="advanced">&#36827;&#38454;</option></select></label><label><span>&#30693;&#35782;&#28857;</span><input id="questionTopic" required></label><label class="wide"><span>&#39064;&#30446;</span><textarea id="questionText" required></textarea></label><label class="wide"><span>&#36873;&#39033;&#65288;&#27599;&#34892;&#19968;&#20010;&#65289;</span><textarea id="questionOptions" required></textarea></label><label><span>&#27491;&#30830;&#31572;&#26696;&#24207;&#21495;</span><input id="questionCorrect" type="number" min="1" max="10" value="1" required></label><label><span>&#25490;&#24207;</span><input id="questionPosition" type="number" min="0" value="0"></label><label class="wide"><span>&#35299;&#26512;</span><textarea id="questionExplanation"></textarea></label><label class="check"><input id="questionActive" type="checkbox" checked><span>&#31435;&#21363;&#19978;&#26550;</span></label><div class="admin-form-actions wide"><button type="button" id="questionCancel">&#28165;&#31354;</button><button class="primary" type="submit">&#20445;&#23384;&#39064;&#30446;</button></div></form><div class="admin-list" id="questionList"></div></div><div class="admin-view" id="adminCourse"><p class="admin-course-note">&#35838;&#31243;&#12289;&#23567;&#33410;&#21644;&#32451;&#20064;&#37117;&#26159;&#20174;&#20113;&#31471;&#25968;&#25454;&#24211;&#21160;&#24577;&#35835;&#21462;&#12290;&#22312;&#36825;&#37324;&#21487;&#32534;&#36753;&#31456;&#33410;&#22522;&#26412;&#20449;&#24687;&#65292;&#20855;&#20307;&#25945;&#31243;&#21644;&#39064;&#30446;&#21487;&#36816;&#34892; seed-course.sql &#25209;&#37327;&#23548;&#20837;&#21518;&#32487;&#32493;&#32500;&#25252;&#12290;</p><form id="chapterForm" class="question-form"><input type="hidden" id="chapterId"><label class="wide"><span>&#31456;&#33410;&#21517;&#31216;</span><input id="chapterTitle" required></label><label><span>&#38590;&#24230;</span><select id="chapterLevel"><option value="beginner">&#38646;&#22522;&#30784;</option><option value="basic">&#22522;&#30784;</option><option value="advanced">&#36827;&#38454;</option></select></label><label><span>&#25490;&#24207;</span><input id="chapterPosition" type="number" min="1" value="1" required></label><label><span>&#22270;&#26631;</span><input id="chapterIcon" value="&#128218;"></label><label><span>&#39044;&#35745;&#20998;&#38047;</span><input id="chapterMinutes" type="number" min="1" value="60"></label><label class="wide"><span>&#31456;&#33410;&#20171;&#32461;</span><textarea id="chapterDescription" required></textarea></label><label class="check"><input id="chapterActive" type="checkbox" checked><span>&#31435;&#21363;&#19978;&#26550;</span></label><div class="admin-form-actions wide"><button type="button" id="chapterCancel">&#28165;&#31354;</button><button class="primary" type="submit">&#20445;&#23384;&#31456;&#33410;</button></div></form><div class="admin-list" id="chapterAdminList"></div></div><div class="admin-view" id="adminMessages"><div class="message-filter"><select id="messageStatusFilter"><option value="">&#20840;&#37096;&#29366;&#24577;</option><option value="new">&#26032;&#30041;&#35328;</option><option value="processing">&#22788;&#29702;&#20013;</option><option value="resolved">&#24050;&#35299;&#20915;</option></select><button id="refreshMessages" type="button">&#21047;&#26032;</button></div><div class="admin-list" id="messageList"></div></div></section></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app-mobile-refresh.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=course-platform-2"></script>
+  <script src="app.js?v=course-platform-2"></script>
+  <script src="dynamic-data.js?v=course-platform-2"></script>
+  <script src="course-data.js?v=course-platform-2"></script>
+  <script src="admin.js?v=course-platform-2"></script>
+  <script src="cloud-auth.js?v=course-platform-2"></script>
 </body>
 </html>

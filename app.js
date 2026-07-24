@@ -60,7 +60,7 @@ const $=id=>document.getElementById(id);
 
 function loadState(){try{const saved={xp:0,runs:0,completed:[],code:{},current:0,...JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')};if(saved.code?.hello?.includes('Hello, Python!'))saved.code.hello=saved.code.hello.replaceAll('Hello, Python!','你好，Python！');return saved}catch{return{xp:0,runs:0,completed:[],code:{},current:0}}}
 function loadQuizState(){try{return{answered:{},wrong:[],correct:0,streak:0,...JSON.parse(localStorage.getItem('python-lab-quiz-v1')||'{}')}}catch{return{answered:{},wrong:[],correct:0,streak:0}}}
-function saveQuiz(){localStorage.setItem('python-lab-quiz-v1',JSON.stringify(quizState))}
+function saveQuiz(){localStorage.setItem('python-lab-quiz-v1',JSON.stringify(quizState));window.dispatchEvent(new CustomEvent('learning-data-changed'))}
 function quizId(level,index){return `${level}-${index}`}
 function getQuizList(){if(quizLevel==='wrong')return quizState.wrong.map(id=>{const [level,index]=id.split('-');return{level,index:Number(index),question:quizBank[level]?.[Number(index)]}}).filter(x=>x.question);return (quizOrder[quizLevel]||quizBank[quizLevel].map((_,i)=>i)).map(index=>({level:quizLevel,index,question:quizBank[quizLevel][index]}))}
 function levelLabel(level){return{beginner:'零基础',basic:'基础',advanced:'进阶',wrong:'错题本'}[level]}
@@ -81,12 +81,12 @@ function updateQuizSummary(){
 }
 
 function submitQuiz(){
-  const list=getQuizList();if(!list.length)return;if(quizChoice===null){toast('请先选择一个答案');return}const item=list[quizIndex],q=item.question,id=quizId(item.level,item.index),correct=quizChoice===q[3];if(!quizState.answered[id]){quizState.answered[id]={choice:quizChoice,correct};if(correct){quizState.correct++;quizState.streak++;quizState.wrong=quizState.wrong.filter(x=>x!==id)}else{quizState.streak=0;if(!quizState.wrong.includes(id))quizState.wrong.push(id)}state.xp+=correct?10:2;save();saveQuiz();toast(correct?'回答正确，+10 XP':'再接再厉，已加入错题本')}quizChecked=true;renderQuiz();
+  const list=getQuizList();if(!list.length)return;if(quizChoice===null){toast('请先选择一个答案');return}const item=list[quizIndex],q=item.question,id=quizId(item.level,item.index),correct=quizChoice===q[3];if(!quizState.answered[id]){quizState.answered[id]={choice:quizChoice,correct};if(correct){quizState.correct++;quizState.streak++;quizState.wrong=quizState.wrong.filter(x=>x!==id)}else{quizState.streak=0;if(!quizState.wrong.includes(id))quizState.wrong.push(id)}state.xp+=correct?10:2;save();saveQuiz();window.dynamicLearning?.saveAttempt(q,quizChoice,correct);toast(correct?'回答正确，+10 XP':'再接再厉，已加入错题本')}quizChecked=true;renderQuiz();
 }
 
 function changeQuizLevel(level){quizLevel=level;quizIndex=0;quizChoice=null;quizChecked=false;renderQuiz();$('quiz').scrollIntoView({behavior:'smooth'})}
 function shuffleQuiz(){if(quizLevel==='wrong'){quizState.wrong.sort(()=>Math.random()-.5)}else{quizOrder[quizLevel]=quizBank[quizLevel].map((_,i)=>i).sort(()=>Math.random()-.5)}quizIndex=0;quizChoice=null;quizChecked=false;renderQuiz();toast('题目顺序已随机打乱')}
-function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));updateStats()}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));updateStats();window.dispatchEvent(new CustomEvent('learning-data-changed'))}
 function isUnlocked(index){return index===0||state.completed.includes(lessons[index-1].id)}
 function currentLesson(){return lessons[selected]}
 function level(){return Math.floor(state.xp/200)+1}
@@ -109,7 +109,7 @@ function selectLesson(index,scroll=true){
 
 function updateStats(){
   const completed=state.completed.length,percent=Math.round(completed/lessons.length*100),lv=level(),within=state.xp%200;
-  $('navLevel').textContent=lv;$('progressLevel').textContent=lv;$('statRuns').textContent=state.runs;$('statLessons').textContent=`${completed} / ${lessons.length}`;$('statXp').textContent=`${state.xp} XP`;$('statPercent').textContent=`${percent}%`;$('progressXp').textContent=`${within} / 200 XP`;$('xpBar').style.width=`${within/2}%`;$('levelRing').style.background=`conic-gradient(var(--cyan) ${within*1.8}deg,#ffffff12 0)`;
+  $('progressLevel').textContent=lv;$('statRuns').textContent=state.runs;$('statLessons').textContent=`${completed} / ${lessons.length}`;$('statXp').textContent=`${state.xp} XP`;$('statPercent').textContent=`${percent}%`;$('progressXp').textContent=`${within} / 200 XP`;$('xpBar').style.width=`${within/2}%`;$('levelRing').style.background=`conic-gradient(var(--cyan) ${within*1.8}deg,#ffffff12 0)`;
   if(completed){$('achievementCard').classList.add('unlocked');$('badgeName').textContent=completed===lessons.length?'Python 小飞侠':'初次启航';$('badgeDescription').textContent=completed===lessons.length?'你已完成 Python 入门航线。':'你已完成第一关并点亮学习信号。'}
 }
 
@@ -118,6 +118,7 @@ function initWorker(){
 }
 function setRuntime(cls,text){const el=$('runtimeStatus');el.className=`runtime ${cls}`;el.querySelector('span').textContent=text}
 function execute(code){initWorker();return new Promise((resolve,reject)=>{const id=++requestId;const timer=setTimeout(()=>{pending.delete(id);worker?.terminate();worker=null;runtimeLoaded=false;setRuntime('error','PYTHON 引擎：运行超时');reject(new Error('运行超过 12 秒，请检查是否存在无限循环。'))},12000);pending.set(id,{resolve,reject,timer});worker.postMessage({id,code})})}
+window.pythonLabRuntime={execute};
 function preparedCode(){const lesson=currentLesson();return lesson.input?`import builtins\n_inputs = iter([${JSON.stringify(lesson.input)}])\nbuiltins.input = lambda prompt='': next(_inputs)\n${$('codeEditor').value}`:$('codeEditor').value}
 
 async function run(check){
@@ -133,15 +134,16 @@ function updateLines(){const count=$('codeEditor').value.split('\n').length;$('l
 function toast(text){const el=$('toast');el.textContent=text;el.classList.add('show');clearTimeout(el.timer);el.timer=setTimeout(()=>el.classList.remove('show'),2500)}
 function showDialog(show){$('answerDialog').classList.toggle('open',show);$('answerDialog').setAttribute('aria-hidden',String(!show));document.body.style.overflow=show?'hidden':''}
 
-$('openLesson').onclick=()=>selectLesson(selected,true);$('startLearning').onclick=()=>selectLesson(state.current||0,true);$('quickRun').onclick=$('demoRun').onclick=()=>{const out=$('demoOutput');out.textContent='正在运行...';setTimeout(()=>{out.textContent='迪权、得喜、得军、得龙、得女、得得女，准备起飞！';toast('示例运行成功')},500)};$('levelButton').onclick=()=>$('progress').scrollIntoView({behavior:'smooth'});$('runOnly').onclick=()=>run(false);$('runTests').onclick=()=>run(true);$('clearConsole').onclick=clearConsole;
+$('openLesson').onclick=()=>selectLesson(selected,true);$('startLearning').onclick=()=>selectLesson(state.current||0,true);$('quickRun').onclick=$('demoRun').onclick=()=>{const out=$('demoOutput');out.textContent='正在运行...';setTimeout(()=>{out.textContent='迪权、得喜、得军、得龙、得女、得得女，准备起飞！';toast('示例运行成功')},500)};$('runOnly').onclick=()=>run(false);$('runTests').onclick=()=>run(true);$('clearConsole').onclick=clearConsole;
 $('showHint').onclick=()=>{const box=$('assistBox');box.innerHTML=`<b>提示 //</b><br>${currentLesson().hint}`;box.classList.toggle('show')};$('showAnswer').onclick=()=>showDialog(true);document.querySelectorAll('[data-close-dialog]').forEach(x=>x.onclick=()=>showDialog(false));$('useAnswer').onclick=()=>{$('codeEditor').value=currentLesson().solution;state.code[currentLesson().id]=$('codeEditor').value;save();updateLines();showDialog(false);toast('参考答案已放入编辑器')};
 $('resetCode').onclick=()=>{$('codeEditor').value=currentLesson().starter;state.code[currentLesson().id]=$('codeEditor').value;save();updateLines();toast('代码已重置')};$('codeEditor').addEventListener('input',()=>{state.code[currentLesson().id]=$('codeEditor').value;localStorage.setItem(STORAGE_KEY,JSON.stringify(state));$('dirtyState').textContent='正在保存...';clearTimeout($('dirtyState').timer);$('dirtyState').timer=setTimeout(()=>$('dirtyState').textContent='已保存',400);updateLines()});$('previousLesson').onclick=()=>selectLesson(selected-1,true);$('nextLesson').onclick=()=>selectLesson(selected+1,true);
 $('resetProgress').onclick=()=>{if(confirm('确定清除所有关卡进度和代码吗？')){state={xp:0,runs:0,completed:[],code:{},current:0};save();selectLesson(0,false);toast('学习进度已重置')}};document.addEventListener('keydown',event=>{if(event.key==='Escape')showDialog(false);if((event.ctrlKey||event.metaKey)&&event.key==='Enter'){event.preventDefault();run(true)}});
 
 $('messageContent').addEventListener('input',()=>{$('messageCount').textContent=$('messageContent').value.length});
-$('messageForm').addEventListener('submit',event=>{event.preventDefault();const name=$('messageName').value.trim(),type=$('messageType').value,title=$('messageTitle').value.trim(),content=$('messageContent').value.trim(),contact=$('messageContact').value.trim();if(!name||!title||!content){toast('请完整填写必填内容');return}const issueTitle=`[${type}] ${title}`;const issueBody=`## 用户留言\n\n- **称呼：** ${name}\n- **类型：** ${type}\n- **联系方式：** ${contact||'未填写'}\n- **提交页面：** ${location.href}\n\n### 留言内容\n\n${content}\n\n---\n由“小菜鸟带你飞”网站留言表单生成。`;const url=`https://github.com/2002chen/python-learning-lab/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&labels=${encodeURIComponent('用户留言')}`;window.open(url,'_blank','noopener');toast('留言内容已生成，请在 GitHub 页面确认提交')});
+$('messageForm').addEventListener('submit',async event=>{event.preventDefault();const payload={name:$('messageName').value.trim(),type:$('messageType').value,title:$('messageTitle').value.trim(),content:$('messageContent').value.trim(),contact:$('messageContact').value.trim()};if(!payload.name||!payload.title||!payload.content){toast('请完整填写必填内容');return}try{await window.dynamicLearning.saveMessage(payload);$('messageForm').reset();$('messageCount').textContent='0';toast('留言已发送，管理员将在后台查看')}catch(error){toast(error.message||'留言发送失败')}});
 document.querySelectorAll('.quiz-level').forEach(button=>button.onclick=()=>changeQuizLevel(button.dataset.level));
 $('quizSubmit').onclick=submitQuiz;$('quizPrev').onclick=()=>{if(quizIndex>0){quizIndex--;quizChoice=null;quizChecked=false;renderQuiz()}};$('quizNext').onclick=()=>{const list=getQuizList();if(quizIndex<list.length-1){quizIndex++;quizChoice=null;quizChecked=false;renderQuiz()}else{toast('本组题目已完成，可以切换难度或随机重练')}};$('shuffleQuiz').onclick=shuffleQuiz;
 
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll('.reveal').forEach(x=>observer.observe(x));
 function stars(){const c=$('stars'),ctx=c.getContext('2d');if(!ctx||matchMedia('(prefers-reduced-motion:reduce)').matches)return;let pts=[];function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);pts=Array.from({length:Math.min(45,Math.floor(innerWidth/25))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12,r:Math.random()*2+.8}))}function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);pts.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1;ctx.fillStyle=['#5d7cff55','#ff6e9e55','#24c98a55','#ffbd2e55'][i%4];ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()});requestAnimationFrame(draw)}resize();draw();addEventListener('resize',resize,{passive:true})}stars();updateStats();selectLesson(selected,false);renderQuiz();
+window.addEventListener('cloud-data-ready',()=>{state=loadState();quizState=loadQuizState();selected=Math.min(state.current||0,lessons.length-1);updateStats();selectLesson(selected,false);renderQuiz()});
