@@ -1,4 +1,4 @@
-# Python Learning Lab
+# 小菜鸟带你飞
 
 A responsive, animated landing page for an interactive Python learning website.
 
