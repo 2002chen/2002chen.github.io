@@ -7,7 +7,7 @@ A responsive, animated landing page for an interactive Python learning website.
 This site is published from the `main` branch root.
 # 小菜鸟带你飞
 
-公开网站：<https://2002chen.github.io/python-learning-lab/>
+公开网站：<https://2002chen.github.io/>
 
 ## 动态课程平台配置
 
