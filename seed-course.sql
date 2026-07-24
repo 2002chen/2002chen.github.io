@@ -13,7 +13,7 @@ with chapter_seed(title, subtitle, description, level, position, cover_icon, est
 )
 insert into public.course_chapters(title, subtitle, description, level, position, cover_icon, estimated_minutes, active)
 select title, subtitle, description, level, position, cover_icon, estimated_minutes, true from chapter_seed
-on conflict (title) do update set subtitle=excluded.subtitle, description=excluded.description, level=excluded.level,
+on conflict (position) do update set title=excluded.title, subtitle=excluded.subtitle, description=excluded.description, level=excluded.level,
   position=excluded.position, cover_icon=excluded.cover_icon, estimated_minutes=excluded.estimated_minutes, active=true;
 
 with section_seed(chapter_title, title, summary, content_html, example_code, position, section_type) as (
@@ -53,7 +53,7 @@ with section_seed(chapter_title, title, summary, content_html, example_code, pos
 insert into public.course_sections(chapter_id, title, summary, content_html, example_code, position, section_type, active)
 select c.id, s.title, s.summary, s.content_html, s.example_code, s.position, s.section_type, true
 from section_seed s join public.course_chapters c on c.title=s.chapter_title
-on conflict (chapter_id, title) do update set summary=excluded.summary, content_html=excluded.content_html,
+on conflict (chapter_id, position) do update set title=excluded.title, summary=excluded.summary, content_html=excluded.content_html,
   example_code=excluded.example_code, position=excluded.position, section_type=excluded.section_type, active=true;
 
 insert into public.course_sections(chapter_id, title, summary, content_html, example_code, position, section_type, active)
@@ -61,7 +61,7 @@ select id, position || '.4 章节小结', '整理本章知识地图，确认自�
   '<h3>本章知识地图</h3><p>' || description || '</p><h3>完成标准</h3><p>你应当能用自己的话解释核心概念，能看懂典型代码，并能独立完成本章的 10 道选择题、10 道问答题和 5 道动手题。</p><div class="tip">小结不是结束。先回忆，再查看教程；先动手，再看答案。</div>',
   '', 4, 'summary', true
 from public.course_chapters
-on conflict (chapter_id, title) do update set summary=excluded.summary, content_html=excluded.content_html,
+on conflict (chapter_id, position) do update set title=excluded.title, summary=excluded.summary, content_html=excluded.content_html,
   position=excluded.position, section_type='summary', active=true;
 
 -- Ten core concepts per chapter drive ten choice questions and ten short-answer questions.
@@ -84,7 +84,7 @@ insert into public.chapter_exercises(chapter_id, exercise_group, question_type, 
 select chapter_id, 'after_class', 'choice', item->>'term', '关于“' || (item->>'term') || '”的说法，哪一项正确？',
   jsonb_build_array(item->>'definition', '它只在安装 Python 时使用一次', '它表示程序中所有内容都必须是文字', '它与当前章节没有关系'),
   item->>'definition', 0, item->>'definition', position, true from expanded
-on conflict (chapter_id, exercise_group, question_type, position) do update set topic=excluded.topic, prompt=excluded.prompt,
+on conflict (chapter_id, exercise_group, position) do update set question_type=excluded.question_type, topic=excluded.topic, prompt=excluded.prompt,
   options=excluded.options, correct_answer=excluded.correct_answer, correct_index=excluded.correct_index, explanation=excluded.explanation, active=true;
 
 with concept_seed(chapter_title, concepts) as (
@@ -104,8 +104,8 @@ with concept_seed(chapter_title, concepts) as (
 )
 insert into public.chapter_exercises(chapter_id, exercise_group, question_type, topic, prompt, correct_answer, explanation, position, active)
 select chapter_id, 'after_class', 'short_answer', item->>'term', '请用自己的话解释“' || (item->>'term') || '”，并说明它在程序中的作用。',
-  (item->>'term') || '|' || (item->>'keyword'), '参考答案至少应准确说明“' || (item->>'keyword') || '”这一关键点。', position, true from expanded
-on conflict (chapter_id, exercise_group, question_type, position) do update set topic=excluded.topic, prompt=excluded.prompt,
+  (item->>'term') || '|' || (item->>'keyword'), '参考答案至少应准确说明“' || (item->>'keyword') || '”这一关键点。', position + 10, true from expanded
+on conflict (chapter_id, exercise_group, position) do update set question_type=excluded.question_type, topic=excluded.topic, prompt=excluded.prompt,
   correct_answer=excluded.correct_answer, explanation=excluded.explanation, active=true;
 
 -- Five runnable coding tasks per chapter. Browser tests compare output and required code snippets.
@@ -120,13 +120,13 @@ with task_seed(chapter_position, position, topic, prompt, starter_code, expected
     (7,1,'文件写入','写入 note.txt 后读取并输出：Python。','with open("note.txt", "w", encoding="utf-8") as f:\n    f.write("Python")\nwith open("note.txt", encoding="utf-8") as f:\n    print(f.read())','Python','["with open", "encoding="]'),(7,2,'异常','捕获 int("abc") 的 ValueError 并输出：格式错误。','try:\n    int("abc")\nexcept ValueError:\n    print("格式错误")','格式错误','["try:", "except ValueError"]'),(7,3,'finally','使用 finally 输出：结束。','try:\n    print("开始")\nfinally:\n    print("结束")','开始\n结束','["finally:"]'),(7,4,'JSON','把字典转成 JSON 后读取，输出 100。','import json\ntext = json.dumps({"xp": 100})\ndata = json.loads(text)\nprint(data["xp"])','100','["import json", "json.loads"]'),(7,5,'Path','使用 Path 写入并读取 hello.txt，输出：你好。','from pathlib import Path\npath = Path("hello.txt")\npath.write_text("你好", encoding="utf-8")\nprint(path.read_text(encoding="utf-8"))','你好','["from pathlib import Path"]'),
     (8,1,'类','定义 Student 类，创建对象并输出其类型名。','class Student:\n    pass\n\nstudent = Student()\nprint(type(student).__name__)','Student','["class Student"]'),(8,2,'构造方法','用 __init__ 保存 name 并输出迪权。','class Student:\n    def __init__(self, name):\n        self.name = name\n\nstudent = Student("迪权")\nprint(student.name)','迪权','["__init__", "self.name"]'),(8,3,'实例方法','定义 greet 方法返回你好并输出。','class Student:\n    def greet(self):\n        return "你好"\n\nprint(Student().greet())','你好','["def greet", "self"]'),(8,4,'继承','Dog 继承 Animal，并输出 Animal 的 move 结果。','class Animal:\n    def move(self):\n        return "移动"\n\nclass Dog(Animal):\n    pass\n\nprint(Dog().move())','移动','["class Dog(Animal)"]'),(8,5,'方法重写','子类重写 speak 并输出：喵。','class Animal:\n    def speak(self):\n        return "声音"\n\nclass Cat(Animal):\n    def speak(self):\n        return "喵"\n\nprint(Cat().speak())','喵','["class Cat", "def speak"]')
 ), rows as (
-  select c.id chapter_id, t.position, t.topic, t.prompt, t.starter_code, t.expected_output, t.required
+  select c.id chapter_id, t.position + 20 as position, t.topic, t.prompt, t.starter_code, t.expected_output, t.required
   from task_seed t join public.course_chapters c on c.position=t.chapter_position
 )
 insert into public.chapter_exercises(chapter_id, exercise_group, question_type, topic, prompt, starter_code, test_config, explanation, position, active)
 select chapter_id, 'after_class', 'coding', topic, prompt, starter_code,
   jsonb_build_object('expected_output', expected_output, 'required_snippets', required), '运行代码后，输出必须与目标完全一致。', position, true from rows
-on conflict (chapter_id, exercise_group, question_type, position) do update set topic=excluded.topic, prompt=excluded.prompt,
+on conflict (chapter_id, exercise_group, position) do update set question_type=excluded.question_type, topic=excluded.topic, prompt=excluded.prompt,
   starter_code=excluded.starter_code, test_config=excluded.test_config, explanation=excluded.explanation, active=true;
 
 -- Five chapter-summary questions: two checks plus three open thinking prompts.
@@ -134,14 +134,14 @@ insert into public.chapter_exercises(chapter_id, exercise_group, question_type, 
 select id, 'summary', 'choice', '章节小结', '学习“' || title || '”后，最可靠的学习方式是什么？',
   '["先回忆概念，再亲手编写和运行代码","只背诵答案","只看视频不练习","跳过报错"]'::jsonb,
   '回忆|动手|运行', 0, '有效学习需要主动回忆、动手运行和根据反馈修改。', 1, true from public.course_chapters
-on conflict (chapter_id, exercise_group, question_type, position) do update set prompt=excluded.prompt, options=excluded.options,
+on conflict (chapter_id, exercise_group, position) do update set question_type=excluded.question_type, prompt=excluded.prompt, options=excluded.options,
   correct_answer=excluded.correct_answer, correct_index=excluded.correct_index, explanation=excluded.explanation, active=true;
 
 insert into public.chapter_exercises(chapter_id, exercise_group, question_type, topic, prompt, options, correct_answer, correct_index, explanation, position, active)
 select id, 'summary', 'choice', '章节小结', '遇到本章代码报错时，首先应该怎么做？',
   '["阅读错误类型、行号和最后一行信息","立即删除全部代码","反复点击运行但不看信息","更换电脑"]'::jsonb,
   '错误类型|行号|信息', 0, '先阅读错误提供的线索，再做有针对性的修改。', 2, true from public.course_chapters
-on conflict (chapter_id, exercise_group, question_type, position) do update set prompt=excluded.prompt, options=excluded.options,
+on conflict (chapter_id, exercise_group, position) do update set question_type=excluded.question_type, prompt=excluded.prompt, options=excluded.options,
   correct_answer=excluded.correct_answer, correct_index=excluded.correct_index, explanation=excluded.explanation, active=true;
 
 with thinking(position, prompt) as (
@@ -153,7 +153,7 @@ insert into public.chapter_exercises(chapter_id, exercise_group, question_type, 
 select c.id, 'summary', 'thinking', '章节思考', t.prompt, '结合本章概念给出有理由的个人答案',
   '思考题没有唯一答案，重点是观点清楚、例子具体、理由充分。', t.position, true
 from public.course_chapters c cross join thinking t
-on conflict (chapter_id, exercise_group, question_type, position) do update set prompt=excluded.prompt,
+on conflict (chapter_id, exercise_group, position) do update set question_type=excluded.question_type, prompt=excluded.prompt,
   correct_answer=excluded.correct_answer, explanation=excluded.explanation, active=true;
 
 -- Verify every chapter has the requested 10 + 10 + 5 + 5 structure.
