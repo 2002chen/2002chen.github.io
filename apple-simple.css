@@ -19,8 +19,9 @@ html{background:#f5f5f7!important}body{color:#1d1d1f!important;background:#f5f5f
 .navlinks,.sub-links{gap:12px!important}
 .navlinks a,.sub-links a{min-height:42px;display:inline-flex;align-items:center;padding:10px 15px!important;font-size:17px!important;font-weight:600;line-height:1.25}
 .brand,.sub-brand{font-size:19px!important}
-.sub-user,.level-pill{min-height:44px;font-size:15px!important}
+.sub-user,.level-pill{min-height:44px;font-family:var(--harmony,"HarmonyOS Sans SC","Microsoft YaHei UI",sans-serif)!important;font-size:17px!important;font-weight:600!important;line-height:1.25}
 .sub-user{padding:7px 11px!important}
+.sub-user span,.level-pill span{font:inherit!important;letter-spacing:0!important}
 
 .auth-gate{place-items:center!important;padding:24px!important}
 .auth-shell{width:min(480px,100%)!important;min-height:0!important;display:block!important;overflow:hidden;grid-template-columns:none!important;border-radius:28px!important;background:#fff!important;box-shadow:0 24px 70px #00000016!important;transform:none!important}
@@ -46,7 +47,7 @@ html{background:#f5f5f7!important}body{color:#1d1d1f!important;background:#f5f5f
 @media(max-width:760px){
   .sub-links{gap:7px!important;padding-bottom:2px}
   .sub-links a{min-height:40px;padding:9px 13px!important;font-size:16px!important;white-space:nowrap}
-  .sub-user{min-height:42px}
+  .sub-user,.level-pill{min-height:42px;font-size:16px!important}
 }
 @media(max-width:520px){
   .auth-gate{place-items:center!important;padding:12px!important}
