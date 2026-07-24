@@ -7,6 +7,10 @@
   if(!document.querySelector('script[src*="account-profile.js"]')){const account=document.createElement('script');account.src='account-profile.js?v=4';account.defer=true;document.head.appendChild(account)}
   if(!document.querySelector('script[src*="reward.js"]')){const reward=document.createElement('script');reward.src='reward.js?v=1';reward.defer=true;document.head.appendChild(reward)}
   if(!document.querySelector('script[src*="motion-ui.js"]')){const motion=document.createElement('script');motion.src='motion-ui.js?v=1';motion.defer=true;document.head.appendChild(motion)}
+  document.querySelectorAll('.sub-links').forEach(nav=>{
+    if(nav.querySelector('.home-link'))return;
+    const home=document.createElement('a');home.className='home-link';home.href='index.html';home.textContent='首页';nav.prepend(home);
+  });
   const brandMark=document.querySelector('.sub-brand b');if(brandMark){const brand=brandMark.parentElement;brand.style.cssText+='display:flex;align-items:center;gap:9px';const icon=document.createElement('img');icon.src='assets/site-icon.png';icon.alt='';icon.style.cssText='width:34px;height:34px;border-radius:10px;box-shadow:0 5px 14px #745fa526';brandMark.replaceWith(icon)}
   const config=window.SUPABASE_CONFIG||{};
   const client=config.url&&config.anonKey&&window.supabase?window.supabase.createClient(config.url,config.anonKey):null;
