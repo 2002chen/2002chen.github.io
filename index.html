@@ -14,9 +14,9 @@
 
   <header class="topbar">
     <nav class="shell nav">
-      <div class="brand-stack"><a class="brand" href="#home"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><span>POWER BY ChenDingDong</span></div>
+      <div class="brand-stack"><a class="brand" href="#home"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><span>POWER BY 陈定栋</span></div>
       <div class="navlinks">
-        <a href="#courses">&#35838;&#31243;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a>
+        <a href="#courses">&#35838;&#31243;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a><a href="#message">&#30041;&#35328;</a>
       </div>
       <button class="level-pill" id="levelButton" type="button"><span>&#31561;&#32423; <b id="navLevel">1</b></span><i>PY</i></button>
     </nav>
@@ -103,6 +103,30 @@
         <article class="activity"><i>&#9889;</i><small>&#36830;&#32493;&#23398;&#20064;</small><b>7 &#22825;</b><p>&#26126;&#22825;&#32487;&#32493;&#26469;&#23454;&#39564;&#23460;&#65292;&#20445;&#25345;&#33021;&#37327;&#38142;&#12290;</p><div><span>&#19968;</span><span>&#20108;</span><span>&#19977;</span><span>&#22235;</span><span>&#20116;</span><span>&#20845;</span><span>&#26085;</span></div></article>
       </div>
       <button class="reset-progress" id="resetProgress" type="button">&#37325;&#32622;&#25152;&#26377;&#23398;&#20064;&#36827;&#24230;</button>
+    </section>
+
+    <section class="message-section" id="message">
+      <div class="shell">
+        <div class="section-title reveal"><div><small>// &#29992;&#25143;&#30041;&#35328;&#31449;</small><h2>&#21578;&#35785;&#25105;&#20204;&#20320;&#30340;&#24819;&#27861;</h2></div><p>&#21151;&#33021;&#24314;&#35758;&#12289;&#23398;&#20064;&#38382;&#39064;&#25110;&#20351;&#29992;&#21453;&#39304;&#65292;&#37117;&#21487;&#20197;&#22312;&#36825;&#37324;&#21457;&#32473;&#31649;&#29702;&#21592;&#12290;</p></div>
+        <div class="message-grid reveal">
+          <article class="message-intro">
+            <div class="message-radar"><i></i><span>&#20449;&#21495;&#25509;&#25910;&#20013;</span></div>
+            <h3>&#20320;&#30340;&#30041;&#35328;&#20250;&#21457;&#21040;&#21738;&#37324;&#65311;</h3>
+            <p>&#25552;&#20132;&#21518;&#20250;&#25171;&#24320; GitHub &#30041;&#35328;&#39029;&#24182;&#33258;&#21160;&#22635;&#20889;&#20869;&#23481;&#12290;&#20320;&#21482;&#38656;&#30830;&#35748;&#25552;&#20132;&#65292;&#31649;&#29702;&#21592;&#23601;&#33021;&#22312;&#21518;&#21488;&#26597;&#30475;&#21644;&#22238;&#22797;&#12290;</p>
+            <div class="message-steps"><span><b>01</b>&#22635;&#20889;&#30041;&#35328;</span><span><b>02</b>&#21069;&#24448; GitHub</span><span><b>03</b>&#31649;&#29702;&#21592;&#22238;&#22797;</span></div>
+            <a class="admin-link" href="https://github.com/2002chen/python-learning-lab/issues" target="_blank" rel="noopener">&#31649;&#29702;&#21592;&#30041;&#35328;&#21518;&#21488; &#8599;</a>
+          </article>
+          <form class="message-form" id="messageForm">
+            <label><span>&#24744;&#30340;&#31216;&#21628; <i>*</i></span><input id="messageName" name="name" maxlength="30" required placeholder="&#20363;&#22914;&#65306;&#23567;&#26126;"></label>
+            <label><span>&#30041;&#35328;&#31867;&#22411;</span><select id="messageType" name="type"><option>&#21151;&#33021;&#24314;&#35758;</option><option>&#23398;&#20064;&#38382;&#39064;</option><option>&#32593;&#31449;&#25925;&#38556;</option><option>&#20854;&#20182;&#21453;&#39304;</option></select></label>
+            <label class="full"><span>&#30041;&#35328;&#26631;&#39064; <i>*</i></span><input id="messageTitle" name="title" maxlength="70" required placeholder="&#35831;&#31616;&#35201;&#25551;&#36848;&#20320;&#30340;&#38382;&#39064;"></label>
+            <label class="full"><span>&#30041;&#35328;&#20869;&#23481; <i>*</i></span><textarea id="messageContent" name="content" maxlength="1000" required placeholder="&#35831;&#35814;&#32454;&#35828;&#26126;&#20320;&#30340;&#24819;&#27861;&#25110;&#38382;&#39064;..."></textarea><small><b id="messageCount">0</b> / 1000</small></label>
+            <label class="full"><span>&#32852;&#31995;&#26041;&#24335;&#65288;&#21487;&#36873;&#65289;</span><input id="messageContact" name="contact" maxlength="80" placeholder="&#37038;&#31665;&#25110;&#20854;&#20182;&#26041;&#24335;&#65292;&#19981;&#22635;&#20063;&#21487;&#20197;"></label>
+            <div class="form-note full"><i></i><span>&#25552;&#20132;&#26102;&#20250;&#31163;&#24320;&#24403;&#21069;&#39029;&#38754;&#24182;&#21069;&#24448; GitHub&#65292;&#35831;&#21247;&#22635;&#20889;&#23494;&#30721;&#12289;&#36523;&#20221;&#35777;&#31561;&#25935;&#24863;&#20449;&#24687;&#12290;</span></div>
+            <button class="primary full" id="submitMessage" type="submit">&#21457;&#36865;&#32473;&#31649;&#29702;&#21592; <span>&#8594;</span></button>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
 
