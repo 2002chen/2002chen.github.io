@@ -19,7 +19,7 @@
     <nav class="shell nav">
       <div class="brand-stack"><a class="brand" href="#home"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><span>POWER BY 陈定栋</span></div>
       <div class="navlinks">
-        <a href="#tutorial">&#25945;&#31243;</a><a href="#quiz">&#39064;&#24211;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a><a href="#message">&#30041;&#35328;</a>
+        <a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a><a href="learning.html">学习中心</a><a href="#message">留言</a>
       </div>
       <div class="account-area"><button class="sync-pill" id="syncStatus" type="button"><i></i><span>&#20113;&#31471;&#26410;&#36830;&#25509;</span></button><button class="level-pill" id="levelButton" type="button"><span id="accountName">&#26410;&#30331;&#24405;</span><i id="accountAvatar">PY</i></button><div class="account-menu" id="accountMenu"><b id="accountEmail"></b><button id="accountProgress" type="button">&#25105;&#30340;&#36827;&#24230;</button><button id="logoutButton" type="button">&#36864;&#20986;&#30331;&#24405;</button></div></div>
     </nav>
@@ -31,7 +31,7 @@
         <div class="online"><i></i> &#23398;&#20064;&#31995;&#32479;&#24050;&#19978;&#32447;</div>
         <h1>&#20174;&#31532;&#19968;&#34892;&#20195;&#30721;<br><em>&#36827;&#20837;&#21019;&#36896;&#32773;&#23431;&#23449;</em></h1>
         <p>&#30495;&#23454;&#36816;&#34892; Python&#65292;&#36880;&#20851;&#35299;&#38145;&#30693;&#35782;&#65292;&#29992;&#21363;&#26102;&#21453;&#39304;&#25226;&#27599;&#19968;&#20010;&#27010;&#24565;&#21464;&#25104;&#33021;&#21147;&#12290;</p>
-        <div class="hero-actions"><button class="primary" id="startLearning" type="button">&#32487;&#32493;&#23398;&#20064; <span>&#8594;</span></button><button class="secondary" id="quickRun" type="button">&#9654; &#36816;&#34892;&#28436;&#31034;</button></div>
+        <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html">进入系统教程 <span>&#8594;</span></a><a class="secondary" id="quickRun" href="lab.html">打开代码实验室</a></div>
         <div class="trust"><div><i>A</i><i>K</i><i>M</i><i>+</i></div><span><b>12,680</b> &#20301;&#23398;&#20064;&#32773;&#27491;&#22312;&#32534;&#20889;&#26410;&#26469;</span></div>
       </div>
       <div class="hero-terminal reveal">
@@ -229,6 +229,16 @@
         </form>
         <div class="auth-speed"><i>⚡</i><span><b>国内网络加速</b>核心登录脚本已本地化，无需等待境外 CDN。</span></div>
         <div class="auth-security"><i>🔒</i><span>每个用户只能访问自己的学习数据，其他用户无法查看。</span></div>
+      </div>
+    </section>
+
+    <section class="portal-section shell reveal">
+      <div class="portal-heading"><small>// LEARNING PORTAL</small><h2>选择学习模块，进入独立学习空间</h2><p>主页作为学习导航中心，各模块拥有独立页面、独立操作区和更专注的体验。</p></div>
+      <div class="portal-grid">
+        <a class="portal-card tutorial-portal" href="tutorial.html"><div><span>核心板块</span><i>01</i></div><b>Python 系统教程</b><p>零基础大字号阅读器、章节目录、字体调节、进度同步和课后练习。</p><em>进入系统教程 →</em></a>
+        <a class="portal-card" href="quiz.html"><div><span>专项训练</span><i>02</i></div><b>Python 3000 题库</b><p>从零基础到进阶，按知识点筛选、随机抽题、即时解析和云端答题记录。</p><em>进入题库 →</em></a>
+        <a class="portal-card" href="lab.html"><div><span>动手实践</span><i>03</i></div><b>在线代码实验室</b><p>更大的代码编辑器，直接运行 Python，观察输出并自由练习。</p><em>打开实验室 →</em></a>
+        <a class="portal-card" href="learning.html"><div><span>个人数据</span><i>04</i></div><b>我的学习中心</b><p>查看教程进度、答题次数、正确率和个人云端连接状态。</p><em>查看学习数据 →</em></a>
       </div>
     </section>
   </div>
