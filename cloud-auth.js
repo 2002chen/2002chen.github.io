@@ -66,12 +66,12 @@
 
   async function loadCloudData(user) {
     setSync('loading', '正在同步');
-    const { data, error } = await client.from('user_learning_data').select('learning_state, quiz_state, display_name').eq('user_id', user.id).maybeSingle();
+    const { data, error } = await client.from('user_learning_data').select('learning_state, quiz_state').eq('user_id', user.id).maybeSingle();
     if (error) throw error;
     if (!data) {
       const localLearning = JSON.parse(localStorage.getItem('python-lab-progress-v3') || '{}');
       const localQuiz = JSON.parse(localStorage.getItem('python-lab-quiz-v1') || '{}');
-      const { error: insertError } = await client.from('user_learning_data').insert({ user_id: user.id, display_name: user.user_metadata?.display_name || '', learning_state: { ...defaults.learning, ...localLearning }, quiz_state: { ...defaults.quiz, ...localQuiz } });
+      const { error: insertError } = await client.from('user_learning_data').insert({ user_id: user.id, learning_state: { ...defaults.learning, ...localLearning }, quiz_state: { ...defaults.quiz, ...localQuiz } });
       if (insertError) throw insertError;
     } else {
       applyingCloud = true;
@@ -91,7 +91,7 @@
       try {
         const learning = JSON.parse(localStorage.getItem('python-lab-progress-v3') || '{}');
         const quiz = JSON.parse(localStorage.getItem('python-lab-quiz-v1') || '{}');
-        const { error } = await client.from('user_learning_data').upsert({ user_id: session.user.id, display_name: session.user.user_metadata?.display_name || '', learning_state: learning, quiz_state: quiz });
+        const { error } = await client.from('user_learning_data').upsert({ user_id: session.user.id, learning_state: learning, quiz_state: quiz });
         if (error) throw error;
         setSync('ready', '已同步');
       } catch (error) {
