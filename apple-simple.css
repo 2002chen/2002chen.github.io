@@ -14,3 +14,44 @@ html{background:#f5f5f7!important}body{color:#1d1d1f!important;background:#f5f5f
 .motion-enhanced .motion-item{transform:translateY(10px)!important;transition-duration:.4s!important}.motion-enhanced .motion-item.motion-visible{transform:none!important}
 @media(max-width:760px){.brand img,.sub-brand img{border-radius:12px!important}.auth-shell{border-radius:26px!important}.moving-showcase{background:#f5f5f7!important}.showcase-track{animation-duration:50s!important}}
 @media(prefers-reduced-motion:reduce){.showcase-track{animation:none!important}}
+
+/* Larger navigation and a focused single-card account gateway. */
+.navlinks,.sub-links{gap:12px!important}
+.navlinks a,.sub-links a{min-height:42px;display:inline-flex;align-items:center;padding:10px 15px!important;font-size:17px!important;font-weight:600;line-height:1.25}
+.brand,.sub-brand{font-size:19px!important}
+.sub-user,.level-pill{min-height:44px;font-size:15px!important}
+.sub-user{padding:7px 11px!important}
+
+.auth-gate{place-items:center!important;padding:24px!important}
+.auth-shell{width:min(480px,100%)!important;min-height:0!important;display:block!important;overflow:hidden;grid-template-columns:none!important;border-radius:28px!important;background:#fff!important;box-shadow:0 24px 70px #00000016!important;transform:none!important}
+.auth-shell:before,.auth-card:after{display:none!important}
+.auth-card{width:100%!important;min-height:0!important;padding:38px 36px 32px!important;border-radius:28px!important;background:#fff!important}
+.auth-mobile-brand{display:flex!important;align-items:center;gap:12px;margin-bottom:28px!important}
+.auth-mobile-brand img{width:46px;height:46px}
+.auth-mobile-brand>div{display:grid;gap:1px}
+.auth-mobile-brand b{font-size:18px;letter-spacing:-.2px}
+.auth-mobile-brand small{color:#86868b;font-size:10px;letter-spacing:.8px}
+.auth-copy{margin:0 0 22px!important}
+.auth-copy h2{margin:0 0 7px;font-size:34px;letter-spacing:-1.3px}
+.auth-copy p{margin:0;color:#6e6e73!important}
+.auth-tabs button{min-height:44px}
+.auth-form{gap:13px!important;margin-top:18px!important}
+.auth-field{height:52px!important;transform:none!important}
+.auth-field input{padding:0 15px!important;font-size:17px!important}
+.password-toggle{padding-inline:15px!important;font-size:13px!important}
+.auth-submit{min-height:52px;border-radius:13px!important}
+.forgot-link{min-height:38px;font-size:13px!important}
+.auth-security{display:block!important;margin:16px 0 0!important;padding:0!important;color:#86868b!important;background:transparent!important;text-align:center;font-size:13px!important;line-height:1.6}
+
+@media(max-width:760px){
+  .sub-links{gap:7px!important;padding-bottom:2px}
+  .sub-links a{min-height:40px;padding:9px 13px!important;font-size:16px!important;white-space:nowrap}
+  .sub-user{min-height:42px}
+}
+@media(max-width:520px){
+  .auth-gate{place-items:center!important;padding:12px!important}
+  .auth-shell{border-radius:24px!important}
+  .auth-card{padding:28px 22px 24px!important;border-radius:24px!important}
+  .auth-mobile-brand{margin-bottom:23px!important}
+  .auth-copy h2{font-size:30px}
+}

@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="youth-theme.css?v=1">
   <link rel="stylesheet" href="apple-redesign.css?v=1">
   <link rel="stylesheet" href="typography-upgrade.css?v=1">
-  <link rel="stylesheet" href="apple-simple.css?v=1">
+  <link rel="stylesheet" href="apple-simple.css?v=2">
 </head>
 <body>
   <canvas id="stars" aria-hidden="true"></canvas>
@@ -216,41 +216,24 @@
   <footer><div class="shell"><a class="brand" href="#home">&#23567;&#33756;&#40479;&#24102;&#20320;&#39134;</a><span>&#32534;&#20889; · &#36816;&#34892; · &#23398;&#20064; · &#36827;&#27493;</span><span>&#169; 2026</span></div></footer>
 
   <div class="auth-gate" id="authGate">
-    <div class="auth-grid"></div><div class="auth-orbit orbit-a"></div><div class="auth-orbit orbit-b"></div>
     <section class="auth-shell">
-      <aside class="auth-visual">
-        <div class="auth-brand"><img src="assets/site-icon.png" alt=""><div><b>小菜鸟带你飞</b><small>POWER BY 陈定栋</small></div></div>
-        <div class="auth-visual-copy"><span class="auth-status"><i></i> 你的个人学习空间</span><h1>现在开始，<br><em>让学习自然发生。</em></h1><p>登录后自动接续教程、题库、错题本和代码。你的所有学习数据，只属于你。</p></div>
-        <div class="auth-product-icon"><img src="assets/site-icon.png" alt=""></div>
-        <div class="auth-features"><span>独立数据</span><span>云端同步</span><span>手机续学</span></div>
-      </aside>
       <div class="auth-card">
-        <div class="auth-mobile-brand"><img src="assets/site-icon.png" alt=""><b>小菜鸟带你飞</b></div>
-        <div class="auth-copy"><small>// 个人学习空间</small><h2 id="authHeading">欢迎回来</h2><p id="authDescription">登录后继续你的专属学习进度。</p></div>
+        <div class="auth-mobile-brand"><img src="assets/site-icon.png" alt=""><div><b>小菜鸟带你飞</b><small>POWER BY 陈定栋</small></div></div>
+        <div class="auth-copy"><h2 id="authHeading">欢迎回来</h2><p id="authDescription">登录后继续你的专属学习进度。</p></div>
         <div class="auth-tabs"><button class="active" data-auth-tab="login" type="button">登录</button><button data-auth-tab="register" type="button">注册</button></div>
         <form class="auth-form" id="authForm">
-          <label class="register-only"><span>昵称</span><div class="auth-field"><i>◎</i><input id="authDisplayName" maxlength="30" autocomplete="nickname" placeholder="给自己取一个学习昵称"></div></label>
-          <label><span>邮箱</span><div class="auth-field"><i>@</i><input id="authEmail" type="email" required autocomplete="email" inputmode="email" placeholder="name@example.com"></div></label>
-          <label><span>密码</span><div class="auth-field"><i>◇</i><input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="至少 6 位密码"><button class="password-toggle" data-password-target="authPassword" type="button" aria-label="显示密码">显示</button></div></label>
-          <label class="register-only"><span>确认密码</span><div class="auth-field"><i>◇</i><input id="authPasswordConfirm" type="password" minlength="6" autocomplete="new-password" placeholder="再输入一次密码"><button class="password-toggle" data-password-target="authPasswordConfirm" type="button" aria-label="显示密码">显示</button></div></label>
+          <label class="register-only"><span>昵称</span><div class="auth-field"><input id="authDisplayName" maxlength="30" autocomplete="nickname" placeholder="请输入昵称"></div></label>
+          <label><span>邮箱</span><div class="auth-field"><input id="authEmail" type="email" required autocomplete="email" inputmode="email" placeholder="name@example.com"></div></label>
+          <label><span>密码</span><div class="auth-field"><input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="至少 6 位密码"><button class="password-toggle" data-password-target="authPassword" type="button" aria-label="显示密码">显示</button></div></label>
+          <label class="register-only"><span>确认密码</span><div class="auth-field"><input id="authPasswordConfirm" type="password" minlength="6" autocomplete="new-password" placeholder="再次输入密码"><button class="password-toggle" data-password-target="authPasswordConfirm" type="button" aria-label="显示密码">显示</button></div></label>
           <div class="auth-error" id="authError" role="status"></div>
           <button class="auth-submit" id="authSubmit" type="submit"><span>登录并继续</span><i>→</i></button>
           <button class="forgot-link" id="forgotPassword" type="button">忘记密码？</button>
         </form>
-        <div class="auth-speed"><i>⚡</i><span><b>国内网络加速</b>核心登录脚本已本地化，无需等待境外 CDN。</span></div>
-        <div class="auth-security"><i>🔒</i><span>每个用户只能访问自己的学习数据，其他用户无法查看。</span></div>
+        <p class="auth-security">学习数据按账号独立保存，并在手机和电脑之间同步。</p>
       </div>
     </section>
 
-    <section class="portal-section shell reveal">
-      <div class="portal-heading"><small>// LEARNING PORTAL</small><h2>选择学习模块，进入独立学习空间</h2><p>主页作为学习导航中心，各模块拥有独立页面、独立操作区和更专注的体验。</p></div>
-      <div class="portal-grid">
-        <a class="portal-card tutorial-portal" href="tutorial.html"><div><span>核心板块</span><i>01</i></div><b>Python 系统教程</b><p>零基础大字号阅读器、章节目录、字体调节、进度同步和课后练习。</p><em>进入系统教程 →</em></a>
-        <a class="portal-card" href="quiz.html"><div><span>专项训练</span><i>02</i></div><b>Python 3000 题库</b><p>从零基础到进阶，按知识点筛选、随机抽题、即时解析和云端答题记录。</p><em>进入题库 →</em></a>
-        <a class="portal-card" href="lab.html"><div><span>动手实践</span><i>03</i></div><b>在线代码实验室</b><p>更大的代码编辑器，直接运行 Python，观察输出并自由练习。</p><em>打开实验室 →</em></a>
-        <a class="portal-card" href="learning.html"><div><span>个人数据</span><i>04</i></div><b>我的学习中心</b><p>查看教程进度、答题次数、正确率和个人云端连接状态。</p><em>查看学习数据 →</em></a>
-      </div>
-    </section>
   </div>
 
   <div class="dialog" id="answerDialog" aria-hidden="true" role="dialog" aria-modal="true"><div class="dialog-backdrop" data-close-dialog></div><div class="dialog-card"><button class="dialog-close" data-close-dialog type="button">&#215;</button><small>// &#21442;&#32771;&#31572;&#26696;</small><h3 id="answerTitle"></h3><pre id="answerCode"></pre><button class="primary" id="useAnswer" type="button">&#25918;&#20837;&#32534;&#36753;&#22120;</button></div></div>
@@ -263,7 +246,7 @@
   <script src="course-data.js?v=zero-beginner-1"></script>
   <script src="admin.js?v=zero-beginner-1"></script>
   <script src="cloud-auth.js?v=auth-visual-1"></script>
-  <script src="account-profile.js?v=1"></script>
+  <script src="account-profile.js?v=2"></script>
   <script src="motion-ui.js?v=1"></script>
 </body>
 </html>
