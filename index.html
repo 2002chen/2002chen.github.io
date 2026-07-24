@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f7f8ff">
+  <meta name="theme-color" content="#fff8f2">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="description" content="小菜鸟带你飞 - 在浏览器中互动学习 Python">
   <title>小菜鸟带你飞</title>
+  <link rel="icon" type="image/png" href="assets/site-icon.png?v=1">
+  <link rel="apple-touch-icon" href="assets/site-icon.png?v=1">
   <link rel="stylesheet" href="styles.css?v=auth-visual-1">
+  <link rel="stylesheet" href="youth-theme.css?v=1">
+  <link rel="stylesheet" href="apple-redesign.css?v=1">
 </head>
 <body>
   <canvas id="stars" aria-hidden="true"></canvas>
@@ -17,7 +21,7 @@
 
   <header class="topbar">
     <nav class="shell nav">
-      <div class="brand-stack"><a class="brand" href="#home"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><span>POWER BY 陈定栋</span></div>
+      <div class="brand-stack"><a class="brand" href="#home"><img src="assets/site-icon.png" alt="">小菜鸟带你飞</a><span>POWER BY 陈定栋</span></div>
       <div class="navlinks">
         <a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a><a href="learning.html">学习中心</a><a href="#message">留言</a>
       </div>
@@ -26,36 +30,42 @@
   </header>
 
   <main id="home">
-    <section class="hero shell">
+    <section class="hero apple-hero shell">
       <div class="hero-copy reveal">
-        <div class="online"><i></i> &#23398;&#20064;&#31995;&#32479;&#24050;&#19978;&#32447;</div>
-        <h1>&#20174;&#31532;&#19968;&#34892;&#20195;&#30721;<br><em>&#36827;&#20837;&#21019;&#36896;&#32773;&#23431;&#23449;</em></h1>
-        <p>&#30495;&#23454;&#36816;&#34892; Python&#65292;&#36880;&#20851;&#35299;&#38145;&#30693;&#35782;&#65292;&#29992;&#21363;&#26102;&#21453;&#39304;&#25226;&#27599;&#19968;&#20010;&#27010;&#24565;&#21464;&#25104;&#33021;&#21147;&#12290;</p>
-        <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html">进入系统教程 <span>&#8594;</span></a><a class="secondary" id="quickRun" href="lab.html">打开代码实验室</a></div>
-        <div class="trust"><div><i>A</i><i>K</i><i>M</i><i>+</i></div><span><b>12,680</b> &#20301;&#23398;&#20064;&#32773;&#27491;&#22312;&#32534;&#20889;&#26410;&#26469;</span></div>
+        <div class="online"><i></i> 为完全零基础学习者设计</div>
+        <h1>学 Python，<br><em>可以简单，也可以很美。</em></h1>
+        <p>从“代码是什么”开始，用清晰教程、动态题库和在线实验室，一步一步完成属于你的第一个 Python 作品。</p>
+        <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html">开始学习 <span>→</span></a><a class="secondary" id="quickRun" href="lab.html">体验代码实验室</a></div>
+        <div class="apple-points"><span>每节五步学习</span><span>3000 道动态题库</span><span>手机电脑同步</span></div>
       </div>
-      <div class="hero-terminal reveal">
-        <div class="window-head"><span class="traffic"><i></i><i></i><i></i></span><code>hello_future.py</code><span class="signal">///</span></div>
-        <pre><span class="comment"># Meet our future creators</span>
-<span class="blue">creators</span> = [
-    <span class="yellow">"&#36842;&#26435;"</span>, <span class="yellow">"&#24471;&#21916;"</span>, <span class="yellow">"&#24471;&#20891;"</span>,
-    <span class="yellow">"&#24471;&#40857;"</span>, <span class="yellow">"&#24471;&#22899;"</span>, <span class="yellow">"&#24471;&#24471;&#22899;"</span>
-]
-
-<span class="purple">for</span> creator <span class="purple">in</span> creators:
-    <span class="cyan">print</span>(<span class="yellow">f"{creator}，准备起飞！"</span>)</pre>
-        <div class="hero-output"><small>&#36816;&#34892;&#32467;&#26524; //</small><code id="demoOutput">&#31561;&#24453;&#36816;&#34892;_</code></div>
-        <div class="window-foot"><span><i></i> PYTHON 3.12</span><button id="demoRun" type="button">&#36816;&#34892; &#9654;</button></div>
-        <span class="float-xp">+20 XP</span><span class="float-streak">&#9889; &#36830;&#32493;&#23398;&#20064; 7 &#22825;</span>
+      <div class="apple-product reveal">
+        <div class="product-glow"></div><img src="assets/site-icon.png" alt="代码与书本图标">
+        <div class="product-card product-card-a"><small>今日进度</small><b id="statPercent">0%</b></div>
+        <div class="product-card product-card-b"><small>学习能量</small><b id="statXp">0 XP</b></div>
       </div>
     </section>
 
     <section class="stats shell reveal">
       <article><i>&lt;/&gt;</i><div><b id="statRuns">0</b><span>&#20195;&#30721;&#36816;&#34892;&#27425;&#25968;</span></div></article>
       <article><i>&#9670;</i><div><b id="statLessons">0 / 6</b><span>&#24050;&#23436;&#25104;&#20851;&#21345;</span></div></article>
-      <article><i>&#9889;</i><div><b id="statXp">0 XP</b><span>&#24403;&#21069;&#33021;&#37327;&#20540;</span></div></article>
-      <article><i>&#9733;</i><div><b id="statPercent">0%</b><span>&#20837;&#38376;&#36335;&#24452;&#36827;&#24230;</span></div></article>
+      <article><i>&#9889;</i><div><b>5 步</b><span>每节固定学习流程</span></div></article>
+      <article><i>&#9733;</i><div><b>3012</b><span>云端选择题数量</span></div></article>
     </section>
+
+    <section class="moving-showcase" aria-labelledby="showcaseTitle">
+      <div class="showcase-heading shell"><div><small>// 活力学习展廊</small><h2 id="showcaseTitle">正在移动的学习模块</h2></div><p>把鼠标放在卡片上会暂停移动；手机上可以跟随展廊浏览不同学习空间。</p></div>
+      <div class="showcase-viewport"><div class="showcase-track">
+        <a class="showcase-card" style="--card-a:#fff0a9;--card-b:#ffd1a8" href="tutorial.html"><span>📖</span><small>零基础主线</small><b>系统教程</b><em>从代码是什么开始 →</em></a>
+        <a class="showcase-card" style="--card-a:#dce8ff;--card-b:#d8c8ff" href="quiz.html"><span>🎯</span><small>动态云端题库</small><b>3000 道闯关题</b><em>按难度开始训练 →</em></a>
+        <a class="showcase-card" style="--card-a:#d7fff0;--card-b:#bdeee4" href="lab.html"><span>💻</span><small>边学边运行</small><b>代码实验室</b><em>亲手修改并观察 →</em></a>
+        <a class="showcase-card" style="--card-a:#ffe0ea;--card-b:#ffc4d6" href="learning.html"><span>🚀</span><small>个人成长数据</small><b>学习中心</b><em>查看自己的进度 →</em></a>
+        <a class="showcase-card" style="--card-a:#fff0a9;--card-b:#ffd1a8" href="tutorial.html" aria-hidden="true" tabindex="-1"><span>📖</span><small>零基础主线</small><b>系统教程</b><em>从代码是什么开始 →</em></a>
+        <a class="showcase-card" style="--card-a:#dce8ff;--card-b:#d8c8ff" href="quiz.html" aria-hidden="true" tabindex="-1"><span>🎯</span><small>动态云端题库</small><b>3000 道闯关题</b><em>按难度开始训练 →</em></a>
+        <a class="showcase-card" style="--card-a:#d7fff0;--card-b:#bdeee4" href="lab.html" aria-hidden="true" tabindex="-1"><span>💻</span><small>边学边运行</small><b>代码实验室</b><em>亲手修改并观察 →</em></a>
+        <a class="showcase-card" style="--card-a:#ffe0ea;--card-b:#ffc4d6" href="learning.html" aria-hidden="true" tabindex="-1"><span>🚀</span><small>个人成长数据</small><b>学习中心</b><em>查看自己的进度 →</em></a>
+      </div></div>
+    </section>
+    <button id="demoRun" type="button" hidden></button><code id="demoOutput" hidden></code>
 
     <section class="tutorial-section" id="tutorial">
       <div class="shell">
@@ -207,15 +217,13 @@
     <div class="auth-grid"></div><div class="auth-orbit orbit-a"></div><div class="auth-orbit orbit-b"></div>
     <section class="auth-shell">
       <aside class="auth-visual">
-        <div class="auth-brand"><span>&lt;/&gt;</span><div><b>小菜鸟带你飞</b><small>POWER BY 陈定栋</small></div></div>
-        <div class="auth-visual-copy"><span class="auth-status"><i></i> 学习系统在线</span><h1>连接你的<br><em>Python 学习舱</em></h1><p>登录后自动接续教程、题库、错题本、代码和 XP，每个账户的数据彼此独立。</p></div>
-        <div class="auth-console"><div><i></i><i></i><i></i><span>learning_session.py</span></div><pre><b>user</b> = "未来开发者"
-<b>progress</b> = cloud.sync(user)
-<span>&gt; 学习记录已安全连接_</span></pre></div>
-        <div class="auth-features"><span><i>01</i> 独立数据</span><span><i>02</i> 云端同步</span><span><i>03</i> 手机续学</span></div>
+        <div class="auth-brand"><img src="assets/site-icon.png" alt=""><div><b>小菜鸟带你飞</b><small>POWER BY 陈定栋</small></div></div>
+        <div class="auth-visual-copy"><span class="auth-status"><i></i> 你的个人学习空间</span><h1>现在开始，<br><em>让学习自然发生。</em></h1><p>登录后自动接续教程、题库、错题本和代码。你的所有学习数据，只属于你。</p></div>
+        <div class="auth-product-icon"><img src="assets/site-icon.png" alt=""></div>
+        <div class="auth-features"><span>独立数据</span><span>云端同步</span><span>手机续学</span></div>
       </aside>
       <div class="auth-card">
-        <div class="auth-mobile-brand"><span>&lt;/&gt;</span><b>小菜鸟带你飞</b></div>
+        <div class="auth-mobile-brand"><img src="assets/site-icon.png" alt=""><b>小菜鸟带你飞</b></div>
         <div class="auth-copy"><small>// 个人学习空间</small><h2 id="authHeading">欢迎回来</h2><p id="authDescription">登录后继续你的专属学习进度。</p></div>
         <div class="auth-tabs"><button class="active" data-auth-tab="login" type="button">登录</button><button data-auth-tab="register" type="button">注册</button></div>
         <form class="auth-form" id="authForm">
@@ -253,5 +261,6 @@
   <script src="course-data.js?v=zero-beginner-1"></script>
   <script src="admin.js?v=zero-beginner-1"></script>
   <script src="cloud-auth.js?v=auth-visual-1"></script>
+  <script src="motion-ui.js?v=1"></script>
 </body>
 </html>

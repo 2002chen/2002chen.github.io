@@ -1,4 +1,9 @@
 (function(){
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content','#fff8f2');
+  if(!document.querySelector('link[rel="icon"]')){const icon=document.createElement('link');icon.rel='icon';icon.type='image/png';icon.href='assets/site-icon.png?v=1';document.head.appendChild(icon)}
+  if(!document.querySelector('link[href*="youth-theme.css"]')){const theme=document.createElement('link');theme.rel='stylesheet';theme.href='youth-theme.css?v=1';document.head.appendChild(theme)}
+  if(!document.querySelector('script[src*="motion-ui.js"]')){const motion=document.createElement('script');motion.src='motion-ui.js?v=1';motion.defer=true;document.head.appendChild(motion)}
+  const brandMark=document.querySelector('.sub-brand b');if(brandMark){const brand=brandMark.parentElement;brand.style.cssText+='display:flex;align-items:center;gap:9px';const icon=document.createElement('img');icon.src='assets/site-icon.png';icon.alt='';icon.style.cssText='width:34px;height:34px;border-radius:10px;box-shadow:0 5px 14px #745fa526';brandMark.replaceWith(icon)}
   const config=window.SUPABASE_CONFIG||{};
   const client=config.url&&config.anonKey&&window.supabase?window.supabase.createClient(config.url,config.anonKey):null;
   const $=id=>document.getElementById(id);
