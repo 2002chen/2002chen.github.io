@@ -27,16 +27,6 @@
       nav.appendChild(button);
     });
 
-    const authCard=document.querySelector('.auth-card');
-    if(authCard&&!authCard.querySelector('.reward-auth-trigger')){
-      const authButton=document.createElement('button');
-      authButton.className='reward-auth-trigger';
-      authButton.type='button';
-      authButton.textContent='支持作者';
-      authButton.addEventListener('click',open);
-      authCard.appendChild(authButton);
-    }
-
     const dialog=document.createElement('div');
     dialog.className='reward-dialog';
     dialog.id='rewardDialog';
