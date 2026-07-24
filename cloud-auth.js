@@ -26,7 +26,8 @@
     document.querySelectorAll('.register-only').forEach(el => el.classList.toggle('visible', mode === 'register'));
     $('authHeading').textContent = mode === 'login' ? '欢迎回来' : '创建学习账户';
     $('authDescription').textContent = mode === 'login' ? '登录后继续你的专属学习进度。' : '注册后，每一份答题记录和代码都会只属于你。';
-    $('authSubmit').textContent = mode === 'login' ? '登录并继续' : '注册账户';
+    $('authSubmit').querySelector('span').textContent = mode === 'login' ? '登录并继续' : '创建学习账户';
+    $('authPassword').autocomplete = mode === 'login' ? 'current-password' : 'new-password';
     $('forgotPassword').style.display = mode === 'login' ? 'block' : 'none';
     $('authError').textContent = '';
   }
@@ -124,6 +125,8 @@
     const password = $('authPassword').value;
     const displayName = $('authDisplayName').value.trim();
     $('authSubmit').disabled = true;
+    $('authSubmit').classList.add('loading');
+    $('authSubmit').querySelector('span').textContent = mode === 'login' ? '正在连接学习舱...' : '正在创建账户...';
     $('authError').textContent = '';
     try {
       if (mode === 'register') {
@@ -139,6 +142,8 @@
       $('authError').textContent = error.message || '操作失败，请稍后重试';
     } finally {
       $('authSubmit').disabled = false;
+      $('authSubmit').classList.remove('loading');
+      $('authSubmit').querySelector('span').textContent = mode === 'login' ? '登录并继续' : '创建学习账户';
     }
   }
 
@@ -151,6 +156,13 @@
   }
 
   document.querySelectorAll('[data-auth-tab]').forEach(button => button.addEventListener('click', () => setAuthMode(button.dataset.authTab)));
+  document.querySelectorAll('[data-password-target]').forEach(button => button.addEventListener('click', () => {
+    const input = $(button.dataset.passwordTarget);
+    const showing = input.type === 'text';
+    input.type = showing ? 'password' : 'text';
+    button.textContent = showing ? '显示' : '隐藏';
+    button.setAttribute('aria-label', showing ? '显示密码' : '隐藏密码');
+  }));
   $('authForm').addEventListener('submit', submitAuth);
   $('forgotPassword').addEventListener('click', forgotPassword);
   $('levelButton').addEventListener('click', event => { event.stopPropagation(); $('accountMenu').classList.toggle('open'); });

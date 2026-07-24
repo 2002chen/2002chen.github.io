@@ -9,7 +9,7 @@
   <meta http-equiv="Expires" content="0">
   <meta name="description" content="小菜鸟带你飞 - 在浏览器中互动学习 Python">
   <title>小菜鸟带你飞</title>
-  <link rel="stylesheet" href="styles.css?v=zero-beginner-1">
+  <link rel="stylesheet" href="styles.css?v=auth-visual-1">
 </head>
 <body>
   <canvas id="stars" aria-hidden="true"></canvas>
@@ -204,33 +204,44 @@
   <footer><div class="shell"><a class="brand" href="#home">&#23567;&#33756;&#40479;&#24102;&#20320;&#39134;</a><span>&#32534;&#20889; · &#36816;&#34892; · &#23398;&#20064; · &#36827;&#27493;</span><span>&#169; 2026</span></div></footer>
 
   <div class="auth-gate" id="authGate">
-    <div class="auth-bubbles"><i></i><i></i><i></i></div>
-    <section class="auth-card">
-      <div class="auth-brand"><span>&lt;/&gt;</span><div><b>&#23567;&#33756;&#40479;&#24102;&#20320;&#39134;</b><small>POWER BY &#38472;&#23450;&#26635;</small></div></div>
-      <div class="auth-copy"><small>// &#20010;&#20154;&#23398;&#20064;&#31354;&#38388;</small><h2 id="authHeading">&#27426;&#36814;&#22238;&#26469;</h2><p id="authDescription">&#30331;&#24405;&#21518;&#65292;&#20320;&#30340;&#39064;&#24211;&#36827;&#24230;&#12289;&#38169;&#39064;&#26412;&#12289;XP &#21644;&#20195;&#30721;&#20250;&#23433;&#20840;&#20445;&#23384;&#22312;&#33258;&#24049;&#30340;&#36134;&#25143;&#20013;&#12290;</p></div>
-      <div class="auth-tabs"><button class="active" data-auth-tab="login" type="button">&#30331;&#24405;</button><button data-auth-tab="register" type="button">&#27880;&#20876;</button></div>
-      <form class="auth-form" id="authForm">
-        <label class="register-only"><span>&#26165;&#31216;</span><input id="authDisplayName" maxlength="30" autocomplete="nickname" placeholder="&#20320;&#24819;&#35201;&#30340;&#26165;&#31216;"></label>
-        <label><span>&#37038;&#31665;</span><input id="authEmail" type="email" required autocomplete="email" placeholder="name@example.com"></label>
-        <label><span>&#23494;&#30721;</span><input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="&#33267;&#23569; 6 &#20301;&#23494;&#30721;"></label>
-        <label class="register-only"><span>&#30830;&#35748;&#23494;&#30721;</span><input id="authPasswordConfirm" type="password" minlength="6" autocomplete="new-password" placeholder="&#20877;&#36755;&#20837;&#19968;&#27425;&#23494;&#30721;"></label>
-        <div class="auth-error" id="authError"></div>
-        <button class="primary" id="authSubmit" type="submit">&#30331;&#24405;&#24182;&#32487;&#32493;</button>
-        <button class="forgot-link" id="forgotPassword" type="button">&#24536;&#35760;&#23494;&#30721;&#65311;</button>
-      </form>
-      <div class="auth-security"><i>&#128274;</i><span>&#27599;&#20010;&#29992;&#25143;&#21482;&#33021;&#35775;&#38382;&#33258;&#24049;&#30340;&#23398;&#20064;&#25968;&#25454;&#65292;&#20854;&#20182;&#29992;&#25143;&#26080;&#27861;&#26597;&#30475;&#12290;</span></div>
+    <div class="auth-grid"></div><div class="auth-orbit orbit-a"></div><div class="auth-orbit orbit-b"></div>
+    <section class="auth-shell">
+      <aside class="auth-visual">
+        <div class="auth-brand"><span>&lt;/&gt;</span><div><b>小菜鸟带你飞</b><small>POWER BY 陈定栋</small></div></div>
+        <div class="auth-visual-copy"><span class="auth-status"><i></i> 学习系统在线</span><h1>连接你的<br><em>Python 学习舱</em></h1><p>登录后自动接续教程、题库、错题本、代码和 XP，每个账户的数据彼此独立。</p></div>
+        <div class="auth-console"><div><i></i><i></i><i></i><span>learning_session.py</span></div><pre><b>user</b> = "未来开发者"
+<b>progress</b> = cloud.sync(user)
+<span>&gt; 学习记录已安全连接_</span></pre></div>
+        <div class="auth-features"><span><i>01</i> 独立数据</span><span><i>02</i> 云端同步</span><span><i>03</i> 手机续学</span></div>
+      </aside>
+      <div class="auth-card">
+        <div class="auth-mobile-brand"><span>&lt;/&gt;</span><b>小菜鸟带你飞</b></div>
+        <div class="auth-copy"><small>// 个人学习空间</small><h2 id="authHeading">欢迎回来</h2><p id="authDescription">登录后继续你的专属学习进度。</p></div>
+        <div class="auth-tabs"><button class="active" data-auth-tab="login" type="button">登录</button><button data-auth-tab="register" type="button">注册</button></div>
+        <form class="auth-form" id="authForm">
+          <label class="register-only"><span>昵称</span><div class="auth-field"><i>◎</i><input id="authDisplayName" maxlength="30" autocomplete="nickname" placeholder="给自己取一个学习昵称"></div></label>
+          <label><span>邮箱</span><div class="auth-field"><i>@</i><input id="authEmail" type="email" required autocomplete="email" inputmode="email" placeholder="name@example.com"></div></label>
+          <label><span>密码</span><div class="auth-field"><i>◇</i><input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="至少 6 位密码"><button class="password-toggle" data-password-target="authPassword" type="button" aria-label="显示密码">显示</button></div></label>
+          <label class="register-only"><span>确认密码</span><div class="auth-field"><i>◇</i><input id="authPasswordConfirm" type="password" minlength="6" autocomplete="new-password" placeholder="再输入一次密码"><button class="password-toggle" data-password-target="authPasswordConfirm" type="button" aria-label="显示密码">显示</button></div></label>
+          <div class="auth-error" id="authError" role="status"></div>
+          <button class="auth-submit" id="authSubmit" type="submit"><span>登录并继续</span><i>→</i></button>
+          <button class="forgot-link" id="forgotPassword" type="button">忘记密码？</button>
+        </form>
+        <div class="auth-speed"><i>⚡</i><span><b>国内网络加速</b>核心登录脚本已本地化，无需等待境外 CDN。</span></div>
+        <div class="auth-security"><i>🔒</i><span>每个用户只能访问自己的学习数据，其他用户无法查看。</span></div>
+      </div>
     </section>
   </div>
 
   <div class="dialog" id="answerDialog" aria-hidden="true" role="dialog" aria-modal="true"><div class="dialog-backdrop" data-close-dialog></div><div class="dialog-card"><button class="dialog-close" data-close-dialog type="button">&#215;</button><small>// &#21442;&#32771;&#31572;&#26696;</small><h3 id="answerTitle"></h3><pre id="answerCode"></pre><button class="primary" id="useAnswer" type="button">&#25918;&#20837;&#32534;&#36753;&#22120;</button></div></div>
   <div class="admin-panel" id="adminPanel" aria-hidden="true"><div class="admin-backdrop" data-close-admin></div><section class="admin-drawer"><div class="admin-head"><div><small>// &#31649;&#29702;&#21592;&#21518;&#21488;</small><h2>&#20869;&#23481;&#19982;&#30041;&#35328;&#31649;&#29702;</h2></div><button data-close-admin type="button">&#215;</button></div><div class="admin-tabs"><button class="active" data-admin-tab="questions" type="button">&#39064;&#24211;&#31649;&#29702;</button><button data-admin-tab="course" type="button">&#35838;&#31243;&#31649;&#29702;</button><button data-admin-tab="messages" type="button">&#29992;&#25143;&#30041;&#35328;</button></div><div class="admin-view active" id="adminQuestions"><form id="questionForm" class="question-form"><input type="hidden" id="questionId"><label><span>&#38590;&#24230;</span><select id="questionLevel"><option value="beginner">&#38646;&#22522;&#30784;</option><option value="basic">&#22522;&#30784;</option><option value="advanced">&#36827;&#38454;</option></select></label><label><span>&#30693;&#35782;&#28857;</span><input id="questionTopic" required></label><label class="wide"><span>&#39064;&#30446;</span><textarea id="questionText" required></textarea></label><label class="wide"><span>&#36873;&#39033;&#65288;&#27599;&#34892;&#19968;&#20010;&#65289;</span><textarea id="questionOptions" required></textarea></label><label><span>&#27491;&#30830;&#31572;&#26696;&#24207;&#21495;</span><input id="questionCorrect" type="number" min="1" max="10" value="1" required></label><label><span>&#25490;&#24207;</span><input id="questionPosition" type="number" min="0" value="0"></label><label class="wide"><span>&#35299;&#26512;</span><textarea id="questionExplanation"></textarea></label><label class="check"><input id="questionActive" type="checkbox" checked><span>&#31435;&#21363;&#19978;&#26550;</span></label><div class="admin-form-actions wide"><button type="button" id="questionCancel">&#28165;&#31354;</button><button class="primary" type="submit">&#20445;&#23384;&#39064;&#30446;</button></div></form><div class="admin-list" id="questionList"></div></div><div class="admin-view" id="adminCourse"><p class="admin-course-note">&#35838;&#31243;&#12289;&#23567;&#33410;&#21644;&#32451;&#20064;&#37117;&#26159;&#20174;&#20113;&#31471;&#25968;&#25454;&#24211;&#21160;&#24577;&#35835;&#21462;&#12290;&#22312;&#36825;&#37324;&#21487;&#32534;&#36753;&#31456;&#33410;&#22522;&#26412;&#20449;&#24687;&#65292;&#20855;&#20307;&#25945;&#31243;&#21644;&#39064;&#30446;&#21487;&#36816;&#34892; seed-course.sql &#25209;&#37327;&#23548;&#20837;&#21518;&#32487;&#32493;&#32500;&#25252;&#12290;</p><form id="chapterForm" class="question-form"><input type="hidden" id="chapterId"><label class="wide"><span>&#31456;&#33410;&#21517;&#31216;</span><input id="chapterTitle" required></label><label><span>&#38590;&#24230;</span><select id="chapterLevel"><option value="beginner">&#38646;&#22522;&#30784;</option><option value="basic">&#22522;&#30784;</option><option value="advanced">&#36827;&#38454;</option></select></label><label><span>&#25490;&#24207;</span><input id="chapterPosition" type="number" min="1" value="1" required></label><label><span>&#22270;&#26631;</span><input id="chapterIcon" value="&#128218;"></label><label><span>&#39044;&#35745;&#20998;&#38047;</span><input id="chapterMinutes" type="number" min="1" value="60"></label><label class="wide"><span>&#31456;&#33410;&#20171;&#32461;</span><textarea id="chapterDescription" required></textarea></label><label class="check"><input id="chapterActive" type="checkbox" checked><span>&#31435;&#21363;&#19978;&#26550;</span></label><div class="admin-form-actions wide"><button type="button" id="chapterCancel">&#28165;&#31354;</button><button class="primary" type="submit">&#20445;&#23384;&#31456;&#33410;</button></div></form><div class="admin-list" id="chapterAdminList"></div></div><div class="admin-view" id="adminMessages"><div class="message-filter"><select id="messageStatusFilter"><option value="">&#20840;&#37096;&#29366;&#24577;</option><option value="new">&#26032;&#30041;&#35328;</option><option value="processing">&#22788;&#29702;&#20013;</option><option value="resolved">&#24050;&#35299;&#20915;</option></select><button id="refreshMessages" type="button">&#21047;&#26032;</button></div><div class="admin-list" id="messageList"></div></div></section></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/supabase.min.js?v=2.49.8"></script>
   <script src="supabase-config.js?v=zero-beginner-1"></script>
   <script src="app.js?v=zero-beginner-1"></script>
   <script src="dynamic-data.js?v=zero-beginner-1"></script>
   <script src="course-data.js?v=zero-beginner-1"></script>
   <script src="admin.js?v=zero-beginner-1"></script>
-  <script src="cloud-auth.js?v=zero-beginner-2"></script>
+  <script src="cloud-auth.js?v=auth-visual-1"></script>
 </body>
 </html>
