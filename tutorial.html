@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="youth-theme.css?v=1">
   <link rel="icon" type="image/png" href="assets/site-icon.png?v=1">
   <link rel="apple-touch-icon" href="assets/site-icon.png?v=1">
+  <link rel="stylesheet" href="typography-upgrade.css?v=1">
 </head>
 <body>
   <header class="sub-header">
@@ -35,18 +36,6 @@
       </div>
     </section>
 
-    <section class="method-section shell" aria-labelledby="methodTitle">
-      <div class="section-heading"><div><span>// 每章固定流程</span><h2 id="methodTitle">五步学习法</h2></div><p>不复制粘贴，不要求一次全部理解。每完成一步，系统都会保存到你的个人账户。</p></div>
-      <div class="method-track">
-        <article style="--accent:#20e9ff"><i>01</i><b>读懂概念</b><span>20 分钟</span><p>先用生活中的例子理解“它是什么”，不背定义。</p></article>
-        <article style="--accent:#a66cff"><i>02</i><b>亲手敲代码</b><span>30 分钟</span><p>逐字符输入示例，练习符号、缩进和代码结构。</p></article>
-        <article style="--accent:#ff4f9e"><i>03</i><b>故意修改</b><span>20 分钟</span><p>换文字、换数字、删一个符号，观察结果为什么变化。</p></article>
-        <article style="--accent:#ffe45e"><i>04</i><b>完成练习</b><span>30 分钟</span><p>先自己想清楚“我要让电脑做什么”，再开始作答。</p></article>
-        <article style="--accent:#42efaa"><i>05</i><b>写下小结</b><span>5 分钟</span><p>记录今天学会、踩过的坑和一段自己的代码。</p></article>
-      </div>
-      <div class="method-rules"><span>⏱ 每天 1～2 小时</span><span>📅 一章不超过 3 天</span><span>🚀 看懂 60% 就继续</span><span>⌨️ 示例必须亲手输入</span></div>
-    </section>
-
     <section class="tutorial-app shell">
       <aside class="tutorial-catalog glass">
         <div class="catalog-head"><div><small>COURSE MAP</small><b>课程目录</b></div><button id="collapseCatalog" type="button">收起</button></div>
@@ -69,8 +58,24 @@
               <button data-study-step="summarized"><i>5</i><span><b>写下小结</b><small>记录学会的内容和踩过的坑</small></span><em>未完成</em></button>
             </div>
           </section>
+          <section class="lesson-guide" aria-label="本节完整学习指南">
+            <div class="guide-heading"><small>完整教学模式</small><h3>先理解，再动手，最后能自己讲出来</h3><p>下面的内容会根据当前章节自动生成学习目标、思考问题和动手实验，配合云端正文一起学习。</p></div>
+            <div class="guide-grid">
+              <article class="guide-card goal-card"><i>🎯</i><div><span>本节学习目标</span><h4>学完以后，我能做到什么？</h4><ul id="lessonGoals"></ul></div></article>
+              <article class="guide-card think-card"><i>💭</i><div><span>先想一想</span><h4 id="lessonThinkTitle">生活中哪里见过类似问题？</h4><p id="lessonThinkPrompt"></p></div></article>
+            </div>
+          </section>
           <div id="tutorialBody" class="tutorial-body"></div>
           <div id="tutorialCodeBox" class="tutorial-code"><div><span>手敲示例（建议不要复制）</span><button id="copyTutorialCode">确实需要时复制</button></div><pre id="tutorialCode"></pre></div>
+          <section class="lesson-deep-dive">
+            <div class="deep-heading"><small>不要只看一遍</small><h3>把这节课真正变成自己的能力</h3></div>
+            <div class="deep-grid">
+              <article><span>01 · 代码拆解</span><h4>逐行看懂电脑在做什么</h4><div id="codeWalkthrough" class="code-walkthrough"></div></article>
+              <article><span>02 · 修改实验</span><h4>请亲手改变一个地方</h4><p id="changeChallenge"></p><a href="lab.html">去实验室完成修改 →</a></article>
+              <article><span>03 · 常见错误</span><h4>初学者最容易卡在哪里？</h4><ul id="commonMistakes"></ul></article>
+              <article><span>04 · 过关自测</span><h4>不用看教程，你能回答吗？</h4><ol id="reviewQuestions"></ol></article>
+            </div>
+          </section>
           <section class="section-notebook">
             <div class="notebook-heading"><div><small>PYTHON 学习笔记</small><h3>用自己的话记下来</h3></div><span id="noteSaveState">已同步到云端</span></div>
             <div class="note-fields">
@@ -101,11 +106,23 @@
       </div>
       <div class="research-route glass"><div><span>研 0 / 科研方向可选路线</span><h3>Python 基础 → NumPy → Pandas → 数据处理 → 科研绘图</h3></div><p>不要等“整本书全会了”才开始。基础阶段结束后，用自己的论文数据或实验数据做一个小任务。</p></div>
     </section>
+
+    <section class="method-section shell" aria-labelledby="methodTitle">
+      <div class="section-heading"><div><span>// 每章固定流程</span><h2 id="methodTitle">五步学习法</h2></div><p>不复制粘贴，不要求一次全部理解。每完成一步，系统都会保存到你的个人账户。</p></div>
+      <div class="method-track">
+        <article style="--accent:#20e9ff"><i>01</i><b>读懂概念</b><span>20 分钟</span><p>先用生活中的例子理解“它是什么”，不背定义。</p></article>
+        <article style="--accent:#a66cff"><i>02</i><b>亲手敲代码</b><span>30 分钟</span><p>逐字符输入示例，练习符号、缩进和代码结构。</p></article>
+        <article style="--accent:#ff4f9e"><i>03</i><b>故意修改</b><span>20 分钟</span><p>换文字、换数字、删一个符号，观察结果为什么变化。</p></article>
+        <article style="--accent:#ffe45e"><i>04</i><b>完成练习</b><span>30 分钟</span><p>先自己想清楚“我要让电脑做什么”，再开始作答。</p></article>
+        <article style="--accent:#42efaa"><i>05</i><b>写下小结</b><span>5 分钟</span><p>记录今天学会、踩过的坑和一段自己的代码。</p></article>
+      </div>
+      <div class="method-rules"><span>⏱ 每天 1～2 小时</span><span>📅 一章不超过 3 天</span><span>🚀 看懂 60% 就继续</span><span>⌨️ 示例必须亲手输入</span></div>
+    </section>
   </main>
 
   <div class="auth-required" id="authRequired"><div class="glass"><h2>请先登录学习账户</h2><p>登录后才能读取专属教程进度，并在电脑和手机之间同步五步任务与学习笔记。</p><a class="primary" href="index.html">返回主页登录</a></div></div>
   <div class="toast" id="subToast"></div>
   <footer class="sub-footer">小菜鸟带你飞 · POWER BY 陈定栋</footer>
-  <script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js"></script><script src="subsite.js?v=1"></script><script src="tutorial-site.js?v=2"></script><script src="motion-ui.js?v=1"></script>
+  <script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js"></script><script src="subsite.js?v=1"></script><script src="account-profile.js?v=1"></script><script src="tutorial-site.js?v=2"></script><script src="motion-ui.js?v=1"></script>
 </body>
 </html>

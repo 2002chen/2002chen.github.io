@@ -48,7 +48,8 @@
   function updateAccount(user) {
     const name = user?.user_metadata?.display_name || user?.email?.split('@')[0] || '学习者';
     $('accountName').textContent = name;
-    $('accountAvatar').textContent = name.slice(0, 2).toUpperCase();
+    const avatar = user?.user_metadata?.avatar_url;
+    $('accountAvatar').innerHTML = avatar ? `<img src="${avatar}" alt="用户头像">` : name.slice(0, 2).toUpperCase();
     $('accountEmail').textContent = user?.email || '';
   }
 
@@ -170,6 +171,7 @@
   $('logoutButton').addEventListener('click', async () => { if (client) await client.auth.signOut(); localStorage.removeItem('python-lab-progress-v3'); localStorage.removeItem('python-lab-quiz-v1'); location.reload(); });
   document.addEventListener('click', () => $('accountMenu').classList.remove('open'));
   window.addEventListener('learning-data-changed', saveCloudData);
+  window.addEventListener('account-profile-updated', event => updateAccount(event.detail.user));
 
   setAuthMode('login');
   if (!configured) {
