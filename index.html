@@ -1,66 +1,113 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#070919">
+  <meta name="description" content="PYTHON LAB - interactive Python learning in your browser">
   <title>PYTHON // LAB</title>
-  <style>
-    :root { --bg:#070a1d; --panel:rgba(17,22,61,.66); --cyan:#19e7ff; --purple:#a855f7; --pink:#ff4d9d; --yellow:#ffe85c; --text:#f6f7ff; --muted:#aab2d6; }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; color:var(--text); font:16px/1.5 Inter, "Microsoft YaHei", system-ui, sans-serif; background:var(--bg); overflow-x:hidden; }
-    body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.35; background-image:linear-gradient(rgba(89,104,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(89,104,255,.12) 1px,transparent 1px); background-size:44px 44px; mask-image:linear-gradient(#000,transparent 80%); }
-    .orb { position:fixed; border-radius:50%; filter:blur(34px); opacity:.44; pointer-events:none; animation:float 10s ease-in-out infinite; }
-    .orb.one { width:340px;height:340px; background:#6136ff; top:5%;left:-100px; } .orb.two { width:300px;height:300px;background:#00ccff;right:-90px;top:36%; animation-delay:-4s; } .orb.three { width:220px;height:220px;background:#ff2a91;bottom:-80px;left:35%; animation-delay:-7s; }
-    @keyframes float { 50% { transform:translate(34px,42px) scale(1.1); } }
-    .wrap { width:min(1140px, calc(100% - 40px)); margin:auto; position:relative; }
-    nav { height:78px; display:flex; align-items:center; justify-content:space-between; }
-    .logo { font-weight:900; letter-spacing:1.3px; font-size:20px; } .logo b { color:var(--cyan); }
-    nav a { color:var(--muted); text-decoration:none; margin-left:24px; font-size:14px; } nav a:hover { color:white; }
-    .hero { min-height:575px; display:grid; grid-template-columns:1.08fr .92fr; align-items:center; gap:54px; padding:48px 0 78px; }
-    .eyebrow { display:inline-flex; padding:7px 12px; border:1px solid rgba(25,231,255,.45); border-radius:99px; color:var(--cyan); background:rgba(25,231,255,.08); font-size:13px; letter-spacing:.8px; }
-    h1 { font-size:clamp(45px,7vw,82px); line-height:.98; margin:20px 0; letter-spacing:-3px; } h1 span { background:linear-gradient(90deg,var(--cyan),#8a7dff 48%,var(--pink)); color:transparent; background-clip:text; }
-    .intro { font-size:18px; color:var(--muted); max-width:540px; }
-    .actions { display:flex; gap:13px; margin-top:30px; flex-wrap:wrap; }
-    button { cursor:pointer; border:0; font:inherit; font-weight:800; border-radius:12px; padding:13px 20px; color:#07101c; background:linear-gradient(100deg,var(--cyan),#9df9ff); box-shadow:0 0 28px rgba(25,231,255,.3); transition:.25s; }
-    button:hover { transform:translateY(-3px); box-shadow:0 8px 34px rgba(25,231,255,.48); } .ghost { background:rgba(255,255,255,.06); color:white; border:1px solid rgba(255,255,255,.18); box-shadow:none; }
-    .terminal { border:1px solid rgba(138,125,255,.48); background:linear-gradient(135deg,rgba(24,30,83,.86),rgba(8,11,35,.88)); border-radius:22px; overflow:hidden; box-shadow:0 22px 60px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.14); transform:rotate(2deg); animation:pulse 4s ease-in-out infinite; }
-    @keyframes pulse { 50% { box-shadow:0 22px 68px rgba(85,59,255,.36), inset 0 1px rgba(255,255,255,.14); } }
-    .termbar { padding:14px 18px; display:flex; gap:7px; background:rgba(255,255,255,.04); } .dot { width:10px;height:10px;border-radius:50%;background:#ff5e88; }.dot:nth-child(2){background:#ffe85c}.dot:nth-child(3){background:#28e5a0}
-    pre { margin:0; min-height:280px; padding:28px; font:15px/1.85 ui-monospace,Consolas,monospace; white-space:pre-wrap; } .violet{color:#c69cff}.blue{color:var(--cyan)}.yellow{color:var(--yellow)}.green{color:#4df2a8}.cursor{display:inline-block;width:9px;height:18px;background:var(--cyan);vertical-align:-3px;animation:blink .8s steps(2) infinite}@keyframes blink{50%{opacity:0}}
-    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; padding-bottom:70px; } .stat,.card { background:var(--panel); backdrop-filter:blur(15px); border:1px solid rgba(179,190,255,.17); border-radius:18px; }
-    .stat { padding:18px 20px; } .stat strong { display:block;font-size:25px;color:var(--cyan); } .stat span { font-size:13px;color:var(--muted); }
-    section { padding:54px 0; } .section-label{ color:var(--pink);font-size:13px;letter-spacing:1.7px;font-weight:bold;}.section-title{font-size:36px;margin:7px 0 26px;letter-spacing:-1px}
-    .paths { display:grid;grid-template-columns:repeat(3,1fr);gap:17px; }.card{padding:22px;transition:.3s;position:relative;overflow:hidden}.card:hover{transform:translateY(-7px);border-color:rgba(25,231,255,.65)}.icon{font-size:30px}.card h3{margin:12px 0 6px}.card p{margin:0;color:var(--muted);font-size:14px}.tag{display:inline-block;margin-top:18px;font-size:12px;font-weight:bold;color:var(--cyan)}
-    .challenge { padding:30px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;background:linear-gradient(100deg,rgba(168,85,247,.22),rgba(25,231,255,.13)); border:1px solid rgba(25,231,255,.34);border-radius:22px; } .challenge h2{margin:5px 0;font-size:27px}.challenge p{margin:0;color:var(--muted)}
-    footer { padding:35px 0 45px;color:#7f89b3;font-size:13px;text-align:center; }
-    @media(max-width:760px){ nav a{display:none}.hero{grid-template-columns:1fr;padding-top:32px;gap:42px;min-height:0}.terminal{transform:none}.stats,.paths{grid-template-columns:1fr}.challenge{grid-template-columns:1fr}.challenge button{width:100%}h1{letter-spacing:-2px}.wrap{width:min(100% - 30px,1140px)} }
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition:none!important}}
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
-  <main class="wrap">
-    <nav><div class="logo"><b>&lt;/&gt;</b> PYTHON // LAB</div><div><a href="#paths">学习路径</a><a href="#challenge">今日挑战</a><a href="#">我的宇宙</a></div></nav>
-    <section class="hero">
-      <div><div class="eyebrow">● ONLINE LEARNING SPACE</div><h1>从第一行代码<br>进入<span>创造者宇宙</span></h1><p class="intro">用任务、项目和即时反馈，掌握 Python。每一次运行，都是一次能力升级。</p><div class="actions"><button onclick="document.querySelector('#paths').scrollIntoView()">立即开始学习 →</button><button class="ghost" onclick="runCode()">▶ 运行示例</button></div></div>
-      <div class="terminal"><div class="termbar"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><pre><span class="violet"># 欢迎来到你的第一段 Python</span>
-<span class="blue">name</span> = <span class="yellow">"未来开发者"</span>
-<span class="blue">level</span> = <span class="green">1</span>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
 
-<span class="violet">def</span> <span class="blue">start_journey</span>(player):
-    <span class="violet">return</span> <span class="yellow">f"{player}，准备起飞！🚀"</span>
+  <header class="topbar">
+    <nav class="shell nav">
+      <a class="brand" href="#home"><b>&lt;/&gt;</b> PYTHON // LAB</a>
+      <div class="navlinks">
+        <a href="#courses">&#35838;&#31243;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a>
+      </div>
+      <button class="level-pill" id="levelButton" type="button"><span>LV.<b id="navLevel">1</b></span><i>PY</i></button>
+    </nav>
+  </header>
 
-<span class="blue">print</span>(<span class="blue">start_journey</span>(name))
-<span id="output" class="green">› 等待运行...</span><span class="cursor"></span></pre></div>
+  <main id="home">
+    <section class="hero shell">
+      <div class="hero-copy reveal">
+        <div class="online"><i></i> LEARNING SYSTEM ONLINE</div>
+        <h1>&#20174;&#31532;&#19968;&#34892;&#20195;&#30721;<br><em>&#36827;&#20837;&#21019;&#36896;&#32773;&#23431;&#23449;</em></h1>
+        <p>&#30495;&#23454;&#36816;&#34892; Python&#65292;&#36880;&#20851;&#35299;&#38145;&#30693;&#35782;&#65292;&#29992;&#21363;&#26102;&#21453;&#39304;&#25226;&#27599;&#19968;&#20010;&#27010;&#24565;&#21464;&#25104;&#33021;&#21147;&#12290;</p>
+        <div class="hero-actions"><button class="primary" id="startLearning" type="button">&#32487;&#32493;&#23398;&#20064; <span>&#8594;</span></button><button class="secondary" id="quickRun" type="button">&#9654; &#36816;&#34892;&#28436;&#31034;</button></div>
+        <div class="trust"><div><i>A</i><i>K</i><i>M</i><i>+</i></div><span><b>12,680</b> &#20301;&#23398;&#20064;&#32773;&#27491;&#22312;&#32534;&#20889;&#26410;&#26469;</span></div>
+      </div>
+      <div class="hero-terminal reveal">
+        <div class="window-head"><span class="traffic"><i></i><i></i><i></i></span><code>hello_future.py</code><span class="signal">///</span></div>
+        <pre><span class="comment"># Your first Python signal</span>
+<span class="blue">name</span> = <span class="yellow">"Future Creator"</span>
+<span class="blue">skills</span> = [<span class="yellow">"code"</span>, <span class="yellow">"create"</span>]
+
+<span class="purple">for</span> skill <span class="purple">in</span> skills:
+    <span class="cyan">print</span>(<span class="yellow">f"Unlock: {skill}"</span>)</pre>
+        <div class="hero-output"><small>OUTPUT //</small><code id="demoOutput">Waiting for signal_</code></div>
+        <div class="window-foot"><span><i></i> PYTHON 3.12</span><button id="demoRun" type="button">RUN &#9654;</button></div>
+        <span class="float-xp">+20 XP</span><span class="float-streak">&#9889; 7 DAY STREAK</span>
+      </div>
     </section>
-    <div class="stats"><div class="stat"><strong>128K+</strong><span>行代码已在这里运行</span></div><div class="stat"><strong>32</strong><span>个可解锁的技能节点</span></div><div class="stat"><strong>7 DAYS</strong><span>坚持学习，正在发光</span></div></div>
-    <section id="paths"><div class="section-label">CHOOSE YOUR PATH</div><h2 class="section-title">从好奇出发，找到你的赛道</h2><div class="paths"><article class="card"><div class="icon">⚡</div><h3>零基础起飞</h3><p>变量、条件、循环，从第一行代码建立思维方式。</p><span class="tag">12 个互动关卡 →</span></article><article class="card"><div class="icon">📊</div><h3>数据探索者</h3><p>用 Python 清洗、分析与可视化真实世界的数据。</p><span class="tag">8 个实战项目 →</span></article><article class="card"><div class="icon">🛸</div><h3>网站建造者</h3><p>从 API 到 Web 应用，让你的想法真正上线。</p><span class="tag">终极作品挑战 →</span></article></div></section>
-    <section id="challenge"><div class="challenge"><div><div class="section-label">TODAY'S MISSION</div><h2>挑战：写一个星际年龄计算器</h2><p>掌握变量和数学运算，预计 5 分钟完成。</p></div><button onclick="alert('任务已解锁！让我们开始吧。')">解锁任务 ✦</button></div></section>
-    <footer>PYTHON // LAB · 让学习像探索未知宇宙一样有趣</footer>
+
+    <section class="stats shell reveal">
+      <article><i>&lt;/&gt;</i><div><b id="statRuns">0</b><span>&#20195;&#30721;&#36816;&#34892;&#27425;&#25968;</span></div></article>
+      <article><i>&#9670;</i><div><b id="statLessons">0 / 6</b><span>&#24050;&#23436;&#25104;&#20851;&#21345;</span></div></article>
+      <article><i>&#9889;</i><div><b id="statXp">0 XP</b><span>&#24403;&#21069;&#33021;&#37327;&#20540;</span></div></article>
+      <article><i>&#9733;</i><div><b id="statPercent">0%</b><span>&#20837;&#38376;&#36335;&#24452;&#36827;&#24230;</span></div></article>
+    </section>
+
+    <section class="section shell" id="courses">
+      <div class="section-title reveal"><div><small>// LEARNING PATH</small><h2>&#28857;&#20142;&#20320;&#30340; Python &#25216;&#33021;&#26641;</h2></div><p>&#27599;&#20851; 5-10 &#20998;&#38047;&#65292;&#21253;&#21547;&#30693;&#35782;&#12289;&#20219;&#21153;&#12289;&#30495;&#23454;&#36816;&#34892;&#21644;&#33258;&#21160;&#21028;&#39064;&#12290;</p></div>
+      <div class="course-layout reveal">
+        <aside class="lesson-nav" id="lessonNav" aria-label="Course lessons"></aside>
+        <article class="course-preview">
+          <div class="preview-top"><span id="previewNumber">MISSION 01</span><b id="previewStatus">READY</b></div>
+          <div class="preview-icon" id="previewIcon">&#9889;</div>
+          <small id="previewKicker">PYTHON BASICS</small>
+          <h3 id="previewTitle">Hello, Python!</h3>
+          <p id="previewDescription"></p>
+          <div class="concepts" id="previewConcepts"></div>
+          <button class="primary" id="openLesson" type="button">&#36827;&#20837;&#20851;&#21345; <span>&#8594;</span></button>
+        </article>
+      </div>
+    </section>
+
+    <section class="lab-section" id="lab">
+      <div class="shell">
+        <div class="section-title reveal"><div><small>// LIVE PYTHON LAB</small><h2 id="labTitle">Hello, Python!</h2></div><div class="runtime" id="runtimeStatus"><i></i><span>PYTHON ENGINE: IDLE</span></div></div>
+        <div class="workspace reveal">
+          <aside class="brief">
+            <div class="mission-label" id="missionLabel">MISSION 01</div>
+            <h3 id="missionTitle"></h3>
+            <p id="missionDescription"></p>
+            <div class="knowledge"><small>CORE KNOWLEDGE</small><div id="knowledgeText"></div></div>
+            <h4>MISSION CHECKLIST</h4><ul id="checklist"></ul>
+            <div class="brief-actions"><button class="hint-btn" id="showHint" type="button">&#26174;&#31034;&#25552;&#31034;</button><button class="answer-btn" id="showAnswer" type="button">&#26597;&#30475;&#31572;&#26696;</button></div>
+            <div class="assist" id="assistBox"></div>
+          </aside>
+          <section class="code-panel">
+            <div class="editor-tabs"><b>main.py</b><span id="dirtyState">SAVED</span><button id="resetCode" type="button">RESET</button></div>
+            <div class="editor-area"><div class="line-numbers" id="lineNumbers">1</div><textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Python code editor"></textarea></div>
+            <div class="console-head"><b>TERMINAL</b><button id="clearConsole" type="button">CLEAR</button></div>
+            <pre class="console" id="consoleOutput"><span>&gt; Python engine will load when you run code.</span></pre>
+            <div class="runbar"><span id="testSummary">0 / 0 TESTS</span><button class="secondary" id="runOnly" type="button">&#9654; RUN</button><button class="primary" id="runTests" type="button">RUN &amp; CHECK <span>&#9654;</span></button></div>
+          </section>
+        </div>
+        <div class="lesson-switcher reveal"><button id="previousLesson" type="button">&#8592; &#19978;&#19968;&#20851;</button><span id="lessonPosition">1 / 6</span><button id="nextLesson" type="button">&#19979;&#19968;&#20851; &#8594;</button></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="progress">
+      <div class="section-title reveal"><div><small>// YOUR PROGRESS</small><h2>&#25104;&#38271;&#25968;&#25454;&#27491;&#22312;&#21457;&#20809;</h2></div><p>&#36827;&#24230;&#33258;&#21160;&#20445;&#23384;&#22312;&#27983;&#35272;&#22120;&#20013;&#65292;&#19979;&#27425;&#25171;&#24320;&#21487;&#32487;&#32493;&#23398;&#20064;&#12290;</p></div>
+      <div class="progress-grid reveal">
+        <article class="level-card"><div class="level-ring" id="levelRing"><span><small>LEVEL</small><b id="progressLevel">1</b></span></div><div><small>NEXT LEVEL</small><h3 id="progressXp">0 / 200 XP</h3><div class="progress-bar"><i id="xpBar"></i></div><p>&#36816;&#34892;&#20195;&#30721;&#12289;&#23436;&#25104;&#20851;&#21345;&#37117;&#20250;&#33719;&#21462; XP&#12290;</p></div></article>
+        <article class="achievement" id="achievementCard"><i>&#9733;</i><small>LATEST BADGE</small><b id="badgeName">SIGNAL LOST</b><p id="badgeDescription">&#23436;&#25104;&#31532;&#19968;&#20851;&#21518;&#28857;&#20142;&#24494;&#31456;&#12290;</p></article>
+        <article class="activity"><i>&#9889;</i><small>LEARNING STREAK</small><b>7 DAYS</b><p>&#26126;&#22825;&#32487;&#32493;&#26469;&#23454;&#39564;&#23460;&#65292;&#20445;&#25345;&#33021;&#37327;&#38142;&#12290;</p><div><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></article>
+      </div>
+      <button class="reset-progress" id="resetProgress" type="button">&#37325;&#32622;&#25152;&#26377;&#23398;&#20064;&#36827;&#24230;</button>
+    </section>
   </main>
-  <script>
-    function runCode() { const output = document.getElementById('output'); output.textContent = '› 正在编译能量...'; setTimeout(() => output.textContent = '› 未来开发者，准备起飞！🚀', 700); }
-  </script>
+
+  <footer><div class="shell"><a class="brand" href="#home"><b>&lt;/&gt;</b> PYTHON // LAB</a><span>BUILD. RUN. LEARN. REPEAT.</span><span>&#169; 2026</span></div></footer>
+
+  <div class="dialog" id="answerDialog" aria-hidden="true" role="dialog" aria-modal="true"><div class="dialog-backdrop" data-close-dialog></div><div class="dialog-card"><button class="dialog-close" data-close-dialog type="button">&#215;</button><small>// REFERENCE ANSWER</small><h3 id="answerTitle"></h3><pre id="answerCode"></pre><button class="primary" id="useAnswer" type="button">&#25918;&#20837;&#32534;&#36753;&#22120;</button></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
 </body>
 </html>
