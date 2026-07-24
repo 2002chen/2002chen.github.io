@@ -54,15 +54,26 @@
   }
 
   async function updateRoleUi(user) {
-    const { data } = await client.from('profiles').select('role').eq('id', user.id).maybeSingle();
+    const { data, error } = await client.from('profiles').select('role').eq('id', user.id).maybeSingle();
+    let role = error ? null : data?.role;
+    if (!role) {
+      const adminResult = await client.rpc('is_admin');
+      role = adminResult.data === true ? 'admin' : 'user';
+    }
+    window.dispatchEvent(new CustomEvent('account-role-ready', { detail: { role } }));
+    window.accountProfile?.paintRole?.(role);
     let adminButton = $('openAdmin');
-    if (data?.role === 'admin' && !adminButton) {
+    if (role === 'admin' && !adminButton) {
       adminButton = document.createElement('button');
       adminButton.id = 'openAdmin';
       adminButton.type = 'button';
       adminButton.textContent = '管理员后台';
       $('accountMenu').insertBefore(adminButton, $('logoutButton'));
       adminButton.addEventListener('click', () => { $('accountMenu').classList.remove('open'); window.adminDashboard?.open(); });
+    }
+    if (role === 'admin' && new URLSearchParams(location.search).get('admin') === '1') {
+      history.replaceState(null, '', location.pathname + location.hash);
+      window.adminDashboard?.open();
     }
   }
 

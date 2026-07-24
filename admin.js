@@ -4,7 +4,26 @@
   let currentChapters = [];
 
   function client() { return window.learningCloud?.client; }
-  function open() { $('adminPanel').classList.add('open'); $('adminPanel').setAttribute('aria-hidden', 'false'); loadQuestions(); }
+  async function open() {
+    const cloudClient = client();
+    if (!cloudClient) return;
+    const sessionResult = await cloudClient.auth.getSession();
+    const user = sessionResult.data.session?.user;
+    if (!user) return;
+    const roleResult = await cloudClient.from('profiles').select('role').eq('id', user.id).maybeSingle();
+    let isAdmin = roleResult.data?.role === 'admin';
+    if (!isAdmin) {
+      const adminResult = await cloudClient.rpc('is_admin');
+      isAdmin = adminResult.data === true;
+    }
+    if (!isAdmin) {
+      window.alert('当前账号没有管理员权限。');
+      return;
+    }
+    $('adminPanel').classList.add('open');
+    $('adminPanel').setAttribute('aria-hidden', 'false');
+    loadQuestions();
+  }
   function close() { $('adminPanel').classList.remove('open'); $('adminPanel').setAttribute('aria-hidden', 'true'); }
   function clearForm() { $('questionForm').reset(); $('questionId').value = ''; $('questionActive').checked = true; }
 

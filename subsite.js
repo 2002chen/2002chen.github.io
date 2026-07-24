@@ -4,7 +4,7 @@
   if(!document.querySelector('link[href*="youth-theme.css"]')){const theme=document.createElement('link');theme.rel='stylesheet';theme.href='youth-theme.css?v=1';document.head.appendChild(theme)}
   if(!document.querySelector('link[href*="typography-upgrade.css"]')){const type=document.createElement('link');type.rel='stylesheet';type.href='typography-upgrade.css?v=1';document.head.appendChild(type)}
   if(!document.querySelector('link[href*="apple-simple.css"]')){const simple=document.createElement('link');simple.rel='stylesheet';simple.href='apple-simple.css?v=2';document.head.appendChild(simple)}
-  if(!document.querySelector('script[src*="account-profile.js"]')){const account=document.createElement('script');account.src='account-profile.js?v=2';account.defer=true;document.head.appendChild(account)}
+  if(!document.querySelector('script[src*="account-profile.js"]')){const account=document.createElement('script');account.src='account-profile.js?v=4';account.defer=true;document.head.appendChild(account)}
   if(!document.querySelector('script[src*="reward.js"]')){const reward=document.createElement('script');reward.src='reward.js?v=1';reward.defer=true;document.head.appendChild(reward)}
   if(!document.querySelector('script[src*="motion-ui.js"]')){const motion=document.createElement('script');motion.src='motion-ui.js?v=1';motion.defer=true;document.head.appendChild(motion)}
   const brandMark=document.querySelector('.sub-brand b');if(brandMark){const brand=brandMark.parentElement;brand.style.cssText+='display:flex;align-items:center;gap:9px';const icon=document.createElement('img');icon.src='assets/site-icon.png';icon.alt='';icon.style.cssText='width:34px;height:34px;border-radius:10px;box-shadow:0 5px 14px #745fa526';brandMark.replaceWith(icon)}

@@ -3,13 +3,14 @@
 
   const css=document.createElement('link');
   css.rel='stylesheet';
-  css.href='account-profile.css?v=2';
+  css.href='account-profile.css?v=3';
   document.head.appendChild(css);
 
   let client=null;
   let session=null;
   let profile=null;
   let pendingAvatar='';
+  let accountRole='user';
 
   const initials=name=>(name||'学习者').trim().slice(0,2).toUpperCase();
   const avatarMarkup=(url,name)=>url?`<img src="${url}" alt="用户头像">`:initials(name);
@@ -48,6 +49,7 @@
           <button class="account-profile-save" id="profileSave" type="submit">保存个人资料</button>
           <p class="account-profile-state" id="profileState"></p>
         </form>
+        <button class="account-profile-admin" id="profileAdmin" type="button" hidden>进入管理员后台</button>
         <button class="account-profile-logout" id="profileLogout" type="button">退出当前账号</button>
       </section>`;
     document.body.appendChild(dialog);
@@ -56,7 +58,21 @@
     });
     document.getElementById('profileAvatarInput').addEventListener('change',readAvatar);
     document.getElementById('accountProfileForm').addEventListener('submit',save);
+    document.getElementById('profileAdmin').addEventListener('click',openAdmin);
     document.getElementById('profileLogout').addEventListener('click',logout);
+  }
+
+  function paintRole(role){
+    accountRole=role||'user';
+    const button=document.getElementById('profileAdmin');
+    if(button)button.hidden=accountRole!=='admin';
+  }
+
+  async function resolveRole(){
+    const roleResult=await client.from('profiles').select('role').eq('id',session.user.id).maybeSingle();
+    if(roleResult.data?.role)return roleResult.data.role;
+    const adminResult=await client.rpc('is_admin');
+    return adminResult.data===true?'admin':'user';
   }
 
   async function ready(){
@@ -67,6 +83,7 @@
     if(!session)return false;
     const dataResult=await client.from('user_learning_data').select('learning_state').eq('user_id',session.user.id).maybeSingle();
     profile=dataResult.data?.learning_state?.account_profile||{};
+    paintRole(await resolveRole());
     const user={
       ...session.user,
       user_metadata:{
@@ -77,6 +94,16 @@
     };
     paintAccount(user);
     return true;
+  }
+
+  function openAdmin(){
+    if(accountRole!=='admin')return;
+    close();
+    if(window.adminDashboard?.open){
+      window.adminDashboard.open();
+      return;
+    }
+    location.href='index.html?admin=1';
   }
 
   async function open(){
@@ -198,5 +225,6 @@
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);
   else bind();
-  window.accountProfile={open,paintAccount};
+  window.addEventListener('account-role-ready',event=>paintRole(event.detail?.role));
+  window.accountProfile={open,paintAccount,paintRole};
 })();
