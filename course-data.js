@@ -42,7 +42,7 @@
     $('readerBreadcrumb').textContent = `第 ${chapterIndex + 1} 章 / ${currentChapter.title}`;
     $('readerType').textContent = currentSection.section_type === 'summary' ? '章节小结' : '教程小节';
     $('readerTitle').textContent = currentSection.title; $('readerSummary').textContent = currentSection.summary;
-    $('readerReadTime').textContent = `约 ${Math.max(3, Math.ceil((currentSection.content_html || '').length / 500))} 分钟`;
+    $('readerReadTime').textContent = `约 ${Math.max(5, Math.ceil((currentSection.content_html || '').length / 420))} 分钟 · 零基础友好`;
     $('tutorialBody').innerHTML = currentSection.content_html; $('tutorialCode').textContent = currentSection.example_code || '';
     $('tutorialCodeBox').style.display = currentSection.example_code ? 'block' : 'none'; $('completeSection').classList.toggle('done', progress.has(currentSection.id)); $('completeSection').textContent = progress.has(currentSection.id) ? '本节已完成 ✓' : '标记本节已学完 ✓';
     const chapterSections = sections.filter(x => x.chapter_id === currentChapter.id); const pos = chapterSections.findIndex(x => x.id === currentSection.id);
@@ -79,7 +79,8 @@
     else if (exercise.question_type === 'coding') answer = `<textarea id="exerciseAnswer" class="exercise-code" spellcheck="false">${exercise.starter_code || ''}</textarea><pre class="exercise-output" id="exerciseOutput">运行结果会显示在这里。</pre>`;
     else answer = `<textarea id="exerciseAnswer" placeholder="请写下你的答案、分析过程或思考..."></textarea>`;
     const buttonText = exercise.question_type === 'coding' ? '运行并提交代码' : '提交本题';
-    $('exerciseDetail').innerHTML = `<div class="exercise-detail-head"><span>${typeText(exercise.question_type)}</span><small>${exercise.topic || ''}</small></div><h3>${exercise.prompt}</h3>${answer}<div class="exercise-feedback" id="exerciseFeedback"></div><button class="primary" id="submitExercise" type="button">${buttonText}</button>`;
+    const beginnerTip = currentChapter?.position <= 3 ? '<div class="exercise-beginner-tip">不会也没关系：先回到教程找关键词，再用自己的话回答。选择题先排除明显不符合生活常识的选项。</div>' : '';
+    $('exerciseDetail').innerHTML = `<div class="exercise-detail-head"><span>${typeText(exercise.question_type)}</span><small>${exercise.topic || ''}</small></div><h3>${exercise.prompt}</h3>${beginnerTip}${answer}<div class="exercise-feedback" id="exerciseFeedback"></div><button class="primary" id="submitExercise" type="button">${buttonText}</button>`;
     $('submitExercise').onclick = submitExercise;
   }
 
