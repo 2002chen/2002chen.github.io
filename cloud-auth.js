@@ -6,6 +6,7 @@
   let mode = 'login';
   let saveTimer;
   let applyingCloud = false;
+  let sessionVersion = 0;
 
   const $ = id => document.getElementById(id);
   const defaults = {
@@ -114,6 +115,7 @@
   }
 
   async function handleSession(nextSession) {
+    const version = ++sessionVersion;
     session = nextSession;
     if (!session) {
       showGate(true);
@@ -121,10 +123,18 @@
       return;
     }
     updateAccount(session.user);
-    await updateRoleUi(session.user);
     showGate(false);
-    try { await loadCloudData(session.user); }
-    catch (error) { setSync('error', '同步失败'); console.error(error); }
+    setSync('loading', '正在同步');
+    const [roleResult, dataResult] = await Promise.allSettled([
+      updateRoleUi(session.user),
+      loadCloudData(session.user)
+    ]);
+    if (version !== sessionVersion) return;
+    if (roleResult.status === 'rejected') console.warn('管理员身份读取失败', roleResult.reason);
+    if (dataResult.status === 'rejected') {
+      setSync('error', '同步失败');
+      console.error(dataResult.reason);
+    }
   }
 
   async function submitAuth(event) {
@@ -193,7 +203,12 @@
     $('authForm').appendChild(preview);
   } else {
     client.auth.getSession().then(({ data }) => handleSession(data.session));
-    client.auth.onAuthStateChange((_event, nextSession) => handleSession(nextSession));
+    client.auth.onAuthStateChange((event, nextSession) => {
+      if (event === 'INITIAL_SESSION') return;
+      // Supabase auth callbacks must return immediately; cloud queries inside them can
+      // otherwise wait on the same auth lock, especially on slower mobile networks.
+      setTimeout(() => handleSession(nextSession), 0);
+    });
   }
   window.learningCloud = { client, configured, save: saveCloudData };
 })();
