@@ -3,10 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#070919">
+  <meta name="theme-color" content="#f7f8ff">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="description" content="小菜鸟带你飞 - 在浏览器中互动学习 Python">
   <title>小菜鸟带你飞</title>
-  <link rel="stylesheet" href="styles.css?v=20260724-2">
+  <link rel="stylesheet" href="styles-mobile-refresh.css">
 </head>
 <body>
   <canvas id="stars" aria-hidden="true"></canvas>
@@ -16,7 +19,7 @@
     <nav class="shell nav">
       <div class="brand-stack"><a class="brand" href="#home"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><span>POWER BY 陈定栋</span></div>
       <div class="navlinks">
-        <a href="#courses">&#35838;&#31243;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a><a href="#message">&#30041;&#35328;</a>
+        <a href="#quiz">&#39064;&#24211;</a><a href="#courses">&#35838;&#31243;</a><a href="#lab">&#23454;&#39564;&#23460;</a><a href="#progress">&#25104;&#38271;</a><a href="#message">&#30041;&#35328;</a>
       </div>
       <button class="level-pill" id="levelButton" type="button"><span>&#31561;&#32423; <b id="navLevel">1</b></span><i>PY</i></button>
     </nav>
@@ -52,6 +55,37 @@
       <article><i>&#9670;</i><div><b id="statLessons">0 / 6</b><span>&#24050;&#23436;&#25104;&#20851;&#21345;</span></div></article>
       <article><i>&#9889;</i><div><b id="statXp">0 XP</b><span>&#24403;&#21069;&#33021;&#37327;&#20540;</span></div></article>
       <article><i>&#9733;</i><div><b id="statPercent">0%</b><span>&#20837;&#38376;&#36335;&#24452;&#36827;&#24230;</span></div></article>
+    </section>
+
+    <section class="quiz-section" id="quiz">
+      <div class="shell">
+        <div class="section-title reveal"><div><small>// PYTHON &#38383;&#20851;&#39064;&#24211;</small><h2>&#20174;&#23567;&#30333;&#21040;&#36827;&#38454;&#65292;&#19968;&#39064;&#19968;&#39064;&#21319;&#32423;</h2></div><p>&#20197;&#36873;&#25321;&#39064;&#20026;&#20027;&#65292;&#27599;&#39064;&#37117;&#26377;&#21363;&#26102;&#35299;&#26512;&#12290;&#31572;&#38169;&#30340;&#39064;&#20250;&#33258;&#21160;&#25910;&#36827;&#38169;&#39064;&#26412;&#12290;</p></div>
+        <div class="quiz-dashboard reveal">
+          <div class="quiz-levels" id="quizLevels">
+            <button class="quiz-level active" data-level="beginner" type="button"><i>&#127793;</i><span><b>&#38646;&#22522;&#30784;</b><small>&#20174;&#35748;&#35782; Python &#24320;&#22987;</small></span><em id="beginnerProgress">0/12</em></button>
+            <button class="quiz-level" data-level="basic" type="button"><i>&#128640;</i><span><b>&#22522;&#30784;</b><small>&#35821;&#27861;&#19982;&#31243;&#24207;&#24605;&#32500;</small></span><em id="basicProgress">0/12</em></button>
+            <button class="quiz-level" data-level="advanced" type="button"><i>&#127775;</i><span><b>&#36827;&#38454;</b><small>&#20989;&#25968;&#12289;&#23545;&#35937;&#19982;&#24322;&#24120;</small></span><em id="advancedProgress">0/12</em></button>
+            <button class="quiz-level wrong-level" data-level="wrong" type="button"><i>&#128218;</i><span><b>&#38169;&#39064;&#26412;</b><small>&#37325;&#28857;&#25915;&#20811;&#23481;&#26131;&#20986;&#38169;&#30340;&#39064;</small></span><em id="wrongCount">0</em></button>
+          </div>
+          <article class="quiz-card">
+            <div class="quiz-top"><span id="quizLevelName">&#38646;&#22522;&#30784;</span><div><b id="quizQuestionNumber">1</b> / <span id="quizTotal">12</span></div></div>
+            <div class="quiz-meter"><i id="quizMeter"></i></div>
+            <div class="quiz-tags"><span id="quizTopic">Python &#20837;&#38376;</span><em>&#21333;&#36873;&#39064;</em></div>
+            <h3 id="quizQuestion"></h3>
+            <div class="quiz-options" id="quizOptions"></div>
+            <div class="quiz-explanation" id="quizExplanation"><b>&#39064;&#30446;&#35299;&#26512;</b><p></p></div>
+            <div class="quiz-actions"><button class="quiz-prev" id="quizPrev" type="button">&#8592; &#19978;&#19968;&#39064;</button><button class="primary" id="quizSubmit" type="button">&#25552;&#20132;&#31572;&#26696;</button><button class="quiz-next" id="quizNext" type="button">&#19979;&#19968;&#39064; &#8594;</button></div>
+          </article>
+          <aside class="quiz-summary">
+            <div class="quiz-score"><span id="quizScore">0</span><small>&#24403;&#21069;&#24471;&#20998;</small></div>
+            <div class="summary-row"><span>&#24050;&#31572;&#39064;&#25968;</span><b id="quizAnswered">0</b></div>
+            <div class="summary-row"><span>&#31572;&#23545;&#39064;&#25968;</span><b id="quizCorrect">0</b></div>
+            <div class="summary-row"><span>&#24403;&#21069;&#36830;&#23545;</span><b id="quizStreak">0</b></div>
+            <div class="quiz-tip"><i>&#128161;</i><p>&#20808;&#36873;&#25321;&#31572;&#26696;&#65292;&#20877;&#28857;&#20987;&#25552;&#20132;&#12290;&#30475;&#23436;&#35299;&#26512;&#21518;&#36827;&#20837;&#19979;&#19968;&#39064;&#12290;</p></div>
+            <button class="shuffle-btn" id="shuffleQuiz" type="button">&#128256; &#38543;&#26426;&#25442;&#19968;&#32452;</button>
+          </aside>
+        </div>
+      </div>
     </section>
 
     <section class="section shell" id="courses">
@@ -134,6 +168,6 @@
 
   <div class="dialog" id="answerDialog" aria-hidden="true" role="dialog" aria-modal="true"><div class="dialog-backdrop" data-close-dialog></div><div class="dialog-card"><button class="dialog-close" data-close-dialog type="button">&#215;</button><small>// &#21442;&#32771;&#31572;&#26696;</small><h3 id="answerTitle"></h3><pre id="answerCode"></pre><button class="primary" id="useAnswer" type="button">&#25918;&#20837;&#32534;&#36753;&#22120;</button></div></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260724-2"></script>
+  <script src="app-mobile-refresh.js"></script>
 </body>
 </html>

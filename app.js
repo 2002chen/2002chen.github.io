@@ -8,12 +8,84 @@ const lessons=[
   {id:'project',icon:'&#9733;',title:'终极任务：猜数字',description:'综合变量、条件和输入，完成第一个小游戏核心。',concepts:['input()','int()','条件分支'],knowledge:'<code>input()</code> 获取文字输入，<code>int()</code> 把数字文字转换为整数。自动测试会输入 7。',mission:'secret=7，读取 guess；猜中输出 Correct!，否则输出 Try again。',checklist:['定义 secret=7','读取并转换 guess','正确判断并输出'],starter:'secret = 7\nguess = int(input())\n\nif guess == secret:\n    print("Correct!")\nelse:\n    print("Try again")',solution:'secret = 7\nguess = int(input())\nif guess == secret:\n    print("Correct!")\nelse:\n    print("Try again")',hint:'自动测试输入是 7。使用 <code>guess == secret</code> 判断是否相等。',reward:130,input:'7',test:(code,out)=>[/secret\s*=\s*7/.test(code),/int\s*\(\s*input\s*\(/.test(code),out.trim()==='Correct!']}
 ];
 
+const quizBank={
+beginner:[
+['Python 入门','Python 是什么类型的语言？',['只适合制作网页的语言','一种易学、用途广泛的编程语言','只能进行数学计算的软件','一种操作系统'],1,'Python 是一门通用编程语言，常用于自动化、数据分析、网站开发和人工智能。'],
+['程序输出','在 Python 中，哪个函数用于显示内容？',['show()','write()','print()','display_text()'],2,'print() 是 Python 最基础的输出函数。'],
+['字符串','下列哪个写法表示一个字符串？',['Python','"Python"','123','True'],1,'字符串文本需要放在单引号或双引号中。'],
+['变量','执行 age = 12 后，age 是什么？',['函数','变量','注释','文件'],1,'等号把右侧的值保存到左侧变量中。'],
+['数字类型','下列哪个值是整数？',['3.14','"8"','8','False'],2,'没有小数点且没有引号的 8 是整数 int。'],
+['注释','Python 单行注释通常以什么开头？',['//','#','<!--','*'],1,'井号 # 后面的内容通常作为注释，不会被执行。'],
+['布尔值','哪个是 Python 的布尔值？',['YES','true','True','正确'],2,'Python 布尔值写作 True 和 False，首字母必须大写。'],
+['运算符','计算 3 + 2 的结果是什么？',['5','32','1','6'],0,'加号用于数值相加，因此结果是 5。'],
+['输入','哪个函数可以接收用户输入？',['input()','print()','readfile()','ask_user()'],0,'input() 会等待用户输入并返回字符串。'],
+['类型转换','int("12") 的结果是什么？',['字符串 "12"','整数 12','小数 12.0','报错'],1,'int() 可以把符合格式的数字字符串转换为整数。'],
+['命名规则','哪个变量名是有效的？',['2name','user-name','user_name','class'],2,'变量名不能以数字开头，不能包含减号，也不应使用关键字。'],
+['运行顺序','Python 程序通常按什么顺序执行？',['从下往上','随机执行','从上往下','只执行最后一行'],2,'普通 Python 代码默认从上到下依次执行。']
+],
+basic:[
+['比较运算','判断两个值是否相等应使用哪个运算符？',['=','==','!=','>='],1,'单个等号用于赋值，双等号 == 用于判断是否相等。'],
+['条件语句','if 语句结尾通常需要什么符号？',['分号 ;','句号 .','冒号 :','逗号 ,'],2,'Python 的 if、for、while、def 等语句头通常以冒号结尾。'],
+['逻辑运算','两个条件都必须成立时使用什么？',['or','and','not','in'],1,'and 表示左右两个条件都为 True。'],
+['列表','哪个写法创建了列表？',['(1, 2, 3)','[1, 2, 3]','{1, 2, 3}','<1, 2, 3>'],1,'方括号 [] 用于创建列表。'],
+['列表索引','items = ["a", "b", "c"]，items[0] 是什么？',['"a"','"b"','"c"','报错'],0,'Python 序列索引从 0 开始。'],
+['字典','字典用什么保存数据？',['只有数字','键和值','固定顺序的字符','只能保存列表'],1,'字典由 key:value 键值对组成。'],
+['循环','遍历列表通常使用哪种语句？',['if','for','try','def'],1,'for 循环适合逐个访问列表中的元素。'],
+['range','list(range(3)) 的结果是什么？',['[1,2,3]','[0,1,2]','[0,1,2,3]','[3]'],1,'range(3) 从 0 开始，到 3 之前结束。'],
+['while','while 循环会在什么时候继续？',['条件为 True 时','条件为 False 时','只运行一次','永远不会运行'],0,'while 会在条件保持 True 时重复执行。'],
+['列表方法','向列表末尾添加元素使用什么？',['add()','push()','append()','insert_end()'],2,'list.append(value) 把一个元素加入列表末尾。'],
+['字符串方法','"python".upper() 的结果是什么？',['"Python"','"PYTHON"','"python"','报错'],1,'upper() 会把英文字母转换为大写。'],
+['切片','text="Python"，text[0:2] 是什么？',['"Py"','"Pyt"','"yt"','"Python"'],0,'切片包含起始位置，不包含结束位置，因此取得索引 0 和 1。']
+],
+advanced:[
+['函数','定义函数使用哪个关键字？',['function','func','def','lambda_only'],2,'Python 使用 def 定义普通函数。'],
+['返回值','函数通过什么关键字返回结果？',['print','return','yield_only','send'],1,'return 会结束函数并把结果返回给调用位置。'],
+['参数','def greet(name): 中的 name 是什么？',['模块','参数','类','异常'],1,'name 是函数定义中的形式参数。'],
+['作用域','函数内部创建的普通变量通常属于什么作用域？',['全局作用域','局部作用域','网络作用域','文件作用域'],1,'函数内部变量默认只在该函数的局部作用域可见。'],
+['异常处理','捕获异常通常使用什么结构？',['if/else','try/except','for/in','class/def'],1,'try 放可能出错的代码，except 处理异常。'],
+['文件操作','推荐用什么语句自动关闭文件？',['with open(...)','file.start(...)','try print(...)','import file'],0,'with 上下文管理器会在代码块结束后自动关闭文件。'],
+['类','定义类使用哪个关键字？',['object','class','struct','new'],1,'Python 使用 class 关键字定义类。'],
+['构造方法','类实例初始化常用哪个方法？',['__start__','__init__','__new_object__','init'],1,'__init__ 会在创建实例时被调用来初始化属性。'],
+['继承','class Dog(Animal): 表示什么？',['Animal 继承 Dog','Dog 继承 Animal','Dog 是函数','创建两个变量'],1,'括号中的 Animal 是父类，Dog 是子类。'],
+['推导式','哪个是有效的列表推导式？',['[x*2 for x in range(3)]','for x: [x*2]','list x*2 in range(3)','[range(3) => x]'],0,'列表推导式将表达式和循环写在一对方括号内。'],
+['生成器','yield 主要用于创建什么？',['字典','生成器','异常','类属性'],1,'包含 yield 的函数会产生生成器，按需返回值。'],
+['模块','导入 math 模块的正确写法是？',['include math','using math','import math','load(math)'],2,'import 关键字用于导入模块。']
+]};
+
 let state=loadState();
 let selected=Math.min(state.current||0,lessons.length-1);
 let worker=null,requestId=0,pending=new Map(),runtimeLoaded=false,isRunning=false;
+let quizState=loadQuizState(),quizLevel='beginner',quizIndex=0,quizChoice=null,quizChecked=false,quizOrder={};
 const $=id=>document.getElementById(id);
 
 function loadState(){try{const saved={xp:0,runs:0,completed:[],code:{},current:0,...JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')};if(saved.code?.hello?.includes('Hello, Python!'))saved.code.hello=saved.code.hello.replaceAll('Hello, Python!','你好，Python！');return saved}catch{return{xp:0,runs:0,completed:[],code:{},current:0}}}
+function loadQuizState(){try{return{answered:{},wrong:[],correct:0,streak:0,...JSON.parse(localStorage.getItem('python-lab-quiz-v1')||'{}')}}catch{return{answered:{},wrong:[],correct:0,streak:0}}}
+function saveQuiz(){localStorage.setItem('python-lab-quiz-v1',JSON.stringify(quizState))}
+function quizId(level,index){return `${level}-${index}`}
+function getQuizList(){if(quizLevel==='wrong')return quizState.wrong.map(id=>{const [level,index]=id.split('-');return{level,index:Number(index),question:quizBank[level]?.[Number(index)]}}).filter(x=>x.question);return (quizOrder[quizLevel]||quizBank[quizLevel].map((_,i)=>i)).map(index=>({level:quizLevel,index,question:quizBank[quizLevel][index]}))}
+function levelLabel(level){return{beginner:'零基础',basic:'基础',advanced:'进阶',wrong:'错题本'}[level]}
+
+function renderQuiz(){
+  const list=getQuizList();document.querySelectorAll('.quiz-level').forEach(x=>x.classList.toggle('active',x.dataset.level===quizLevel));
+  if(!list.length){$('quizLevelName').textContent=levelLabel(quizLevel);$('quizQuestionNumber').textContent='0';$('quizTotal').textContent='0';$('quizQuestion').textContent=quizLevel==='wrong'?'太棒了，错题本现在是空的！':'暂无题目';$('quizOptions').innerHTML='';$('quizExplanation').classList.remove('show');$('quizSubmit').disabled=true;$('quizNext').style.display='none';updateQuizSummary();return}
+  quizIndex=Math.min(quizIndex,list.length-1);const item=list[quizIndex],q=item.question,id=quizId(item.level,item.index),saved=quizState.answered[id];quizChoice=saved?.choice??null;quizChecked=Boolean(saved);
+  $('quizLevelName').textContent=levelLabel(quizLevel);$('quizQuestionNumber').textContent=quizIndex+1;$('quizTotal').textContent=list.length;$('quizMeter').style.width=`${((quizIndex+1)/list.length)*100}%`;$('quizTopic').textContent=q[0];$('quizQuestion').textContent=q[1];
+  $('quizOptions').innerHTML=q[2].map((option,index)=>`<button class="quiz-option ${quizChoice===index?'selected':''} ${quizChecked&&index===q[3]?'correct':''} ${quizChecked&&quizChoice===index&&index!==q[3]?'wrong':''}" data-choice="${index}" type="button"><i>${String.fromCharCode(65+index)}</i><span>${option}</span></button>`).join('');
+  document.querySelectorAll('.quiz-option').forEach(button=>button.onclick=()=>{if(quizChecked)return;quizChoice=Number(button.dataset.choice);document.querySelectorAll('.quiz-option').forEach(x=>x.classList.toggle('selected',x===button))});
+  $('quizExplanation').classList.toggle('show',quizChecked);$('quizExplanation').querySelector('p').textContent=q[4];$('quizSubmit').disabled=quizChecked;$('quizSubmit').textContent=quizChecked?'已提交':'提交答案';$('quizNext').style.display=quizChecked?'block':'none';$('quizPrev').disabled=quizIndex===0;updateQuizSummary();
+}
+
+function updateQuizSummary(){
+  ['beginner','basic','advanced'].forEach(level=>{const count=quizBank[level].filter((_,i)=>quizState.answered[quizId(level,i)]).length;$(`${level}Progress`).textContent=`${count}/${quizBank[level].length}`});$('wrongCount').textContent=quizState.wrong.length;
+  const answered=Object.keys(quizState.answered).length;$('quizAnswered').textContent=answered;$('quizCorrect').textContent=quizState.correct;$('quizStreak').textContent=quizState.streak;$('quizScore').textContent=answered?Math.round(quizState.correct/answered*100):0;
+}
+
+function submitQuiz(){
+  const list=getQuizList();if(!list.length)return;if(quizChoice===null){toast('请先选择一个答案');return}const item=list[quizIndex],q=item.question,id=quizId(item.level,item.index),correct=quizChoice===q[3];if(!quizState.answered[id]){quizState.answered[id]={choice:quizChoice,correct};if(correct){quizState.correct++;quizState.streak++;quizState.wrong=quizState.wrong.filter(x=>x!==id)}else{quizState.streak=0;if(!quizState.wrong.includes(id))quizState.wrong.push(id)}state.xp+=correct?10:2;save();saveQuiz();toast(correct?'回答正确，+10 XP':'再接再厉，已加入错题本')}quizChecked=true;renderQuiz();
+}
+
+function changeQuizLevel(level){quizLevel=level;quizIndex=0;quizChoice=null;quizChecked=false;renderQuiz();$('quiz').scrollIntoView({behavior:'smooth'})}
+function shuffleQuiz(){if(quizLevel==='wrong'){quizState.wrong.sort(()=>Math.random()-.5)}else{quizOrder[quizLevel]=quizBank[quizLevel].map((_,i)=>i).sort(()=>Math.random()-.5)}quizIndex=0;quizChoice=null;quizChecked=false;renderQuiz();toast('题目顺序已随机打乱')}
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));updateStats()}
 function isUnlocked(index){return index===0||state.completed.includes(lessons[index-1].id)}
 function currentLesson(){return lessons[selected]}
@@ -68,6 +140,8 @@ $('resetProgress').onclick=()=>{if(confirm('确定清除所有关卡进度和代
 
 $('messageContent').addEventListener('input',()=>{$('messageCount').textContent=$('messageContent').value.length});
 $('messageForm').addEventListener('submit',event=>{event.preventDefault();const name=$('messageName').value.trim(),type=$('messageType').value,title=$('messageTitle').value.trim(),content=$('messageContent').value.trim(),contact=$('messageContact').value.trim();if(!name||!title||!content){toast('请完整填写必填内容');return}const issueTitle=`[${type}] ${title}`;const issueBody=`## 用户留言\n\n- **称呼：** ${name}\n- **类型：** ${type}\n- **联系方式：** ${contact||'未填写'}\n- **提交页面：** ${location.href}\n\n### 留言内容\n\n${content}\n\n---\n由“小菜鸟带你飞”网站留言表单生成。`;const url=`https://github.com/2002chen/python-learning-lab/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&labels=${encodeURIComponent('用户留言')}`;window.open(url,'_blank','noopener');toast('留言内容已生成，请在 GitHub 页面确认提交')});
+document.querySelectorAll('.quiz-level').forEach(button=>button.onclick=()=>changeQuizLevel(button.dataset.level));
+$('quizSubmit').onclick=submitQuiz;$('quizPrev').onclick=()=>{if(quizIndex>0){quizIndex--;quizChoice=null;quizChecked=false;renderQuiz()}};$('quizNext').onclick=()=>{const list=getQuizList();if(quizIndex<list.length-1){quizIndex++;quizChoice=null;quizChecked=false;renderQuiz()}else{toast('本组题目已完成，可以切换难度或随机重练')}};$('shuffleQuiz').onclick=shuffleQuiz;
 
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll('.reveal').forEach(x=>observer.observe(x));
-function stars(){const c=$('stars'),ctx=c.getContext('2d');if(!ctx||matchMedia('(prefers-reduced-motion:reduce)').matches)return;let pts=[];function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);pts=Array.from({length:Math.min(55,Math.floor(innerWidth/22))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.14,vy:(Math.random()-.5)*.14,r:Math.random()*1.2+.4}))}function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);pts.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1;ctx.fillStyle=i%4?'#20e9ff70':'#ff4f9e80';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()});requestAnimationFrame(draw)}resize();draw();addEventListener('resize',resize,{passive:true})}stars();updateStats();selectLesson(selected,false);
+function stars(){const c=$('stars'),ctx=c.getContext('2d');if(!ctx||matchMedia('(prefers-reduced-motion:reduce)').matches)return;let pts=[];function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);pts=Array.from({length:Math.min(45,Math.floor(innerWidth/25))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12,r:Math.random()*2+.8}))}function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);pts.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1;ctx.fillStyle=['#5d7cff55','#ff6e9e55','#24c98a55','#ffbd2e55'][i%4];ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()});requestAnimationFrame(draw)}resize();draw();addEventListener('resize',resize,{passive:true})}stars();updateStats();selectLesson(selected,false);renderQuiz();
