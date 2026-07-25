@@ -142,4 +142,5 @@
   $('chapterForm').addEventListener('submit', saveChapter); $('chapterCancel').onclick = clearChapterForm;
   $('announcementForm').addEventListener('submit', saveAnnouncement); $('announcementCancel').onclick = clearAnnouncementForm;
   window.adminDashboard = { open, close, loadQuestions, loadChapters, loadMessages, loadAnnouncements };
+  if (new URLSearchParams(location.search).get('admin') === '1') setTimeout(open, 0);
 })();

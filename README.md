@@ -27,7 +27,7 @@ set role = 'admin'
 where id = '管理员用户 UUID';
 ```
 
-升级已有数据库时，也需要重新运行最新的 `supabase-schema.sql`，以创建题目讨论、个人资料头像、站点公告表和对应 RLS 策略。公告和管理员留言回复功能在运行这份 SQL 前不会写入线上数据库。
+升级已有数据库时，也需要重新运行最新的 `supabase-schema.sql`，以创建题目讨论、个人资料头像、站点公告表和对应 RLS 策略。已有线上项目也可以只运行 `supabase-announcements-migration.sql` 来启用公告发布。
 
 ## 本地预览
 

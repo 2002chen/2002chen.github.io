@@ -325,17 +325,7 @@
       window.adminDashboard.open();
       return;
     }
-    let attempts = 0;
-    const timer = setInterval(() => {
-      attempts += 1;
-      if (window.adminDashboard) {
-        clearInterval(timer);
-        window.adminDashboard.open();
-      } else if (attempts >= 20) {
-        clearInterval(timer);
-        toast('管理员后台加载失败，请刷新页面后重试。', 'error');
-      }
-    }, 100);
+    location.href = 'index.html?admin=1';
   }
 
   async function paintAccount() {
