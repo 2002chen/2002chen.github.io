@@ -230,6 +230,15 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
 .study-checks button { padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-alt); }
 .study-checks button.done { color: var(--success); border-color: rgba(56, 139, 97, .4); background: #effaf4; }
 .lesson-practice { margin: 30px 0; padding-top: 24px; border-top: 1px solid var(--line); }
+.beginner-guide { margin: 0 0 30px; padding: 24px; border-left: 3px solid var(--brand); background: #f6efe8; }
+.beginner-guide h3 { margin: 4px 0 10px; }
+.beginner-guide p:last-child { margin-bottom: 0; }
+.lesson-walkthrough { margin: 34px 0; padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.lesson-walkthrough ol { display: grid; gap: 13px; padding-left: 24px; }
+.lesson-walkthrough li { padding-left: 5px; line-height: 1.75; }
+.common-mistake { margin: 28px 0; padding: 20px 22px; background: var(--surface-alt); }
+.common-mistake h3 { margin-top: 0; font-size: 1.15rem; }
+.common-mistake p { margin-bottom: 0; }
 .lesson-practice-head { display: flex; justify-content: space-between; align-items: start; gap: 14px; margin-bottom: 14px; }
 .lesson-practice-head h3 { margin: 3px 0 0; font-size: 1.35rem; }
 .lesson-practice-head > span { color: var(--muted); font-size: .78rem; }
