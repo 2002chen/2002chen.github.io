@@ -1,1 +1,89 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070919"><title>Python 代码实验室｜小菜鸟带你飞</title><link rel="stylesheet" href="subsite.css?v=1"><link rel="stylesheet" href="lab-site.css?v=1"></head><body><header class="sub-header"><nav class="shell sub-nav"><a class="sub-brand" href="index.html"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><div class="sub-links"><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a class="active" href="lab.html">代码实验室</a><a href="learning.html">学习中心</a><a href="index.html#message">留言</a></div><div class="sub-user"><span id="subUserName">学习者</span><i id="subAvatar">PY</i></div></nav></header><main><section class="sub-hero shell"><span class="sub-kicker">// PYTHON 在线实验室</span><h1>写下代码，<br><em>立即看见运行结果</em></h1><p>独立实验页面让编辑器拥有更大空间。代码保存在你的浏览器和个人云端学习数据中。</p></section><section class="lab-app shell glass"><div class="lab-toolbar"><span><i></i> main.py</span><div><button id="resetCode">重置</button><button id="clearOutput">清空输出</button></div></div><div class="lab-grid"><div class="editor-wrap"><div class="line-numbers" id="lineNumbers">1</div><textarea id="labEditor" spellcheck="false" aria-label="Python 代码编辑器">print("你好，Python！")</textarea></div><aside><small>运行结果</small><pre id="labOutput">点击“运行代码”开始。</pre><button class="primary" id="runCode">运行代码 ▶</button><p id="runtimeText">Python 引擎将在首次运行时加载。</p></aside></div></section></main><div class="auth-required" id="authRequired"><div class="glass"><h2>请先登录学习账户</h2><p>登录后才能进入代码实验室并保存代码。</p><a class="primary" href="index.html">返回主页登录</a></div></div><div class="toast" id="subToast"></div><footer class="sub-footer">小菜鸟带你飞 · Python 代码实验室</footer><script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js"></script><script src="subsite.js?v=4"></script><script src="account-profile.js?v=4"></script><script src="lab-site.js?v=1"></script></body></html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070919"><title>Python 代码实验室｜小菜鸟带你飞</title><link rel="stylesheet" href="subsite.css?v=1"><link rel="stylesheet" href="lab-site.css?v=1"></head><body><header class="sub-header"><nav class="shell sub-nav"><a class="sub-brand" href="index.html"><b>&lt;/&gt;</b> 小菜鸟带你飞</a><div class="sub-links"><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a class="active" href="lab.html">代码实验室</a><a href="learning.html">学习中心</a><a href="index.html#message">留言</a></div><div class="sub-user"><span id="subUserName">学习者</span><i id="subAvatar">PY</i></div></nav></header><main><section class="sub-hero shell"><span class="sub-kicker">// PYTHON 在线实验室</span><h1>写下代码，<br><em>立即看见运行结果</em></h1><p>独立实验页面让编辑器拥有更大空间。代码保存在你的浏览器和个人云端学习数据中。</p></section><section class="lab-app shell glass"><div class="lab-toolbar"><span><i></i> main.py</span><div><button id="resetCode">重置</button><button id="clearOutput">清空输出</button></div></div><div class="lab-grid"><div class="editor-wrap"><div class="line-numbers" id="lineNumbers">1</div><textarea id="labEditor" spellcheck="false" aria-label="Python 代码编辑器">print("Hello")
+# 试着把 "Hello" 改成你的名字
+print(5 + 3)</textarea></div><aside><small>运行结果</small><pre id="labOutput">点击“运行代码”开始。</pre><button class="primary" id="runCode">运行代码 ▶</button><p id="runtimeText">Python 引擎将在首次运行时加载。</p></aside></div></section></main><div class="auth-required" id="authRequired"><div class="glass"><h2>请先登录学习账户</h2><p>登录后才能进入代码实验室并保存代码。</p><a class="primary" href="index.html">返回主页登录</a></div></div><div class="toast" id="subToast"></div><footer class="sub-footer">小菜鸟带你飞 · Python 代码实验室</footer><script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js"></script><script src="subsite.js?v=4"></script><script src="account-profile.js?v=4"></script><script src="lab-site.js?v=1"></script>
+<div class="lab-onboarding" id="labOnboarding" role="dialog" aria-modal="true" aria-labelledby="labOnboardingTitle">
+  <div class="lab-onboard-card">
+    <div class="lab-onboard-close" id="closeLabOnboard" role="button" tabindex="0" aria-label="关闭引导">&times;</div>
+    <span class="lab-onboard-emoji">👋</span>
+    <h2 id="labOnboardingTitle">欢迎来到代码实验室！</h2>
+    <p>试着完成这 3 个小任务吧：</p>
+    <div class="lab-tasks">
+      <div class="lab-task" id="task1"><span class="lab-task-num">1</span><span>把 "Hello" 改成你的名字<br><small>点击 ▶ 运行看看</small></span><span class="lab-task-check">☐</span></div>
+      <div class="lab-task" id="task2"><span class="lab-task-num">2</span><span>把 5 + 3 改成其他数字<br><small>观察输出变化</small></span><span class="lab-task-check">☐</span></div>
+      <div class="lab-task" id="task3"><span class="lab-task-num">3</span><span>写一行 print("我会了！")<br><small>代码已保存</small></span><span class="lab-task-check">☐</span></div>
+    </div>
+    <button class="primary" id="startLabExploring">开始探索</button>
+    <div class="lab-snippets">
+      <small>代码片段（点击插入）</small>
+      <button class="snip" data-code="print('hello')">print() 输出</button>
+      <button class="snip" data-code="name = 'Tom'
+print(name)">变量 + 打印</button>
+      <button class="snip" data-code="for i in range(1,4):
+    print(i)">for 循环</button>
+      <button class="snip" data-code="x = 10
+if x > 5:
+    print('big')">if 判断</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  const overlay=document.getElementById("labOnboarding");
+  if(!overlay)return;
+  // Show onboarding on first visit
+  if(!localStorage.getItem("lab-onboard-done")){
+    overlay.classList.add("open");
+  }
+  document.getElementById("closeLabOnboard")?.addEventListener("click",function(){
+    overlay.classList.remove("open");
+    localStorage.setItem("lab-onboard-done","1");
+  });
+  document.getElementById("startLabExploring")?.addEventListener("click",function(){
+    overlay.classList.remove("open");
+    localStorage.setItem("lab-onboard-done","1");
+  });
+  // Snippet buttons
+  overlay.querySelectorAll(".snip").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      const editor=document.getElementById("labEditor");
+      if(editor){
+        editor.value=this.getAttribute("data-code");
+        // Check task1
+        if(this.getAttribute("data-code").includes("print")){
+          document.getElementById("task1")?.classList.add("done");
+          const check=document.getElementById("task1")?.querySelector(".lab-task-check");
+          if(check)check.textContent="✓";
+        }
+      }
+    });
+  });
+  // Monitor editor for task completion
+  const editor=document.getElementById("labEditor");
+  if(editor){
+    editor.addEventListener("input",function(){
+      const v=this.value;
+      if(v.includes("name")||v.includes("print")){
+        document.getElementById("task1")?.classList.add("done");
+        document.getElementById("task1")?.querySelector(".lab-task-check").textContent="✓";
+      }
+      if(/\d+\s*[\+\-\*]\s*\d+/.test(v)){
+        document.getElementById("task2")?.classList.add("done");
+        document.getElementById("task2")?.querySelector(".lab-task-check").textContent="✓";
+      }
+    });
+  }
+  // Run button hooks into task3
+  const runBtn=document.getElementById("runCode");
+  if(runBtn){
+    runBtn.addEventListener("click",function(){
+      setTimeout(function(){
+        document.getElementById("task3")?.classList.add("done");
+        document.getElementById("task3")?.querySelector(".lab-task-check").textContent="✓";
+      },500);
+    });
+  }
+});
+</script>
+</body></html>
