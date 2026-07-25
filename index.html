@@ -32,6 +32,7 @@
       <div class="account-area"><button class="sync-pill" id="syncStatus" type="button"><i></i><span>&#20113;&#31471;&#26410;&#36830;&#25509;</span></button><button class="level-pill" id="levelButton" type="button"><span id="accountName">&#26410;&#30331;&#24405;</span><i id="accountAvatar">PY</i></button><div class="account-menu" id="accountMenu"><b id="accountEmail"></b><button id="accountProgress" type="button">&#25105;&#30340;&#36827;&#24230;</button><button id="logoutButton" type="button">&#36864;&#20986;&#30331;&#24405;</button></div></div>
     </nav>
   </header>
+<script>document.addEventListener("DOMContentLoaded",function(){document.querySelector(".menu-toggle")?.addEventListener("click",function(){var l=this.closest("nav").querySelector(".navlinks");if(l){l.classList.toggle("open");document.body.classList.toggle("nav-open")}this.classList.toggle("active");this.setAttribute("aria-label",this.classList.contains("active")?"关闭导航菜单":"打开导航菜单")})});</script>
 
   <main id="home">
     <section class="hero apple-hero shell">
@@ -215,7 +216,7 @@
     </section>
   </main>
 
-  <footer><div class="shell"><a class="brand" href="#home">&#23567;&#33756;&#40479;&#24102;&#20320;&#39134;</a><span>&#32534;&#20889; · &#36816;&#34892; · &#23398;&#20064; · &#36827;&#27493;</span><span>&#169; 2026</span></div></footer>
+  <footer class="site-footer-opt has-footer-opt"><div class=footer-inner><div class=footer-brand>小菜鸟带你飞</div><p class=footer-tagline>编写 · 运行 · 学习 · 进步</p><div class=footer-links><a href=index.html>首页</a><a href=tutorial.html>系统教程</a><a href=quiz.html>3000题库</a><a href=lab.html>代码实验室</a><a href=learning.html>学习中心</a><a href=index.html#message>留言</a></div><div class=footer-bottom><span>© 2026 陈定栋</span><span class=footer-back onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ 顶部</span></div></div></footer>
 
   <div class="auth-gate" id="authGate">
     <section class="auth-shell">
