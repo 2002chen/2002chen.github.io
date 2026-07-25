@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -35,148 +35,47 @@
 <script>document.addEventListener("DOMContentLoaded",function(){document.querySelector(".menu-toggle")?.addEventListener("click",function(){var l=this.closest("nav").querySelector(".navlinks");if(l){l.classList.toggle("open");document.body.classList.toggle("nav-open")}this.classList.toggle("active");this.setAttribute("aria-label",this.classList.contains("active")?"关闭导航菜单":"打开导航菜单")})});</script>
 
   <main id="home">
-    <section class="hero apple-hero shell">
-      <div class="hero-copy reveal">
-        <div class="online"><i></i> 为完全零基础学习者设计</div>
-        <h1>学 Python，<br><em>可以简单，也可以很美。</em></h1>
-        <p>从“代码是什么”开始，用清晰教程、动态题库和在线实验室，一步一步完成属于你的第一个 Python 作品。</p>
-        <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html">开始学习 <span>→</span></a><a class="secondary" id="quickRun" href="lab.html">体验代码实验室</a></div>
-        <div class="apple-points"><span>每节五步学习</span><span>3000 道动态题库</span><span>手机电脑同步</span></div>
-      </div>
-      <div class="apple-product reveal">
-        <div class="product-glow"></div><img src="assets/site-icon.png" alt="代码与书本图标">
-        <div class="product-card product-card-a"><small>今日进度</small><b id="statPercent">0%</b></div>
-        <div class="product-card product-card-b"><small>学习能量</small><b id="statXp">0 XP</b></div>
-      </div>
-    </section>
-
-    <section class="stats shell reveal">
-      <article><i>&lt;/&gt;</i><div><b id="statRuns">0</b><span>&#20195;&#30721;&#36816;&#34892;&#27425;&#25968;</span></div></article>
-      <article><i>&#9670;</i><div><b id="statLessons">0 / 6</b><span>&#24050;&#23436;&#25104;&#20851;&#21345;</span></div></article>
-      <article><i>&#9889;</i><div><b>5 步</b><span>每节固定学习流程</span></div></article>
-      <article><i>&#9733;</i><div><b>3012</b><span>云端选择题数量</span></div></article>
-    </section>
-
-    <section class="moving-showcase" aria-labelledby="showcaseTitle">
-      <div class="showcase-heading shell"><div><small>// 活力学习展廊</small><h2 id="showcaseTitle">正在移动的学习模块</h2></div><p>把鼠标放在卡片上会暂停移动；手机上可以跟随展廊浏览不同学习空间。</p></div>
-      <div class="showcase-viewport"><div class="showcase-track">
-        <a class="showcase-card" style="--card-a:#fff0a9;--card-b:#ffd1a8" href="tutorial.html"><span>📖</span><small>零基础主线</small><b>系统教程</b><em>从代码是什么开始 →</em></a>
-        <a class="showcase-card" style="--card-a:#dce8ff;--card-b:#d8c8ff" href="quiz.html"><span>🎯</span><small>动态云端题库</small><b>3000 道闯关题</b><em>按难度开始训练 →</em></a>
-        <a class="showcase-card" style="--card-a:#d7fff0;--card-b:#bdeee4" href="lab.html"><span>💻</span><small>边学边运行</small><b>代码实验室</b><em>亲手修改并观察 →</em></a>
-        <a class="showcase-card" style="--card-a:#ffe0ea;--card-b:#ffc4d6" href="learning.html"><span>🚀</span><small>个人成长数据</small><b>学习中心</b><em>查看自己的进度 →</em></a>
-        <a class="showcase-card" style="--card-a:#fff0a9;--card-b:#ffd1a8" href="tutorial.html" aria-hidden="true" tabindex="-1"><span>📖</span><small>零基础主线</small><b>系统教程</b><em>从代码是什么开始 →</em></a>
-        <a class="showcase-card" style="--card-a:#dce8ff;--card-b:#d8c8ff" href="quiz.html" aria-hidden="true" tabindex="-1"><span>🎯</span><small>动态云端题库</small><b>3000 道闯关题</b><em>按难度开始训练 →</em></a>
-        <a class="showcase-card" style="--card-a:#d7fff0;--card-b:#bdeee4" href="lab.html" aria-hidden="true" tabindex="-1"><span>💻</span><small>边学边运行</small><b>代码实验室</b><em>亲手修改并观察 →</em></a>
-        <a class="showcase-card" style="--card-a:#ffe0ea;--card-b:#ffc4d6" href="learning.html" aria-hidden="true" tabindex="-1"><span>🚀</span><small>个人成长数据</small><b>学习中心</b><em>查看自己的进度 →</em></a>
-      </div></div>
-    </section>
-    <button id="demoRun" type="button" hidden></button><code id="demoOutput" hidden></code>
-
-    <section class="tutorial-section" id="tutorial">
-      <div class="shell">
-        <div class="section-title reveal"><div><small>// PYTHON &#31995;&#32479;&#25945;&#31243;</small><h2>&#19981;&#21482;&#26159;&#21047;&#39064;&#65292;&#32780;&#26159;&#30495;&#27491;&#23398;&#20250; Python</h2></div><p>&#27599;&#31456;&#20808;&#23398;&#25945;&#31243;&#65292;&#20877;&#20570;&#31456;&#33410;&#23567;&#32467;&#21644;&#35838;&#21518;&#32451;&#20064;&#12290;&#25152;&#26377;&#23398;&#20064;&#35760;&#24405;&#37117;&#20445;&#23384;&#22312;&#20320;&#30340;&#20010;&#20154;&#36134;&#25143;&#20013;&#12290;</p></div>
-        <div class="beginner-promise reveal"><span>&#127793;</span><div><b>&#19987;&#20026;&#38646;&#22522;&#30784;&#35774;&#35745;</b><p>&#19981;&#38656;&#35201;&#30693;&#36947;&#20160;&#20040;&#26159;&#20195;&#30721;&#12290;&#27599;&#20010;&#26032;&#35789;&#37117;&#20250;&#20808;&#29992;&#29983;&#27963;&#20363;&#23376;&#35299;&#37322;&#65292;&#20877;&#19968;&#27493;&#19968;&#27493;&#21160;&#25163;&#65292;&#20889;&#38169;&#20063;&#26159;&#27491;&#24120;&#30340;&#23398;&#20064;&#36807;&#31243;&#12290;<small>&#30693;&#35782;&#36335;&#32447;&#21442;&#32771;&#12298;Python &#32534;&#31243;&#65306;&#20174;&#20837;&#38376;&#21040;&#23454;&#36341;&#65288;&#31532; 3 &#29256;&#65289;&#12299;&#65292;&#32593;&#31449;&#35762;&#35299;&#12289;&#31034;&#20363;&#21644;&#20064;&#39064;&#22343;&#20026;&#38754;&#21521;&#38646;&#22522;&#30784;&#29992;&#25143;&#30340;&#21407;&#21019;&#20869;&#23481;&#12290;</small></p></div><div class="beginner-flow"><i>1</i>&#30475;&#25026;&#27010;&#24565;<i>2</i>&#29031;&#30528;&#20570;<i>3</i>&#25913;&#19968;&#25913;<i>4</i>&#33258;&#24049;&#20570;</div></div>
-        <div class="tutorial-layout reveal">
-          <aside class="chapter-sidebar">
-            <div class="chapter-sidebar-head"><b>&#35838;&#31243;&#30446;&#24405;</b><span id="courseProgressText">0% &#23436;&#25104;</span></div>
-            <div class="course-progress"><i id="courseProgressBar"></i></div>
-            <div id="chapterList" class="chapter-list"></div>
-          </aside>
-          <article class="lesson-reader">
-            <div class="reader-empty" id="readerEmpty"><i>&#128214;</i><h3>&#36873;&#25321;&#19968;&#20010;&#31456;&#33410;&#24320;&#22987;&#23398;&#20064;</h3><p>&#25945;&#31243;&#20869;&#23481;&#20250;&#20174;&#20113;&#31471;&#25968;&#25454;&#24211;&#21160;&#24577;&#21152;&#36733;&#12290;</p></div>
-            <div class="reader-content" id="readerContent">
-              <div class="reader-breadcrumb" id="readerBreadcrumb"></div>
-              <div class="reader-title"><div><small id="readerType">&#35838;&#31243;&#23567;&#33410;</small><h2 id="readerTitle"></h2><p id="readerSummary"></p></div><span id="readerReadTime"></span></div>
-              <div class="tutorial-body" id="tutorialBody"></div>
-              <div class="tutorial-code" id="tutorialCodeBox"><div><span>&#20195;&#30721;&#31034;&#20363;</span><button id="copyTutorialCode" type="button">&#22797;&#21046;&#20195;&#30721;</button></div><pre id="tutorialCode"></pre></div>
-              <div class="reader-actions"><button id="readerPrevious" type="button">&#8592; &#19978;&#19968;&#33410;</button><button class="complete-section" id="completeSection" type="button">&#26631;&#35760;&#26412;&#33410;&#24050;&#23398;&#23436; &#10003;</button><button id="readerNext" type="button">&#19979;&#19968;&#33410; &#8594;</button></div>
-            </div>
-          </article>
-          <aside class="chapter-task-panel" id="chapterTaskPanel">
-            <small>&#24403;&#21069;&#31456;&#33410;</small><h3 id="taskChapterTitle">&#23578;&#26410;&#36873;&#25321;</h3>
-            <div class="task-counts"><button data-exercise-view="after_class-choice" type="button"><i>&#10003;</i><span><b>10</b>&#36873;&#25321;&#39064;</span></button><button data-exercise-view="after_class-short_answer" type="button"><i>&#9998;</i><span><b>10</b>&#38382;&#31572;&#39064;</span></button><button data-exercise-view="after_class-coding" type="button"><i>&#128187;</i><span><b>5</b>&#21160;&#25163;&#39064;</span></button><button data-exercise-view="summary-all" type="button"><i>&#128161;</i><span><b>5</b>&#23567;&#32467;&#39064;</span></button></div>
-            <p>&#23436;&#25104;&#26412;&#31456;&#25945;&#31243;&#21518;&#65292;&#29992; 30 &#36947;&#39064;&#26816;&#39564;&#23398;&#20064;&#25104;&#26524;&#12290;</p>
-            <button class="primary" id="openChapterExercises" type="button">&#36827;&#20837;&#26412;&#31456;&#32451;&#20064;</button>
-          </aside>
+    <section class="hero-new shell reveal">
+      <div class="hero-body">
+        <h1 class="hero-title">学 Python，<em>可以简单，也可以很美。</em></h1>
+        <p class="hero-tagline">零基础 · 3000+ 题 · 在线运行</p>
+        <div class="hero-cta">
+          <a class="primary pulse" id="startLearning" href="tutorial.html">开始学习 <span>→</span></a>
+          <a class="secondary" id="trialLesson" href="tutorial.html?trial=1">先试一节课</a>
+        </div>
+        <div class="hero-numbers">
+          <span><b>3000+</b><small>道精选题目</small></span>
+          <span><b>40</b><small>章系统教程</small></span>
+          <span><b>100%</b><small>零基础友好</small></span>
         </div>
       </div>
     </section>
 
-    <section class="exercise-center" id="chapterExercises">
-      <div class="shell">
-        <div class="section-title"><div><small>// &#31456;&#33410;&#32451;&#20064;&#20013;&#24515;</small><h2 id="exerciseCenterTitle">&#35838;&#21518;&#32451;&#20064;</h2></div><button class="close-exercises" id="closeExercises" type="button">&#36820;&#22238;&#25945;&#31243; &#8593;</button></div>
-        <div class="exercise-tabs" id="exerciseTabs"><button class="active" data-exercise-tab="choice" type="button">10 &#36947;&#36873;&#25321;&#39064;</button><button data-exercise-tab="short_answer" type="button">10 &#36947;&#38382;&#31572;&#39064;</button><button data-exercise-tab="coding" type="button">5 &#36947;&#21160;&#25163;&#39064;</button><button data-exercise-tab="summary" type="button">5 &#36947;&#23567;&#32467;&#39064;</button></div>
-        <div class="exercise-workspace"><div class="exercise-list" id="exerciseList"></div><article class="exercise-detail" id="exerciseDetail"><div class="reader-empty"><i>&#9997;</i><h3>&#36873;&#25321;&#19968;&#36947;&#39064;&#24320;&#22987;&#20316;&#31572;</h3></div></article></div>
-      </div>
+    <section class="three-cards shell reveal">
+      <a class="core-card" href="tutorial.html">
+        <span class="core-icon">📖</span><b>系统教程</b><small>从零开始学 Python</small><em>开始学习 →</em>
+      </a>
+      <a class="core-card" href="quiz.html">
+        <span class="core-icon">🎯</span><b>3000 题库</b><small>闯关刷题巩固</small><em>开始训练 →</em>
+      </a>
+      <a class="core-card" href="lab.html">
+        <span class="core-icon">💻</span><b>代码实验室</b><small>边学边运行</small><em>体验代码 →</em>
+      </a>
     </section>
 
-    <section class="quiz-section" id="quiz">
-      <div class="shell">
-        <div class="section-title reveal"><div><small>// PYTHON &#38383;&#20851;&#39064;&#24211;</small><h2>&#20174;&#23567;&#30333;&#21040;&#36827;&#38454;&#65292;&#19968;&#39064;&#19968;&#39064;&#21319;&#32423;</h2></div><p>&#20197;&#36873;&#25321;&#39064;&#20026;&#20027;&#65292;&#27599;&#39064;&#37117;&#26377;&#21363;&#26102;&#35299;&#26512;&#12290;&#31572;&#38169;&#30340;&#39064;&#20250;&#33258;&#21160;&#25910;&#36827;&#38169;&#39064;&#26412;&#12290;</p></div>
-        <div class="quiz-dashboard reveal">
-          <div class="quiz-levels" id="quizLevels">
-            <button class="quiz-level active" data-level="beginner" type="button"><i>&#127793;</i><span><b>&#38646;&#22522;&#30784;</b><small>&#20174;&#35748;&#35782; Python &#24320;&#22987;</small></span><em id="beginnerProgress">0/12</em></button>
-            <button class="quiz-level" data-level="basic" type="button"><i>&#128640;</i><span><b>&#22522;&#30784;</b><small>&#35821;&#27861;&#19982;&#31243;&#24207;&#24605;&#32500;</small></span><em id="basicProgress">0/12</em></button>
-            <button class="quiz-level" data-level="advanced" type="button"><i>&#127775;</i><span><b>&#36827;&#38454;</b><small>&#20989;&#25968;&#12289;&#23545;&#35937;&#19982;&#24322;&#24120;</small></span><em id="advancedProgress">0/12</em></button>
-            <button class="quiz-level wrong-level" data-level="wrong" type="button"><i>&#128218;</i><span><b>&#38169;&#39064;&#26412;</b><small>&#37325;&#28857;&#25915;&#20811;&#23481;&#26131;&#20986;&#38169;&#30340;&#39064;</small></span><em id="wrongCount">0</em></button>
-          </div>
-          <article class="quiz-card">
-            <div class="quiz-top"><span id="quizLevelName">&#38646;&#22522;&#30784;</span><div><b id="quizQuestionNumber">1</b> / <span id="quizTotal">12</span></div></div>
-            <div class="quiz-meter"><i id="quizMeter"></i></div>
-            <div class="quiz-tags"><span id="quizTopic">Python &#20837;&#38376;</span><em>&#21333;&#36873;&#39064;</em></div>
-            <h3 id="quizQuestion"></h3>
-            <div class="quiz-options" id="quizOptions"></div>
-            <div class="quiz-explanation" id="quizExplanation"><b>&#39064;&#30446;&#35299;&#26512;</b><p></p></div>
-            <div class="quiz-actions"><button class="quiz-prev" id="quizPrev" type="button">&#8592; &#19978;&#19968;&#39064;</button><button class="primary" id="quizSubmit" type="button">&#25552;&#20132;&#31572;&#26696;</button><button class="quiz-next" id="quizNext" type="button">&#19979;&#19968;&#39064; &#8594;</button></div>
-          </article>
-          <aside class="quiz-summary">
-            <div class="quiz-score"><span id="quizScore">0</span><small>&#24403;&#21069;&#24471;&#20998;</small></div>
-            <div class="summary-row"><span>&#24050;&#31572;&#39064;&#25968;</span><b id="quizAnswered">0</b></div>
-            <div class="summary-row"><span>&#31572;&#23545;&#39064;&#25968;</span><b id="quizCorrect">0</b></div>
-            <div class="summary-row"><span>&#24403;&#21069;&#36830;&#23545;</span><b id="quizStreak">0</b></div>
-            <div class="quiz-tip"><i>&#128161;</i><p>&#20808;&#36873;&#25321;&#31572;&#26696;&#65292;&#20877;&#28857;&#20987;&#25552;&#20132;&#12290;&#30475;&#23436;&#35299;&#26512;&#21518;&#36827;&#20837;&#19979;&#19968;&#39064;&#12290;</p></div>
-            <button class="shuffle-btn" id="shuffleQuiz" type="button">&#128256; &#38543;&#26426;&#25442;&#19968;&#32452;</button>
-          </aside>
-        </div>
+    <section class="learning-path shell reveal">
+      <h2>你的学习路线</h2>
+      <div class="path-steps">
+        <div class="path-step"><span>①</span><b>打开教程</b><small>从第一章开始</small></div>
+        <div class="path-arrow">→</div>
+        <div class="path-step"><span>②</span><b>动手实验</b><small>在线修改运行</small></div>
+        <div class="path-arrow">→</div>
+        <div class="path-step"><span>③</span><b>刷题巩固</b><small>3000 道等你挑战</small></div>
+        <div class="path-arrow">→</div>
+        <div class="path-step"><span>④</span><b>查看进度</b><small>记录成长数据</small></div>
       </div>
     </section>
-
-    <section class="section shell" id="courses">
-      <div class="section-title reveal"><div><small>// &#23398;&#20064;&#36335;&#24452;</small><h2>&#28857;&#20142;&#20320;&#30340; Python &#25216;&#33021;&#26641;</h2></div><p>&#27599;&#20851; 5-10 &#20998;&#38047;&#65292;&#21253;&#21547;&#30693;&#35782;&#12289;&#20219;&#21153;&#12289;&#30495;&#23454;&#36816;&#34892;&#21644;&#33258;&#21160;&#21028;&#39064;&#12290;</p></div>
-      <div class="course-layout reveal">
-        <aside class="lesson-nav" id="lessonNav" aria-label="Course lessons"></aside>
-        <article class="course-preview">
-          <div class="preview-top"><span id="previewNumber">&#20219;&#21153; 01</span><b id="previewStatus">&#21487;&#24320;&#22987;</b></div>
-          <div class="preview-icon" id="previewIcon">&#9889;</div>
-          <small id="previewKicker">PYTHON &#22522;&#30784;</small>
-          <h3 id="previewTitle">&#20320;&#22909;&#65292;Python&#65281;</h3>
-          <p id="previewDescription"></p>
-          <div class="concepts" id="previewConcepts"></div>
-          <button class="primary" id="openLesson" type="button">&#36827;&#20837;&#20851;&#21345; <span>&#8594;</span></button>
-        </article>
-      </div>
-    </section>
-
-    <section class="lab-section" id="lab">
-      <div class="shell">
-        <div class="section-title reveal"><div><small>// PYTHON &#22312;&#32447;&#23454;&#39564;&#23460;</small><h2 id="labTitle">&#20320;&#22909;&#65292;Python&#65281;</h2></div><div class="runtime" id="runtimeStatus"><i></i><span>PYTHON &#24341;&#25806;&#65306;&#24453;&#21629;</span></div></div>
-        <div class="workspace reveal">
-          <aside class="brief">
-            <div class="mission-label" id="missionLabel">&#20219;&#21153; 01</div>
-            <h3 id="missionTitle"></h3>
-            <p id="missionDescription"></p>
-            <div class="knowledge"><small>&#26680;&#24515;&#30693;&#35782;</small><div id="knowledgeText"></div></div>
-            <h4>&#20219;&#21153;&#26816;&#26597;&#39033;</h4><ul id="checklist"></ul>
-            <div class="brief-actions"><button class="hint-btn" id="showHint" type="button">&#26174;&#31034;&#25552;&#31034;</button><button class="answer-btn" id="showAnswer" type="button">&#26597;&#30475;&#31572;&#26696;</button></div>
-            <div class="assist" id="assistBox"></div>
-          </aside>
-          <section class="code-panel">
-            <div class="editor-tabs"><b>main.py</b><span id="dirtyState">&#24050;&#20445;&#23384;</span><button id="resetCode" type="button">&#37325;&#32622;&#20195;&#30721;</button></div>
-            <div class="editor-area"><div class="line-numbers" id="lineNumbers">1</div><textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Python code editor"></textarea></div>
-            <div class="console-head"><b>&#36816;&#34892;&#32467;&#26524;</b><button id="clearConsole" type="button">&#28165;&#31354;</button></div>
-            <pre class="console" id="consoleOutput"><span>&gt; &#28857;&#20987;&#36816;&#34892;&#21518;&#20250;&#33258;&#21160;&#21152;&#36733; Python &#24341;&#25806;&#12290;</span></pre>
-            <div class="runbar"><span id="testSummary">0 / 0 &#39033;&#27979;&#35797;</span><button class="secondary" id="runOnly" type="button">&#9654; &#20165;&#36816;&#34892;</button><button class="primary" id="runTests" type="button">&#36816;&#34892;&#24182;&#26816;&#26597; <span>&#9654;</span></button></div>
-          </section>
+    
         </div>
         <div class="lesson-switcher reveal"><button id="previousLesson" type="button">&#8592; &#19978;&#19968;&#20851;</button><span id="lessonPosition">1 / 6</span><button id="nextLesson" type="button">&#19979;&#19968;&#20851; &#8594;</button></div>
       </div>
