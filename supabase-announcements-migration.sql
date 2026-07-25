@@ -47,6 +47,8 @@ create table if not exists public.site_visits (
   path text not null check (char_length(path) between 1 and 200),
   created_at timestamptz not null default now()
 );
+create index if not exists site_visits_created_at_idx on public.site_visits(created_at desc);
+create index if not exists site_visits_visitor_id_idx on public.site_visits(visitor_id, created_at desc);
 
 alter table public.site_visits enable row level security;
 drop policy if exists "visitors insert visits" on public.site_visits;
