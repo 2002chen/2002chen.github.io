@@ -29,7 +29,9 @@ set role = 'admin'
 where id = '管理员用户 UUID';
 ```
 
-升级已有数据库时，也需要重新运行最新的 `supabase-schema.sql`，以创建题目讨论、个人资料头像、站点公告、访问统计和消息已读字段及对应 RLS 策略。已有线上项目可以只运行 `supabase-announcements-migration.sql`，它会一次性补齐公告、访问统计和消息通知所需结构。
+升级已有数据库时，也需要重新运行最新的 `supabase-schema.sql`，以创建题目讨论、个人资料头像、站点公告、访问统计和消息已读字段及对应 RLS 策略。已有线上项目可以只运行 `supabase-announcements-migration.sql`，它会一次性补齐公告、访问统计和消息通知所需结构。课程已经导入后，再运行 `seed-lesson-practice.sql`，为每个教程小节加入一道思考题和一道动手题；这个文件可以重复执行。
+
+版权与来源说明见 `copyright.html`，工程层面的素材审计见 `COPYRIGHT-AUDIT.md`。
 
 ## 本地预览
 

@@ -48,9 +48,10 @@
     heatmap(dates); paintAbilities(completed, attempts);
     if (localStorage.getItem('python-lab-code-v2')) unlock('first-code'); if (attempts >= 10) unlock('ten-quiz'); if (completed >= 1) unlock('first-section'); if (xp >= 200) unlock('hundred-run');
     const unreadMessages = messages.filter(message => message.admin_reply && !message.user_read_at);
+    $('messageNotifications').closest('.message-notice-card')?.classList.toggle('has-unread', unreadMessages.length > 0);
     $('messageUnreadCount').textContent = `${unreadMessages.length} 条未读`;
     $('messageNotifications').innerHTML = unreadMessages.length ? unreadMessages.map(message => `<article class="message-notification"><div><b>${site.escapeHtml(message.title)}</b><small>${new Date(message.created_at).toLocaleDateString('zh-CN')}</small><p>${site.escapeHtml(message.admin_reply)}</p></div><button class="secondary" type="button" data-read-user-message="${message.id}">标记已读</button></article>`).join('') : '<p class="empty-state">暂无新回复。</p>';
-    document.querySelectorAll('[data-read-user-message]').forEach(button => button.onclick = async () => { button.disabled = true; const { error } = await context.client.rpc('mark_message_read', { message_id: Number(button.dataset.readUserMessage) }); if (error) { site.toast(`消息标记失败：${error.message}`, 'error'); button.disabled = false; return; } await load(); });
+    document.querySelectorAll('[data-read-user-message]').forEach(button => button.onclick = async () => { button.disabled = true; const { error } = await context.client.rpc('mark_message_read', { message_id: Number(button.dataset.readUserMessage) }); if (error) { site.toast(`消息标记失败：${error.message}`, 'error'); button.disabled = false; return; } await load(); await site.refreshUnreadReplies(); });
     if (messages.length) $('messageHistory').innerHTML = messages.map(message => `<article><b>${site.escapeHtml(message.title)}</b><small class="muted">${new Date(message.created_at).toLocaleDateString('zh-CN')} · ${statusText(message.status)}</small>${message.admin_reply ? `<p>管理员回复：${site.escapeHtml(message.admin_reply)}</p>` : ''}</article>`).join('');
     $('nextSuggestion').textContent = completed ? (accuracy < 70 && attempts ? '正确率还有提升空间，建议进入错题重做并复习相关知识点。' : '保持节奏：继续下一节教程，再完成两道练习题。') : '从第一节教程开始，完成一次“理解—动手—检查”。';
   }
@@ -61,18 +62,5 @@
     return streak;
   }
   function statusText(value) { return { new: '等待回复', processing: '处理中', resolved: '已回复' }[value] || value; }
-  const reminder = document.createElement('button');
-  reminder.className = 'secondary';
-  reminder.type = 'button';
-  reminder.textContent = localStorage.getItem('python-reminder-enabled') === '1' ? '学习提醒已开启' : '开启每日学习提醒';
-  reminder.onclick = async () => {
-    if (!('Notification' in window)) { site.toast('当前浏览器不支持学习提醒。'); return; }
-    const permission = await Notification.requestPermission();
-    if (permission !== 'granted') { site.toast('未获得通知权限，提醒没有开启。'); return; }
-    localStorage.setItem('python-reminder-enabled', '1');
-    new Notification('学习提醒已开启', { body: '每天回来完成一小节，让进步连续起来。', icon: 'assets/site-icon.png' });
-    reminder.textContent = '学习提醒已开启';
-  };
-  $('heatmap').insertAdjacentElement('afterend', reminder);
   load();
 })();

@@ -49,7 +49,7 @@
   shareButton.id = 'shareProject'; shareButton.type = 'button'; shareButton.className = 'secondary wide'; shareButton.textContent = '分享我的 Python 作品'; shareButton.hidden = true;
   document.querySelector('.run-panel').insertBefore(shareButton, $('runtimeText'));
   shareButton.onclick = async () => {
-    const shareData = { title: '我的 Python 作品', text: `我在“小菜鸟带你飞”完成了一个 Python 作品！\n\n${editor.value.slice(0, 240)}`, url: 'https://2002chen.github.io/lab.html' };
+    const shareData = { title: '我的 Python 作品', text: `我在“小菜鸟带你飞”完成了一个 Python 作品！\n\n${editor.value.slice(0, 240)}`, url: `${location.origin}${location.pathname}` };
     if (navigator.share) { try { await navigator.share(shareData); return; } catch (error) { if (error.name === 'AbortError') return; } }
     await navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`); site.toast('作品分享文案已复制', 'success');
   };

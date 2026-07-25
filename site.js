@@ -183,6 +183,86 @@
     if (location.hash === '#support-author') open();
   }
 
+  function ensureCopyrightLinks() {
+    $$('.footer-links').forEach(group => {
+      if (group.querySelector('b')?.textContent !== '更多' || $('a[href="copyright.html"]', group)) return;
+      group.insertAdjacentHTML('beforeend', '<a href="copyright.html">版权与来源</a>');
+    });
+    $$('.footer-bottom a[href="copyright.html"]').forEach(link => link.remove());
+  }
+
+  let currentAnnouncementKey = '';
+  function ensureAnnouncementUI() {
+    let shell = $('#announcementShell');
+    if (!shell) {
+      shell = document.createElement('section');
+      shell.className = 'announcement-shell shell';
+      shell.id = 'announcementShell';
+      shell.hidden = true;
+      shell.setAttribute('aria-live', 'polite');
+      shell.innerHTML = '<div class="announcement-content"><span>站点公告</span><button class="announcement-trigger" id="announcementOpen" type="button" aria-haspopup="dialog"><b id="announcementBannerTitle"></b><span id="announcementSummary"></span><i>查看完整公告</i></button><small id="announcementTime"></small></div><button type="button" id="dismissAnnouncement" aria-label="关闭公告">×</button>';
+      document.querySelector('.site-header')?.insertAdjacentElement('afterend', shell);
+    }
+
+    let dialog = $('#announcementDialog');
+    if (!dialog) {
+      dialog = document.createElement('div');
+      dialog.className = 'announcement-dialog';
+      dialog.id = 'announcementDialog';
+      dialog.hidden = true;
+      dialog.setAttribute('aria-hidden', 'true');
+      dialog.innerHTML = '<div class="announcement-backdrop" data-close-announcement></div><section role="dialog" aria-modal="true" aria-labelledby="announcementDialogTitle"><button class="dialog-close" type="button" data-close-announcement aria-label="关闭公告详情">×</button><p class="eyebrow">站点公告</p><h2 id="announcementDialogTitle"></h2><time id="announcementDialogTime"></time><article id="announcementFullContent"></article></section>';
+      document.body.appendChild(dialog);
+    }
+
+    const closeDialog = () => {
+      dialog.classList.remove('open');
+      dialog.setAttribute('aria-hidden', 'true');
+      dialog.hidden = true;
+      document.body.classList.remove('modal-open');
+    };
+    $('#announcementOpen').onclick = () => {
+      dialog.hidden = false;
+      dialog.classList.add('open');
+      dialog.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      setTimeout(() => $('[data-close-announcement]', dialog)?.focus(), 30);
+    };
+    $$('[data-close-announcement]', dialog).forEach(node => node.onclick = closeDialog);
+    $('#dismissAnnouncement').onclick = () => {
+      closeDialog();
+      if (currentAnnouncementKey) sessionStorage.setItem(`dismissed-announcement-${currentAnnouncementKey}`, '1');
+      shell.hidden = true;
+    };
+    addEventListener('keydown', event => { if (event.key === 'Escape' && dialog.classList.contains('open')) closeDialog(); });
+  }
+
+  async function refreshAnnouncement() {
+    if (!client) return;
+    const { data, error } = await client.from('site_announcements').select('id,title,content,published_at,updated_at').eq('published', true).order('published_at', { ascending: false }).limit(1).maybeSingle();
+    const shell = $('#announcementShell');
+    if (error || !shell) return;
+    if (!data) { shell.hidden = true; currentAnnouncementKey = ''; return; }
+    const nextKey = `${data.id}-${data.updated_at || data.published_at || ''}`;
+    currentAnnouncementKey = nextKey;
+    if (sessionStorage.getItem(`dismissed-announcement-${nextKey}`)) { shell.hidden = true; return; }
+    const date = data.published_at ? new Date(data.published_at).toLocaleDateString('zh-CN') : '';
+    $('#announcementBannerTitle').textContent = data.title || '站点公告';
+    $('#announcementSummary').textContent = String(data.content || '').replace(/\s+/g, ' ').trim();
+    $('#announcementTime').textContent = date;
+    $('#announcementDialogTitle').textContent = data.title || '站点公告';
+    $('#announcementDialogTime').textContent = date ? `发布于 ${date}` : '';
+    $('#announcementFullContent').textContent = data.content || '';
+    const isNew = nextKey !== shell.dataset.announcementKey;
+    shell.hidden = false;
+    if (isNew) {
+      shell.classList.remove('announcement-new');
+      void shell.offsetWidth;
+      shell.classList.add('announcement-new');
+    }
+    shell.dataset.announcementKey = nextKey;
+  }
+
   function ensureMobileTabs() {
     const page = document.body.dataset.page || 'home';
     const tabs = document.createElement('nav');
@@ -346,6 +426,39 @@
     location.href = 'index.html?admin=1';
   }
 
+  function paintUnreadReplies(unreadCount) {
+    const count = Number(unreadCount || 0);
+    const trigger = $('[data-account]');
+    trigger?.querySelector('.account-unread-badge')?.remove();
+    if (trigger && count) trigger.insertAdjacentHTML('beforeend', `<em class="account-unread-badge" aria-label="${count} 条管理员新回复">${count > 99 ? '99+' : count}</em>`);
+
+    const learningLink = $('#accountMenu .account-learning-link');
+    learningLink?.querySelector('em')?.remove();
+    if (learningLink && count) learningLink.insertAdjacentHTML('beforeend', `<em>${count} 条新回复</em>`);
+
+    const mobileLearningLink = $('.mobile-tabs a[href="learning.html"]');
+    mobileLearningLink?.querySelector('.mobile-unread-badge')?.remove();
+    if (mobileLearningLink && count) mobileLearningLink.insertAdjacentHTML('beforeend', `<em class="mobile-unread-badge">${count > 99 ? '99+' : count}</em>`);
+
+    let notice = $('#replyNoticeBar');
+    if (!notice) {
+      notice = document.createElement('aside');
+      notice.id = 'replyNoticeBar';
+      notice.className = 'reply-notice-bar';
+      notice.setAttribute('aria-live', 'polite');
+      document.querySelector('.site-header')?.insertAdjacentElement('afterend', notice);
+    }
+    notice.hidden = !count;
+    if (count) notice.innerHTML = `<a class="shell" href="learning.html"><span><i aria-hidden="true"></i>管理员回复了你的留言</span><b>查看 ${count} 条新回复 →</b></a>`;
+  }
+
+  async function refreshUnreadReplies() {
+    if (!client || !session) return 0;
+    const { count, error } = await client.from('user_messages').select('id', { count: 'exact', head: true }).eq('user_id', session.user.id).not('admin_reply', 'is', null).neq('admin_reply', '').is('user_read_at', null);
+    if (!error) paintUnreadReplies(count || 0);
+    return count || 0;
+  }
+
   async function paintAccount() {
     const trigger = $('[data-account]');
     const menu = $('#accountMenu');
@@ -363,9 +476,8 @@
       const displayName = savedProfile.display_name || name;
       const avatar = savedProfile.avatar_data || '';
       trigger.innerHTML = `<span>${escapeHtml(displayName)}</span><i>${avatar ? `<img src="${avatar}" alt="">` : escapeHtml(displayName.slice(0, 2).toUpperCase())}</i>`;
-      const messageResult = await client.from('user_messages').select('id').eq('user_id', session.user.id).not('admin_reply', 'is', null).neq('admin_reply', '').is('user_read_at', null);
-      const unreadCount = messageResult.data?.length || 0;
-      menu.innerHTML = `<b>${escapeHtml(session.user.email || '')}</b><a class="account-learning-link" href="learning.html">我的学习中心${unreadCount ? `<em>${unreadCount}</em>` : ''}</a><button type="button" id="editProfileButton">编辑头像和昵称</button><button type="button" id="logoutButton">退出登录</button>`;
+      menu.innerHTML = `<b>${escapeHtml(session.user.email || '')}</b><a class="account-learning-link" href="learning.html">我的学习中心</a><button type="button" id="editProfileButton">编辑头像和昵称</button><button type="button" id="logoutButton">退出登录</button>`;
+      await refreshUnreadReplies();
       trigger.onclick = event => { event.stopPropagation(); menu.classList.toggle('open'); };
       $('#editProfileButton').onclick = event => { event.stopPropagation(); menu.classList.remove('open'); window.siteOpenProfile(); };
       $('#logoutButton').onclick = async () => { await client.auth.signOut(); location.href = 'index.html'; };
@@ -395,10 +507,22 @@
     bindNavigation();
     ensureSearch();
     ensureSupportDialog();
+    ensureCopyrightLinks();
+    ensureAnnouncementUI();
     ensureMobileTabs();
     if (client) session = (await client.auth.getSession()).data.session;
     trackVisit();
     await paintAccount();
+    await refreshAnnouncement();
+    if (client) setInterval(refreshAnnouncement, 30000);
+    if (session) {
+      setInterval(refreshUnreadReplies, 30000);
+    }
+    addEventListener('visibilitychange', () => {
+      if (document.visibilityState !== 'visible') return;
+      refreshAnnouncement();
+      if (session) refreshUnreadReplies();
+    });
     document.documentElement.classList.add('site-ready');
     return { client, session };
   })();
@@ -408,6 +532,8 @@
     ready,
     toast,
     escapeHtml,
+    refreshUnreadReplies,
+    refreshAnnouncement,
     openAuth: () => window.siteOpenAuth(),
     get session() { return session; },
     requireAuth(message = '登录后才能使用此功能。') {

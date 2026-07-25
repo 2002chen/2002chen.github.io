@@ -8,7 +8,7 @@
     example_code: 'print("你好，Python！")\nprint("这是我的第一段代码")'
   }];
   let chapters = [], sections = [], completed = new Set(), checks = {}, current = null, context = null;
-  let codeWorker = null, codeJobId = 0;
+  let codeWorker = null, codeJobId = 0, practiceItems = [];
 
   function localData() {
     try { return JSON.parse(localStorage.getItem('python-learning-v2') || '{}'); } catch { return {}; }
@@ -66,7 +66,7 @@
     if (target) selectSection(target.id);
   }
 
-  function selectSection(id) {
+  async function selectSection(id) {
     current = sections.find(section => String(section.id) === String(id));
     if (!current) return;
     localStorage.setItem('python-last-section', String(current.id));
@@ -82,6 +82,7 @@
     $('tutorialCodeBox').hidden = !current.example_code;
     $('tutorialOutput').hidden = true;
     $('tutorialOutputText').textContent = '';
+    await loadPractice(current);
     const index = sections.indexOf(current);
     $('readerPrevious').disabled = index <= 0;
     $('readerNext').disabled = index >= sections.length - 1 || (!context.session && index >= 0);
@@ -93,6 +94,38 @@
     $('completeSection').textContent = completed.has(String(current.id)) ? '本节已完成 ✓' : '完成本节 ✓';
     renderChecks(); renderCatalog();
     scrollTo({ top: Math.max(0, document.querySelector('.tutorial-layout').offsetTop - 90), behavior: 'smooth' });
+  }
+
+  async function loadPractice(section) {
+    practiceItems = [];
+    if (!context.client || !context.session || !section || String(section.id).startsWith('guest-')) {
+      $('lessonPractice').hidden = true;
+      return;
+    }
+    const { data, error } = await context.client.from('chapter_exercises').select('*').eq('section_id', section.id).eq('exercise_group', 'after_class').eq('active', true).order('position');
+    if (error || !data?.length) { $('lessonPractice').hidden = true; return; }
+    practiceItems = data;
+    $('lessonPractice').hidden = false;
+    $('lessonPracticeList').innerHTML = practiceItems.map((item, index) => item.question_type === 'coding' ? `<article class="practice-item" data-practice-id="${item.id}"><div class="practice-meta"><span>动手题 ${index + 1}</span><b>${site.escapeHtml(item.topic)}</b></div><p>${site.escapeHtml(item.prompt)}</p><textarea class="practice-code" data-practice-code placeholder="在这里写你的代码">${site.escapeHtml(item.starter_code || '')}</textarea><div class="practice-actions"><button class="secondary" type="button" data-run-practice="${item.id}">运行并检查</button><span class="practice-result" data-practice-result="${item.id}" role="status"></span></div></article>` : `<article class="practice-item" data-practice-id="${item.id}"><div class="practice-meta"><span>思考题 ${index + 1}</span><b>${site.escapeHtml(item.topic)}</b></div><p>${site.escapeHtml(item.prompt)}</p><textarea class="practice-answer" data-practice-answer placeholder="写下你的理解，再提交给自己检查"></textarea><div class="practice-actions"><button class="secondary" type="button" data-submit-thinking="${item.id}">保存思考</button><span class="practice-result" data-practice-result="${item.id}" role="status"></span></div></article>`).join('');
+    document.querySelectorAll('[data-run-practice]').forEach(button => button.onclick = () => runPractice(Number(button.dataset.runPractice)));
+    document.querySelectorAll('[data-submit-thinking]').forEach(button => button.onclick = () => submitThinking(Number(button.dataset.submitThinking)));
+  }
+  async function savePracticeAttempt(item, answerText, isCorrect, feedback) {
+    if (!context.session) return;
+    await context.client.from('exercise_attempts').insert({ user_id: context.session.user.id, exercise_id: item.id, answer_text: answerText, is_correct: isCorrect, score: isCorrect ? 100 : 0, feedback });
+  }
+  async function runPractice(id) {
+    const item = practiceItems.find(row => row.id === id); const card = document.querySelector(`[data-practice-id="${id}"]`); if (!item || !card) return;
+    const code = card.querySelector('[data-practice-code]').value; const resultNode = card.querySelector('[data-practice-result]'); resultNode.textContent = '正在运行…';
+    const result = await executeCode(code); const output = (result.output || '').trim(); const config = item.test_config || {}; const expected = String(config.expected_output || '').trim(); const required = Array.isArray(config.required_snippets) ? config.required_snippets : [];
+    const hasAutoCheck = Boolean(expected || required.length); const isCorrect = result.ok && (!expected || output === expected) && required.every(snippet => code.includes(snippet));
+    const feedback = !result.ok ? '运行失败，请先看报错并修改。' : hasAutoCheck ? (isCorrect ? '通过：输出和要求都符合。' : `还没通过。当前输出：${output || '（无输出）'}`) : `已运行。当前输出：${output || '（无输出）'}`;
+    resultNode.textContent = feedback; resultNode.dataset.tone = result.ok && (!hasAutoCheck || isCorrect) ? 'success' : 'error'; await savePracticeAttempt(item, code, hasAutoCheck ? isCorrect : result.ok, feedback);
+  }
+  async function submitThinking(id) {
+    const item = practiceItems.find(row => row.id === id); const card = document.querySelector(`[data-practice-id="${id}"]`); if (!item || !card) return;
+    const answer = card.querySelector('[data-practice-answer]').value.trim(); const resultNode = card.querySelector('[data-practice-result]'); if (!answer) { resultNode.textContent = '先写下你的想法，再保存。'; return; }
+    resultNode.textContent = '已保存。回看你的答案，确认有解释、例子和理由。'; resultNode.dataset.tone = 'success'; await savePracticeAttempt(item, answer, null, resultNode.textContent);
   }
 
   function renderChecks() {

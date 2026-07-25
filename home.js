@@ -17,19 +17,8 @@
     if ($('homeStreak')) $('homeStreak').textContent = `${streak} 天`;
   }
 
-  async function loadAnnouncement(client) {
-    if (!client || !$('announcementShell')) return;
-    const { data, error } = await client.from('site_announcements').select('id,title,content,published_at').eq('published', true).order('published_at', { ascending: false }).limit(1).maybeSingle();
-    if (error || !data || sessionStorage.getItem(`dismissed-announcement-${data.id}`)) return;
-    $('announcementText').innerHTML = `<b>${site.escapeHtml(data.title)}</b><span>${site.escapeHtml(data.content)}</span>`;
-    $('announcementTime').textContent = data.published_at ? new Date(data.published_at).toLocaleDateString('zh-CN') : '';
-    $('announcementShell').hidden = false;
-    $('dismissAnnouncement').onclick = () => { sessionStorage.setItem(`dismissed-announcement-${data.id}`, '1'); $('announcementShell').hidden = true; };
-  }
-
   site.ready.then(({ client, session }) => {
     renderLocalStats();
-    loadAnnouncement(client);
     const start = $('startLearning');
     if (start && session) {
       const last = localStorage.getItem('python-last-section');

@@ -13,7 +13,7 @@
   <title>小菜鸟带你飞｜零基础 Python 学习平台</title>
   <link rel="icon" type="image/png" href="assets/site-icon.png">
   <link rel="apple-touch-icon" href="assets/site-icon.png">
-  <link rel="stylesheet" href="site.css?v=20260725-editorial">
+  <link rel="stylesheet" href="site.css?v=20260725-notifications">
 </head>
 <body data-page="home">
   <header class="site-header">
@@ -32,7 +32,7 @@
   </header>
 
   <main id="main">
-    <section class="announcement-shell shell" id="announcementShell" hidden aria-live="polite"><div><span>站点公告</span><p id="announcementText"></p><small id="announcementTime"></small></div><button type="button" id="dismissAnnouncement" aria-label="关闭公告">×</button></section>
+    <section class="announcement-shell shell" id="announcementShell" hidden aria-live="polite"><div class="announcement-content"><span>站点公告</span><button class="announcement-trigger" id="announcementOpen" type="button" aria-haspopup="dialog"><b id="announcementBannerTitle"></b><span id="announcementSummary"></span><i>查看完整公告</i></button><small id="announcementTime"></small></div><button type="button" id="dismissAnnouncement" aria-label="关闭公告">×</button></section>
     <section class="home-hero shell">
       <div class="hero-copy">
         <p class="eyebrow">零基础 Python 课程</p>
@@ -91,7 +91,9 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>一套从零开始的 Python 学习站。</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="#message">联系管理员</a><a href="https://github.com/2002chen/2002chen.github.io" rel="noopener" target="_blank">GitHub</a></div></div><div class="footer-bottom"><span>© 2026 陈定栋</span><a href="#main">↑ 回到顶部</a></div></div></footer>
+  <div class="announcement-dialog" id="announcementDialog" aria-hidden="true" hidden><div class="announcement-backdrop" data-close-announcement></div><section role="dialog" aria-modal="true" aria-labelledby="announcementDialogTitle"><button class="dialog-close" type="button" data-close-announcement aria-label="关闭公告详情">×</button><p class="eyebrow">站点公告</p><h2 id="announcementDialogTitle"></h2><time id="announcementDialogTime"></time><article id="announcementFullContent"></article></section></div>
+
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>一套从零开始的 Python 学习站。</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="#message">联系管理员</a></div></div><div class="footer-bottom"><span>© 2026 陈定栋</span><a href="#main">↑ 回到顶部</a></div></div></footer>
 
   <div class="admin-panel" id="adminPanel" aria-hidden="true"><div class="admin-backdrop" data-close-admin></div><section class="admin-drawer"><div class="admin-head"><div><p class="eyebrow">管理员后台</p><h2>内容、数据与留言管理</h2></div><button class="icon-button" data-close-admin type="button" aria-label="关闭管理员后台">×</button></div><div class="admin-tabs"><button class="active" data-admin-tab="analytics" type="button">数据看板</button><button data-admin-tab="questions" type="button">题库管理</button><button data-admin-tab="course" type="button">课程管理</button><button data-admin-tab="messages" type="button">用户留言</button><button data-admin-tab="announcements" type="button">站点公告</button></div>
     <div class="admin-view active" id="adminAnalytics"><div class="analytics-toolbar"><div><p class="eyebrow">站点数据</p><h3>访问与学习概况</h3></div><label><span>统计周期</span><select id="analyticsDays"><option value="7">近 7 天</option><option value="30" selected>近 30 天</option><option value="90">近 90 天</option></select></label><button class="secondary" id="refreshAnalytics" type="button">刷新数据</button></div><div class="analytics-stats" id="analyticsStats"><p class="empty-state">正在读取数据…</p></div><div class="analytics-chart-wrap"><div class="analytics-chart-head"><div><h3>访问趋势</h3><p>每日访问量与独立访客</p></div><span id="analyticsChartHint"></span></div><div class="analytics-chart" id="analyticsChart" role="img" aria-label="每日访问量趋势图"></div></div><div class="analytics-lower"><section><div class="analytics-section-head"><h3>热门页面</h3><span>按访问量排序</span></div><div class="analytics-pages" id="analyticsPages"></div></section><section><div class="analytics-section-head"><h3>最近访问</h3><span>最近 12 条</span></div><div class="analytics-recent" id="analyticsRecent"></div></section></div></div>
@@ -103,8 +105,8 @@
 
   <script src="assets/supabase.min.js?v=2.110.8"></script>
   <script src="supabase-config.js?v=20260725"></script>
-  <script src="site.js?v=20260725-editorial"></script>
-  <script src="home.js?v=20260725-editorial"></script>
-  <script src="admin.js?v=20260725-editorial"></script>
+  <script src="site.js?v=20260725-notifications"></script>
+  <script src="home.js?v=20260725-announcement"></script>
+  <script src="admin.js?v=20260725-announcement"></script>
 </body>
 </html>
