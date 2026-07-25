@@ -31,7 +31,7 @@
     const { data, error } = await client().from('questions').select('*').order('level').order('position').order('id');
     if (error) return;
     currentQuestions = data || [];
-    $('questionList').innerHTML = currentQuestions.map(q => `<article class="admin-item"><div><small>${q.level} · ${q.topic}</small><b>${q.question_text}</b><span>${q.active ? '已上架' : '已下架'} · 排序 ${q.position}</span></div><div><button data-edit-question="${q.id}">编辑</button><button class="danger" data-delete-question="${q.id}">删除</button></div></article>`).join('') || '<p class="empty-state">暂无云端题目，请先新增题目或运行 seed-questions.sql。</p>';
+    $('questionList').innerHTML = currentQuestions.map(q => `<article class="admin-item"><div><small>${q.level} · ${q.topic}</small><b>${q.question_text}</b><span>${q.active ? '已上架' : '已下架'} · 排序 ${q.position}</span></div><div><button data-edit-question="${q.id}">编辑</button><button class="danger" data-delete-question="${q.id}">删除</button></div></article>`).join('') || '<p class="empty-state">暂无云端题目，请先新增题目或运行 seed-3000-questions.sql。</p>';
     document.querySelectorAll('[data-edit-question]').forEach(button => button.onclick = () => editQuestion(Number(button.dataset.editQuestion)));
     document.querySelectorAll('[data-delete-question]').forEach(button => button.onclick = () => deleteQuestion(Number(button.dataset.deleteQuestion)));
   }
@@ -47,10 +47,10 @@
     const row = { level: $('questionLevel').value, topic: $('questionTopic').value.trim(), question_text: $('questionText').value.trim(), options: $('questionOptions').value.split('\n').map(x => x.trim()).filter(Boolean), correct_index: Number($('questionCorrect').value) - 1, position: Number($('questionPosition').value) || 0, explanation: $('questionExplanation').value.trim(), active: $('questionActive').checked };
     const query = id ? client().from('questions').update(row).eq('id', id) : client().from('questions').insert(row);
     const { error } = await query; if (error) return alert(error.message);
-    clearForm(); await loadQuestions(); await window.dynamicLearning.loadQuestions();
+    clearForm(); await loadQuestions(); await window.dynamicLearning?.loadQuestions?.();
   }
 
-  async function deleteQuestion(id) { if (!confirm('确定删除这道题吗？')) return; const { error } = await client().from('questions').delete().eq('id', id); if (!error) { await loadQuestions(); await window.dynamicLearning.loadQuestions(); } }
+  async function deleteQuestion(id) { if (!confirm('确定删除这道题吗？')) return; const { error } = await client().from('questions').delete().eq('id', id); if (!error) { await loadQuestions(); await window.dynamicLearning?.loadQuestions?.(); } }
 
   function clearChapterForm() { $('chapterForm').reset(); $('chapterId').value = ''; $('chapterPosition').value = 1; $('chapterMinutes').value = 60; $('chapterIcon').value = '📚'; $('chapterActive').checked = true; }
   async function loadChapters() {

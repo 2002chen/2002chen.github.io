@@ -1,22 +1,24 @@
 # 小菜鸟带你飞
 
-A responsive, animated landing page for an interactive Python learning website.
-
-## GitHub Pages
-
-This site is published from the `main` branch root.
-# 小菜鸟带你飞
+面向完全零基础学习者的 Python 教学平台。
 
 公开网站：<https://2002chen.github.io/>
 
-## 动态课程平台配置
+## 功能
 
-1. 在 Supabase 新建项目。
-2. 在 SQL Editor 运行 `supabase-schema.sql`。
-3. 运行 `seed-course.sql` 导入 8 章教程，以及每章 10 道选择题、10 道问答题、5 道动手题和 5 道小结题。
-4. 可选运行 `seed-questions.sql`，导入独立闯关题库。
-5. 将 Project URL 与 anon key 填入 `supabase-config.js`。
-6. 注册第一个账号，并在 SQL Editor 将其设为管理员：
+- 游客可试学教程并使用浏览器 Python 实验室
+- 登录后同步教程、答题、留言和学习中心数据
+- 3000 题库支持筛选、搜索、练习、考试和错题重做
+- 管理员可管理题库、课程章节和用户留言
+- 桌面端与移动端响应式界面、键盘访问和高对比度模式
+
+## Supabase 配置
+
+1. 在 Supabase SQL Editor 运行 `supabase-schema.sql`。
+2. 运行 `seed-course.sql` 导入教程和章节练习。
+3. 运行 `seed-3000-questions.sql` 导入独立题库。
+4. 将 Project URL 与 anon key 填入 `supabase-config.js`。
+5. 注册管理员账号，然后设置管理员角色：
 
 ```sql
 update public.profiles
@@ -24,4 +26,8 @@ set role = 'admin'
 where id = '管理员用户 UUID';
 ```
 
-教程、题目、用户进度、练习记录和留言均保存在 Supabase。RLS 策略保证普通用户只能访问自己的学习数据。
+升级已有数据库时，也需要重新运行最新的 `supabase-schema.sql`，以创建题目讨论表和对应 RLS 策略。
+
+## 本地预览
+
+项目是静态网站，需通过本地 HTTP 服务打开；不要直接双击 HTML 文件，否则 Web Worker 无法正常运行。

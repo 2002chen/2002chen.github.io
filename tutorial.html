@@ -1,127 +1,33 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#fff8f2">
-  <title>Python 系统教程｜小菜鸟带你飞</title>
-  <meta name="description" content="面向完全零基础用户的 Python 系统教程">
-  <link rel="stylesheet" href="subsite.css?v=1">
-  <link rel="stylesheet" href="tutorial-site.css?v=2">
-  <link rel="stylesheet" href="youth-theme.css?v=1">
-  <link rel="icon" type="image/png" href="assets/site-icon.png?v=1">
-  <link rel="apple-touch-icon" href="assets/site-icon.png?v=1">
-  <link rel="stylesheet" href="typography-upgrade.css?v=1">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fafbfd">
+  <meta name="description" content="面向完全零基础学习者的 Python 系统教程，从代码是什么开始，边理解边动手。">
+  <meta property="og:title" content="Python 系统教程｜小菜鸟带你飞"><meta property="og:description" content="从第一行代码开始，循序渐进学会 Python。"><meta property="og:image" content="https://2002chen.github.io/assets/site-icon.png">
+  <title>Python 系统教程｜小菜鸟带你飞</title><link rel="icon" href="assets/site-icon.png"><link rel="stylesheet" href="site.css?v=20260725">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Python 零基础系统教程","description":"从代码是什么开始的 Python 系统教程","provider":{"@type":"Person","name":"陈定栋"}}</script>
 </head>
-<body>
-  <header class="sub-header">
-    <nav class="shell sub-nav">
-      <a class="sub-brand" href="index.html"><b>&lt;/&gt;</b> 小菜鸟带你飞</a>
-      <div class="sub-links"><a class="home-link" href="index.html">首页</a><a class="active" href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a><a href="learning.html">学习中心</a><a href="index.html#message">留言</a></div>
-      <div class="sub-user"><span id="subUserName">学习者</span><i id="subAvatar">PY</i></div>
-    </nav>
-  </header>
-
-  <main>
-    <section class="sub-hero shell tutorial-hero">
-      <div>
-        <span class="sub-kicker">// 完全零基础学习主线</span>
-        <h1>不是“看完”教程，<br><em>而是真正学会 Python</em></h1>
-        <p>参考《Python 编程：从入门到实践（第 3 版）》的知识路线进行原创讲解。从“代码是什么”开始，每天 1～2 小时，一章最多学习 3 天，看懂 60% 就可以继续前进。</p>
-      </div>
-      <div class="hero-learning-card glass">
-        <span>你的云端学习进度</span><b>零基础 → 基础 → 进阶 → 项目</b>
-        <div><i id="heroProgressBar"></i></div><small id="heroProgressText">正在读取学习进度...</small>
-      </div>
-    </section>
-
-    <section class="tutorial-app shell">
-      <aside class="tutorial-catalog glass">
-        <div class="catalog-head"><div><small>COURSE MAP</small><b>课程目录</b></div><button id="collapseCatalog" type="button">收起</button></div>
-        <div class="catalog-progress"><span>总进度</span><b id="courseProgressText">0%</b><i><em id="courseProgressBar"></em></i></div>
-        <div id="chapterList" class="chapter-list"><div class="empty">正在加载课程...</div></div>
-      </aside>
-
-      <article class="tutorial-reader glass">
-        <div class="reader-tools"><span id="readerBreadcrumb">选择左侧章节开始</span><div><button data-font="-1">A-</button><button data-font="0">标准</button><button data-font="1">A+</button></div></div>
-        <div id="readerEmpty" class="reader-welcome"><span>01</span><h2>从第一章开始，不需要任何编程基础</h2><p>每个术语都有生活化解释，每一节都带着你阅读、手敲、修改、练习和总结。</p></div>
-        <div id="readerContent" class="reader-content">
-          <header><small id="readerType">教程小节</small><h2 id="readerTitle"></h2><p id="readerSummary"></p><div><span id="readerReadTime"></span><span id="readerStatus">未完成</span></div></header>
-          <section class="lesson-checklist" aria-labelledby="lessonChecklistTitle">
-            <div><small>本节任务</small><h3 id="lessonChecklistTitle">完成这 5 步，才算真正学完</h3><p id="methodProgressText">已完成 0 / 5 步</p></div>
-            <div class="lesson-steps" id="lessonSteps">
-              <button data-study-step="read"><i>1</i><span><b>读懂讲解</b><small>我能用自己的话说出概念</small></span><em>未完成</em></button>
-              <button data-study-step="typed"><i>2</i><span><b>亲手输入</b><small>没有复制粘贴示例代码</small></span><em>未完成</em></button>
-              <button data-study-step="changed"><i>3</i><span><b>故意修改</b><small>改过数据并观察运行结果</small></span><em>未完成</em></button>
-              <button data-study-step="practiced"><i>4</i><span><b>完成练习</b><small>先独立思考，再检查答案</small></span><em>未完成</em></button>
-              <button data-study-step="summarized"><i>5</i><span><b>写下小结</b><small>记录学会的内容和踩过的坑</small></span><em>未完成</em></button>
-            </div>
-          </section>
-          <section class="lesson-guide" aria-label="本节完整学习指南">
-            <div class="guide-heading"><small>完整教学模式</small><h3>先理解，再动手，最后能自己讲出来</h3><p>下面的内容会根据当前章节自动生成学习目标、思考问题和动手实验，配合云端正文一起学习。</p></div>
-            <div class="guide-grid">
-              <article class="guide-card goal-card"><i>🎯</i><div><span>本节学习目标</span><h4>学完以后，我能做到什么？</h4><ul id="lessonGoals"></ul></div></article>
-              <article class="guide-card think-card"><i>💭</i><div><span>先想一想</span><h4 id="lessonThinkTitle">生活中哪里见过类似问题？</h4><p id="lessonThinkPrompt"></p></div></article>
-            </div>
-          </section>
-          <div id="tutorialBody" class="tutorial-body"></div>
-          <div id="tutorialCodeBox" class="tutorial-code"><div><span>手敲示例（建议不要复制）</span><button id="copyTutorialCode">确实需要时复制</button></div><pre id="tutorialCode"></pre></div>
-          <section class="lesson-deep-dive">
-            <div class="deep-heading"><small>不要只看一遍</small><h3>把这节课真正变成自己的能力</h3></div>
-            <div class="deep-grid">
-              <article><span>01 · 代码拆解</span><h4>逐行看懂电脑在做什么</h4><div id="codeWalkthrough" class="code-walkthrough"></div></article>
-              <article><span>02 · 修改实验</span><h4>请亲手改变一个地方</h4><p id="changeChallenge"></p><a href="lab.html">去实验室完成修改 →</a></article>
-              <article><span>03 · 常见错误</span><h4>初学者最容易卡在哪里？</h4><ul id="commonMistakes"></ul></article>
-              <article><span>04 · 过关自测</span><h4>不用看教程，你能回答吗？</h4><ol id="reviewQuestions"></ol></article>
-            </div>
-          </section>
-          <section class="section-notebook">
-            <div class="notebook-heading"><div><small>PYTHON 学习笔记</small><h3>用自己的话记下来</h3></div><span id="noteSaveState">已同步到云端</span></div>
-            <div class="note-fields">
-              <label><span>今天学会</span><textarea id="noteLearned" rows="4" placeholder="例如：变量就像给数据贴一个名字……"></textarea></label>
-              <label><span>今天踩坑</span><textarea id="notePitfall" rows="4" placeholder="例如：Python 的括号要使用英文符号……"></textarea></label>
-              <label class="note-code"><span>今天的代码</span><textarea id="noteCode" rows="7" spellcheck="false" placeholder="# 亲手写一小段今天学过的代码"></textarea></label>
-            </div>
-          </section>
-          <footer class="reader-actions"><button id="readerPrevious">← 上一节</button><button class="complete" id="completeSection">完成五步后即可过关</button><button id="readerNext">下一节 →</button></footer>
+<body data-page="tutorial">
+  <header class="site-header"><nav class="site-nav shell" aria-label="主要导航"><a class="site-brand" href="index.html"><img src="assets/site-icon.png" alt="小菜鸟带你飞图标"><span>小菜鸟带你飞</span></a><div class="site-links"><a href="index.html">首页</a><a class="active" href="tutorial.html">教程</a><a href="quiz.html">题库</a><a href="lab.html">实验室</a><a class="secondary-link" href="roadmap.html">路线图</a><a href="learning.html">学习中心</a><a href="index.html#message">留言</a></div><div class="nav-actions"><button class="icon-button" type="button" data-open-search aria-label="打开全站搜索">⌕</button><div class="account-wrap"><button class="account-button" type="button" data-account><span>登录 / 注册</span></button><div class="account-menu" id="accountMenu"></div></div><button class="menu-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false"><span></span><span></span><span></span></button></div></nav></header>
+  <main id="main">
+    <section class="page-hero shell"><div class="breadcrumbs"><a href="index.html">首页</a><span>›</span><span>系统教程</span></div><div class="page-hero-grid"><div class="hero-copy"><p class="eyebrow">完全零基础学习主线</p><h1>不背术语，<br><em>从第一行代码开始</em></h1><p>每一个新概念都先用生活例子解释，再亲手修改和运行。游客可以完整学完第一节。</p></div><article class="card progress-card"><span class="muted">章节进度</span><b id="courseProgressText">正在加载...</b><div class="progress-track"><i id="courseProgressBar"></i></div><small id="courseAccessText" class="muted">正在确认学习状态</small></article></div></section>
+    <section class="tutorial-layout shell">
+      <aside class="catalog card" aria-label="教程目录"><div class="catalog-head"><b>课程目录</b><button class="text-button" id="collapseCatalog" type="button">收起</button></div><div id="chapterList"><p class="empty-state">正在加载课程...</p></div></aside>
+      <article class="reader card">
+        <div class="reader-empty" id="readerEmpty"><div><p class="eyebrow">准备好了</p><h2>选择一节课开始学习</h2><p>从左侧第一章开始最合适。</p></div></div>
+        <div class="reader-content" id="readerContent" hidden>
+          <div class="breadcrumbs" id="readerBreadcrumb"></div>
+          <div class="reader-meta"><div><p class="eyebrow" id="readerType">教程小节</p><h2 id="readerTitle"></h2><p class="muted" id="readerSummary"></p></div><span class="pill" id="readerReadTime"></span></div>
+          <div class="reader-body" id="tutorialBody"></div>
+          <section class="code-sample" id="tutorialCodeBox"><header><span>示例代码</span><button id="copyTutorialCode" type="button">复制代码</button></header><pre id="tutorialCode"></pre></section>
+          <div class="study-checks" aria-label="本节学习检查"><button type="button" data-study-check="understood">我看懂了</button><button type="button" data-study-check="typed">我动手写了</button><button type="button" data-study-check="reviewed">我检查结果了</button></div>
+          <div class="reader-actions"><button class="secondary" id="readerPrevious" type="button">← 上一节</button><button class="primary" id="completeSection" type="button">完成本节 ✓</button><button class="secondary" id="readerNext" type="button">下一节 →</button></div>
+          <div class="trial-callout" id="trialCallout"><h3>学得不错！保存进度，继续下一课</h3><p>注册免费账户后，手机和电脑可以同步学习记录。</p><button class="primary" type="button" id="trialRegister">注册并继续 →</button></div>
+          <div class="recommendation" id="recommendation"><b>学完这节，推荐继续：</b><a id="recommendationLink" href="#">下一节</a></div>
         </div>
       </article>
-
-      <aside class="tutorial-aside glass">
-        <small>遇到不会怎么办？</small><h3>先思考 10 分钟</h3>
-        <ol><li><i>1</i>读一遍报错最后一行</li><li><i>2</i>检查拼写、符号和缩进</li><li><i>3</i>说清楚预期和实际结果</li><li><i>4</i>向 AI 要提示，不要答案</li></ol>
-        <div class="help-prompt"><span>推荐提问方式</span><p id="helpPromptText">请帮我检查下面的代码哪里有问题，但不要直接给完整答案。请先给我一个提示，让我自己继续修改。</p><button id="copyHelpPrompt">复制这段提示词</button></div>
-        <a class="primary" id="chapterQuizLink" href="quiz.html">进入本章练习 →</a><a class="ghost" href="lab.html">打开代码实验室</a>
-      </aside>
-    </section>
-
-    <section class="roadmap-section shell" aria-labelledby="roadmapTitle">
-      <div class="section-heading"><div><span>// 从入门到实践</span><h2 id="roadmapTitle">你的学习路线</h2></div><p>基础不是终点。学完核心语法后立即进入项目，让知识在真实任务里重新出现。</p></div>
-      <div class="roadmap-grid">
-        <article><i>01</i><span>零基础启蒙</span><h3>看懂并写出第一段代码</h3><p>输出、变量、字符串、数字、列表和条件判断。</p><b>目标：成绩及格判断</b></article>
-        <article><i>02</i><span>核心编程基础</span><h3>让程序接收信息并重复工作</h3><p>字典、用户输入、循环、函数和模块。</p><b>目标：简单登录程序</b></article>
-        <article><i>03</i><span>可靠地保存数据</span><h3>让程序记住结果并处理错误</h3><p>文件、异常、测试以及基础的数据组织方式。</p><b>目标：可以保存记录的小工具</b></article>
-        <article><i>04</i><span>项目实践</span><h3>把零散知识连接起来</h3><p>小游戏、数据可视化和 Web 应用，选择一个完整做完。</p><b>目标：独立完成第一个作品</b></article>
-      </div>
-      <div class="research-route glass"><div><span>研 0 / 科研方向可选路线</span><h3>Python 基础 → NumPy → Pandas → 数据处理 → 科研绘图</h3></div><p>不要等“整本书全会了”才开始。基础阶段结束后，用自己的论文数据或实验数据做一个小任务。</p></div>
-    </section>
-
-    <section class="method-section shell" aria-labelledby="methodTitle">
-      <div class="section-heading"><div><span>// 每章固定流程</span><h2 id="methodTitle">五步学习法</h2></div><p>不复制粘贴，不要求一次全部理解。每完成一步，系统都会保存到你的个人账户。</p></div>
-      <div class="method-track">
-        <article style="--accent:#20e9ff"><i>01</i><b>读懂概念</b><span>20 分钟</span><p>先用生活中的例子理解“它是什么”，不背定义。</p></article>
-        <article style="--accent:#a66cff"><i>02</i><b>亲手敲代码</b><span>30 分钟</span><p>逐字符输入示例，练习符号、缩进和代码结构。</p></article>
-        <article style="--accent:#ff4f9e"><i>03</i><b>故意修改</b><span>20 分钟</span><p>换文字、换数字、删一个符号，观察结果为什么变化。</p></article>
-        <article style="--accent:#ffe45e"><i>04</i><b>完成练习</b><span>30 分钟</span><p>先自己想清楚“我要让电脑做什么”，再开始作答。</p></article>
-        <article style="--accent:#42efaa"><i>05</i><b>写下小结</b><span>5 分钟</span><p>记录今天学会、踩过的坑和一段自己的代码。</p></article>
-      </div>
-      <div class="method-rules"><span>⏱ 每天 1～2 小时</span><span>📅 一章不超过 3 天</span><span>🚀 看懂 60% 就继续</span><span>⌨️ 示例必须亲手输入</span></div>
     </section>
   </main>
-
-  <div class="auth-required" id="authRequired"><div class="glass"><h2>请先登录学习账户</h2><p>登录后才能读取专属教程进度，并在电脑和手机之间同步五步任务与学习笔记。</p><a class="primary" href="index.html">返回主页登录</a></div></div>
-  <div class="toast" id="subToast"></div>
-  <footer class="sub-footer">小菜鸟带你飞 · POWER BY 陈定栋</footer>
-  <script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js"></script><script src="subsite.js?v=5"></script><script src="account-profile.js?v=4"></script><script src="tutorial-site.js?v=2"></script><script src="motion-ui.js?v=1"></script>
-</body>
-</html>
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>编写 · 运行 · 学习 · 进步</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="index.html#message">联系管理员</a></div></div><div class="footer-bottom"><span>© 2026 陈定栋</span><a href="#main">↑ 回到顶部</a></div></div></footer>
+  <script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js?v=20260725"></script><script src="site.js?v=20260725"></script><script src="tutorial.js?v=20260725"></script>
+</body></html>

@@ -1,155 +1,97 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#fff8f2">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <meta name="description" content="小菜鸟带你飞 - 在浏览器中互动学习 Python">
-  <title>小菜鸟带你飞</title>
-  <link rel="icon" type="image/png" href="assets/site-icon.png?v=1">
-  <link rel="apple-touch-icon" href="assets/site-icon.png?v=1">
-  <link rel="stylesheet" href="styles.css?v=auth-visual-1">
-  <link rel="stylesheet" href="youth-theme.css?v=1">
-  <link rel="stylesheet" href="apple-redesign.css?v=1">
-  <link rel="stylesheet" href="typography-upgrade.css?v=1">
-  <link rel="stylesheet" href="apple-simple.css?v=4">
-  <link rel="stylesheet" href="optimization.css?v=1">
+  <meta name="theme-color" content="#fafbfd">
+  <meta name="description" content="小菜鸟带你飞是面向完全零基础学习者的 Python 学习平台，提供系统教程、3000+ 题库和在线代码实验室。">
+  <meta property="og:title" content="小菜鸟带你飞｜零基础 Python 学习平台">
+  <meta property="og:description" content="从第一行代码开始，用教程、实验和题库稳稳学会 Python。">
+  <meta property="og:image" content="https://2002chen.github.io/assets/site-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://2002chen.github.io/">
+  <title>小菜鸟带你飞｜零基础 Python 学习平台</title>
+  <link rel="icon" type="image/png" href="assets/site-icon.png">
+  <link rel="apple-touch-icon" href="assets/site-icon.png">
+  <link rel="stylesheet" href="site.css?v=20260725">
 </head>
-<body>
-  <canvas id="stars" aria-hidden="true"></canvas>
-  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
-
-  <header class="topbar">
-    <nav class="shell nav">
-      <div class="brand-stack"><a class="brand" href="#home"><img src="assets/site-icon.png" alt="">小菜鸟带你飞</a><span>POWER BY 陈定栋</span></div>
-      <button class="menu-toggle" type="button" aria-label="打开导航菜单"><span></span><span></span><span></span></button>
-      <div class="navlinks">
-        <a class="active" href="#home">首页</a><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a><a href="learning.html">学习中心</a><a href="#message">留言</a>
+<body data-page="home">
+  <header class="site-header">
+    <nav class="site-nav shell" aria-label="主要导航">
+      <a class="site-brand" href="index.html" aria-label="小菜鸟带你飞首页"><img src="assets/site-icon.png" alt="小菜鸟带你飞图标"><span>小菜鸟带你飞</span></a>
+      <div class="site-links">
+        <a class="active" href="index.html">首页</a><a href="tutorial.html">教程</a><a href="quiz.html">题库</a><a href="lab.html">实验室</a>
+        <a class="secondary-link" href="roadmap.html">路线图</a><a href="learning.html">学习中心</a><a href="#message">留言</a>
       </div>
-      <div class="account-area"><button class="sync-pill" id="syncStatus" type="button"><i></i><span>&#20113;&#31471;&#26410;&#36830;&#25509;</span></button><button class="level-pill" id="levelButton" type="button"><span id="accountName">&#26410;&#30331;&#24405;</span><i id="accountAvatar">PY</i></button><div class="account-menu" id="accountMenu"><b id="accountEmail"></b><button id="accountProgress" type="button">&#25105;&#30340;&#36827;&#24230;</button><button id="logoutButton" type="button">&#36864;&#20986;&#30331;&#24405;</button></div></div>
+      <div class="nav-actions">
+        <button class="icon-button" type="button" data-open-search aria-label="打开全站搜索">⌕</button>
+        <div class="account-wrap"><button class="account-button" type="button" data-account aria-label="打开账号菜单"><span>登录 / 注册</span></button><div class="account-menu" id="accountMenu"></div></div>
+        <button class="menu-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
     </nav>
   </header>
-<script>document.addEventListener("DOMContentLoaded",function(){document.querySelector(".menu-toggle")?.addEventListener("click",function(){var l=this.closest("nav").querySelector(".navlinks");if(l){l.classList.toggle("open");document.body.classList.toggle("nav-open")}this.classList.toggle("active");this.setAttribute("aria-label",this.classList.contains("active")?"关闭导航菜单":"打开导航菜单")})});</script>
 
-  <main id="home">
-    <section class="hero-new shell reveal">
-      <div class="hero-body">
-        <h1 class="hero-title">学 Python，<em>可以简单，也可以很美。</em></h1>
-        <p class="hero-tagline">零基础 · 3000+ 题 · 在线运行</p>
-        <div class="hero-cta">
-          <a class="primary pulse" id="startLearning" href="tutorial.html">开始学习 <span>→</span></a>
-          <a class="secondary" id="trialLesson" href="tutorial.html?trial=1">先试一节课</a>
-        </div>
-        <div class="hero-numbers">
-          <span><b>3000+</b><small>道精选题目</small></span>
-          <span><b>40</b><small>章系统教程</small></span>
-          <span><b>100%</b><small>零基础友好</small></span>
-        </div>
-      </div>
+  <main id="main">
+    <section class="home-hero shell">
+      <p class="eyebrow">为完全零基础学习者设计</p>
+      <h1>学 Python，<em>可以简单，也可以很美。</em></h1>
+      <p class="value-line">零基础 · 3000+ 题 · 在线运行</p>
+      <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html"><span>开始学习 →</span></a><a class="secondary" href="tutorial.html?trial=1">先试一节课</a></div>
+      <div class="hero-proof" aria-label="平台数据"><span><b>3000+</b><small>精选题目</small></span><span><b>40</b><small>教程小节</small></span><span><b>100%</b><small>零基础友好</small></span></div>
     </section>
 
-    <section class="three-cards shell reveal">
-      <a class="core-card" href="tutorial.html">
-        <span class="core-icon">📖</span><b>系统教程</b><small>从零开始学 Python</small><em>开始学习 →</em>
-      </a>
-      <a class="core-card" href="quiz.html">
-        <span class="core-icon">🎯</span><b>3000 题库</b><small>闯关刷题巩固</small><em>开始训练 →</em>
-      </a>
-      <a class="core-card" href="lab.html">
-        <span class="core-icon">💻</span><b>代码实验室</b><small>边学边运行</small><em>体验代码 →</em>
-      </a>
+    <section class="feature-grid shell" aria-label="核心学习模块">
+      <a class="feature-card" href="tutorial.html"><span class="feature-icon" aria-hidden="true">▤</span><h2>系统教程</h2><p>从“代码是什么”开始，每节都有讲解、示例和练习。</p><em>从零开始 →</em></a>
+      <a class="feature-card" href="quiz.html"><span class="feature-icon" aria-hidden="true">◎</span><h2>3000 题库</h2><p>按章节、难度和模式训练，做完马上获得人话解析。</p><em>开始刷题 →</em></a>
+      <a class="feature-card" href="lab.html"><span class="feature-icon" aria-hidden="true">&lt;/&gt;</span><h2>代码实验室</h2><p>示例代码已经准备好，修改后在浏览器里立即运行。</p><em>动手实验 →</em></a>
     </section>
 
-    <section class="learning-path shell reveal">
-      <h2>你的学习路线</h2>
-      <div class="path-steps">
-        <div class="path-step"><span>①</span><b>打开教程</b><small>从第一章开始</small></div>
-        <div class="path-arrow">→</div>
-        <div class="path-step"><span>②</span><b>动手实验</b><small>在线修改运行</small></div>
-        <div class="path-arrow">→</div>
-        <div class="path-step"><span>③</span><b>刷题巩固</b><small>3000 道等你挑战</small></div>
-        <div class="path-arrow">→</div>
-        <div class="path-step"><span>④</span><b>查看进度</b><small>记录成长数据</small></div>
-      </div>
-    </section>
-    
-        </div>
-        <div class="lesson-switcher reveal"><button id="previousLesson" type="button">&#8592; &#19978;&#19968;&#20851;</button><span id="lessonPosition">1 / 6</span><button id="nextLesson" type="button">&#19979;&#19968;&#20851; &#8594;</button></div>
-      </div>
-    </section>
+    <div class="proof-strip shell">已有学习者从这里迈出第一步。<b>不登录也能完成第一节课和使用实验室。</b></div>
 
-    <section class="section shell" id="progress">
-      <div class="section-title reveal"><div><small>// &#25105;&#30340;&#23398;&#20064;&#36827;&#24230;</small><h2>&#25104;&#38271;&#25968;&#25454;&#27491;&#22312;&#21457;&#20809;</h2></div><p>&#36827;&#24230;&#33258;&#21160;&#20445;&#23384;&#22312;&#27983;&#35272;&#22120;&#20013;&#65292;&#19979;&#27425;&#25171;&#24320;&#21487;&#32487;&#32493;&#23398;&#20064;&#12290;</p></div>
-      <div class="progress-grid reveal">
-        <article class="level-card"><div class="level-ring" id="levelRing"><span><small>&#31561;&#32423;</small><b id="progressLevel">1</b></span></div><div><small>&#19979;&#19968;&#31561;&#32423;</small><h3 id="progressXp">0 / 200 XP</h3><div class="progress-bar"><i id="xpBar"></i></div><p>&#36816;&#34892;&#20195;&#30721;&#12289;&#23436;&#25104;&#20851;&#21345;&#37117;&#20250;&#33719;&#21462; XP&#12290;</p></div></article>
-        <article class="achievement" id="achievementCard"><i>&#9733;</i><small>&#26368;&#26032;&#24494;&#31456;</small><b id="badgeName">&#23578;&#26410;&#35299;&#38145;</b><p id="badgeDescription">&#23436;&#25104;&#31532;&#19968;&#20851;&#21518;&#28857;&#20142;&#24494;&#31456;&#12290;</p></article>
-        <article class="activity"><i>&#9889;</i><small>&#36830;&#32493;&#23398;&#20064;</small><b>7 &#22825;</b><p>&#26126;&#22825;&#32487;&#32493;&#26469;&#23454;&#39564;&#23460;&#65292;&#20445;&#25345;&#33021;&#37327;&#38142;&#12290;</p><div><span>&#19968;</span><span>&#20108;</span><span>&#19977;</span><span>&#22235;</span><span>&#20116;</span><span>&#20845;</span><span>&#26085;</span></div></article>
-      </div>
-      <button class="reset-progress" id="resetProgress" type="button">&#37325;&#32622;&#25152;&#26377;&#23398;&#20064;&#36827;&#24230;</button>
-    </section>
-
-    <section class="message-section" id="message">
+    <section class="section-block alt">
       <div class="shell">
-        <div class="section-title reveal"><div><small>// &#29992;&#25143;&#30041;&#35328;&#31449;</small><h2>&#21578;&#35785;&#25105;&#20204;&#20320;&#30340;&#24819;&#27861;</h2></div><p>&#21151;&#33021;&#24314;&#35758;&#12289;&#23398;&#20064;&#38382;&#39064;&#25110;&#20351;&#29992;&#21453;&#39304;&#65292;&#37117;&#21487;&#20197;&#22312;&#36825;&#37324;&#21457;&#32473;&#31649;&#29702;&#21592;&#12290;</p></div>
-        <div class="message-grid reveal">
-          <article class="message-intro">
-            <div class="message-radar"><i></i><span>&#20449;&#21495;&#25509;&#25910;&#20013;</span></div>
-            <h3>&#20320;&#30340;&#30041;&#35328;&#20250;&#21457;&#21040;&#21738;&#37324;&#65311;</h3>
-            <p>&#25552;&#20132;&#21518;&#20250;&#20445;&#23384;&#21040;&#20113;&#31471;&#25968;&#25454;&#24211;&#65292;&#21482;&#26377;&#20320;&#33258;&#24049;&#21644;&#31649;&#29702;&#21592;&#21487;&#20197;&#26597;&#30475;&#12290;&#31649;&#29702;&#21592;&#33021;&#22312;&#31449;&#20869;&#21518;&#21488;&#36319;&#36827;&#24182;&#22238;&#22797;&#12290;</p>
-            <div class="message-steps"><span><b>01</b>&#22635;&#20889;&#30041;&#35328;</span><span><b>02</b>&#20113;&#31471;&#20445;&#23384;</span><span><b>03</b>&#31649;&#29702;&#21592;&#22238;&#22797;</span></div>
-          </article>
-          <form class="message-form" id="messageForm">
-            <label><span>&#24744;&#30340;&#31216;&#21628; <i>*</i></span><input id="messageName" name="name" maxlength="30" required placeholder="&#20363;&#22914;&#65306;&#23567;&#26126;"></label>
-            <label><span>&#30041;&#35328;&#31867;&#22411;</span><select id="messageType" name="type"><option>&#21151;&#33021;&#24314;&#35758;</option><option>&#23398;&#20064;&#38382;&#39064;</option><option>&#32593;&#31449;&#25925;&#38556;</option><option>&#20854;&#20182;&#21453;&#39304;</option></select></label>
-            <label class="full"><span>&#30041;&#35328;&#26631;&#39064; <i>*</i></span><input id="messageTitle" name="title" maxlength="70" required placeholder="&#35831;&#31616;&#35201;&#25551;&#36848;&#20320;&#30340;&#38382;&#39064;"></label>
-            <label class="full"><span>&#30041;&#35328;&#20869;&#23481; <i>*</i></span><textarea id="messageContent" name="content" maxlength="1000" required placeholder="&#35831;&#35814;&#32454;&#35828;&#26126;&#20320;&#30340;&#24819;&#27861;&#25110;&#38382;&#39064;..."></textarea><small><b id="messageCount">0</b> / 1000</small></label>
-            <label class="full"><span>&#32852;&#31995;&#26041;&#24335;&#65288;&#21487;&#36873;&#65289;</span><input id="messageContact" name="contact" maxlength="80" placeholder="&#37038;&#31665;&#25110;&#20854;&#20182;&#26041;&#24335;&#65292;&#19981;&#22635;&#20063;&#21487;&#20197;"></label>
-            <div class="form-note full"><i></i><span>&#30041;&#35328;&#20250;&#20445;&#23384;&#21040;&#20320;&#30340;&#20010;&#20154;&#36134;&#25143;&#20013;&#65292;&#35831;&#21247;&#22635;&#20889;&#23494;&#30721;&#12289;&#36523;&#20221;&#35777;&#31561;&#25935;&#24863;&#20449;&#24687;&#12290;</span></div>
-            <button class="primary full" id="submitMessage" type="submit">&#21457;&#36865;&#32473;&#31649;&#29702;&#21592; <span>&#8594;</span></button>
+        <div class="section-head"><div><p class="eyebrow">四步学习法</p><h2>每一次打开，都知道下一步做什么</h2></div><p>先理解，再动手；用题目找到薄弱点，最后在学习中心看到自己的成长。</p></div>
+        <div class="path-grid"><div class="path-step"><i>1</i><b>打开教程</b><small>从第一章开始</small></div><span class="path-arrow">→</span><div class="path-step"><i>2</i><b>动手实验</b><small>修改并运行</small></div><span class="path-arrow">→</span><div class="path-step"><i>3</i><b>刷题巩固</b><small>即时看解析</small></div><span class="path-arrow">→</span><div class="path-step"><i>4</i><b>查看进度</b><small>记录学习成果</small></div></div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="shell">
+        <div class="section-head"><div><p class="eyebrow">你的学习状态</p><h2>小进步也值得被看见</h2></div><a class="secondary" href="learning.html">打开学习中心 →</a></div>
+        <div class="home-data"><article class="card data-card"><span>已完成教程</span><b id="homeProgress">0 节</b></article><article class="card data-card"><span>学习能量</span><b id="homeXp">0 XP</b></article><article class="card data-card"><span>连续学习</span><b id="homeStreak">0 天</b></article></div>
+      </div>
+    </section>
+
+    <section class="section-block alt" id="message">
+      <div class="shell">
+        <div class="section-head"><div><p class="eyebrow">留言与反馈</p><h2>两项必填，轻松告诉我们</h2></div><p>提交后会保存到你的账户，管理员通常会在 24 小时内回复。</p></div>
+        <div class="message-layout">
+          <article class="card message-intro"><h3>想说什么？</h3><p class="muted">可以从模板开始，称呼、类型和联系方式都不是必填项。</p><div class="template-buttons"><button type="button" data-message-template="功能建议">功能建议</button><button type="button" data-message-template="遇到问题">遇到问题</button><button type="button" data-message-template="想夸一下">想夸一下</button></div><p><b>隐私说明</b><br><span class="muted">你的留言只有当前账号和管理员可见，请不要填写密码或身份证等敏感信息。</span></p></article>
+          <form class="card message-form form-grid" id="messageForm">
+            <label class="full"><span>标题 *</span><input id="messageTitle" maxlength="70" required placeholder="用一句话概括"></label>
+            <label class="full"><span>内容 *</span><textarea id="messageContent" maxlength="1000" required placeholder="详细说说你的想法或问题"></textarea></label>
+            <label><span>称呼（可选）</span><input id="messageName" maxlength="30" placeholder="怎么称呼你"></label>
+            <label><span>类型（可选）</span><select id="messageType"><option>功能建议</option><option>遇到问题</option><option>想夸一下</option><option>其他反馈</option></select></label>
+            <label class="full"><span>联系方式（可选）</span><input id="messageContact" maxlength="80" placeholder="邮箱或其他方式"></label>
+            <button class="primary full" id="submitMessage" type="submit">发送给管理员 →</button>
           </form>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer-opt has-footer-opt"><div class=footer-inner><div class=footer-brand>小菜鸟带你飞</div><p class=footer-tagline>编写 · 运行 · 学习 · 进步</p><div class=footer-links><a href=index.html>首页</a><a href=tutorial.html>系统教程</a><a href=quiz.html>3000题库</a><a href=lab.html>代码实验室</a><a href=learning.html>学习中心</a><a href=index.html#message>留言</a></div><div class=footer-bottom><span>© 2026 陈定栋</span><span class=footer-back onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ 顶部</span></div></div></footer>
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>编写 · 运行 · 学习 · 进步</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="#message">联系管理员</a><a href="https://github.com/2002chen/2002chen.github.io" rel="noopener" target="_blank">GitHub</a></div></div><div class="footer-bottom"><span>© 2026 陈定栋</span><a href="#main">↑ 回到顶部</a></div></div></footer>
 
-  <div class="auth-gate" id="authGate">
-    <section class="auth-shell">
-      <div class="auth-card">
-        <div class="auth-mobile-brand"><img src="assets/site-icon.png" alt=""><div><b>小菜鸟带你飞</b><small>POWER BY 陈定栋</small></div></div>
-        <div class="auth-copy"><h2 id="authHeading">欢迎回来</h2><p id="authDescription">登录后继续你的专属学习进度。</p></div>
-        <div class="auth-tabs"><button class="active" data-auth-tab="login" type="button">登录</button><button data-auth-tab="register" type="button">注册</button></div>
-        <form class="auth-form" id="authForm">
-          <label class="register-only"><span>昵称</span><div class="auth-field"><input id="authDisplayName" maxlength="30" autocomplete="nickname" placeholder="请输入昵称"></div></label>
-          <label><span>邮箱</span><div class="auth-field"><input id="authEmail" type="email" required autocomplete="email" inputmode="email" placeholder="name@example.com"></div></label>
-          <label><span>密码</span><div class="auth-field"><input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="至少 6 位密码"><button class="password-toggle" data-password-target="authPassword" type="button" aria-label="显示密码">显示</button></div></label>
-          <label class="register-only"><span>确认密码</span><div class="auth-field"><input id="authPasswordConfirm" type="password" minlength="6" autocomplete="new-password" placeholder="再次输入密码"><button class="password-toggle" data-password-target="authPasswordConfirm" type="button" aria-label="显示密码">显示</button></div></label>
-          <div class="auth-error" id="authError" role="status"></div>
-          <button class="auth-submit" id="authSubmit" type="submit"><span>登录并继续</span><i>→</i></button>
-          <button class="forgot-link" id="forgotPassword" type="button">忘记密码？</button>
-        </form>
-        <p class="auth-security">学习数据按账号独立保存，并在手机和电脑之间同步。</p>
-      </div>
-    </section>
+  <div class="admin-panel" id="adminPanel" aria-hidden="true"><div class="admin-backdrop" data-close-admin></div><section class="admin-drawer"><div class="admin-head"><div><p class="eyebrow">管理员后台</p><h2>内容与留言管理</h2></div><button class="icon-button" data-close-admin type="button" aria-label="关闭管理员后台">×</button></div><div class="admin-tabs"><button class="active" data-admin-tab="questions" type="button">题库管理</button><button data-admin-tab="course" type="button">课程管理</button><button data-admin-tab="messages" type="button">用户留言</button></div>
+    <div class="admin-view active" id="adminQuestions"><form id="questionForm" class="question-form"><input type="hidden" id="questionId"><label><span>难度</span><select id="questionLevel"><option value="beginner">零基础</option><option value="basic">基础</option><option value="advanced">进阶</option></select></label><label><span>知识点</span><input id="questionTopic" required></label><label class="wide"><span>题目</span><textarea id="questionText" required></textarea></label><label class="wide"><span>选项（每行一个）</span><textarea id="questionOptions" required></textarea></label><label><span>正确答案序号</span><input id="questionCorrect" type="number" min="1" max="10" value="1" required></label><label><span>排序</span><input id="questionPosition" type="number" min="0" value="0"></label><label class="wide"><span>解析</span><textarea id="questionExplanation"></textarea></label><label><input id="questionActive" type="checkbox" checked> 立即上架</label><div class="admin-form-actions wide"><button class="secondary" type="button" id="questionCancel">清空</button><button class="primary" type="submit">保存题目</button></div></form><div class="admin-list" id="questionList"></div></div>
+    <div class="admin-view" id="adminCourse"><form id="chapterForm" class="question-form"><input type="hidden" id="chapterId"><label class="wide"><span>章节名称</span><input id="chapterTitle" required></label><label><span>难度</span><select id="chapterLevel"><option value="beginner">零基础</option><option value="basic">基础</option><option value="advanced">进阶</option></select></label><label><span>排序</span><input id="chapterPosition" type="number" min="1" value="1" required></label><label><span>图标</span><input id="chapterIcon" value="▤"></label><label><span>预计分钟</span><input id="chapterMinutes" type="number" min="1" value="60"></label><label class="wide"><span>章节介绍</span><textarea id="chapterDescription" required></textarea></label><label><input id="chapterActive" type="checkbox" checked> 立即上架</label><div class="admin-form-actions wide"><button class="secondary" type="button" id="chapterCancel">清空</button><button class="primary" type="submit">保存章节</button></div></form><div class="admin-list" id="chapterAdminList"></div></div>
+    <div class="admin-view" id="adminMessages"><div class="mode-tabs"><select id="messageStatusFilter"><option value="">全部状态</option><option value="new">新留言</option><option value="processing">处理中</option><option value="resolved">已解决</option></select><button class="secondary" id="refreshMessages" type="button">刷新</button></div><div class="admin-list" id="messageList"></div></div>
+  </section></div>
 
-  </div>
-
-  <div class="dialog" id="answerDialog" aria-hidden="true" role="dialog" aria-modal="true"><div class="dialog-backdrop" data-close-dialog></div><div class="dialog-card"><button class="dialog-close" data-close-dialog type="button">&#215;</button><small>// &#21442;&#32771;&#31572;&#26696;</small><h3 id="answerTitle"></h3><pre id="answerCode"></pre><button class="primary" id="useAnswer" type="button">&#25918;&#20837;&#32534;&#36753;&#22120;</button></div></div>
-  <div class="admin-panel" id="adminPanel" aria-hidden="true"><div class="admin-backdrop" data-close-admin></div><section class="admin-drawer"><div class="admin-head"><div><small>// &#31649;&#29702;&#21592;&#21518;&#21488;</small><h2>&#20869;&#23481;&#19982;&#30041;&#35328;&#31649;&#29702;</h2></div><button data-close-admin type="button">&#215;</button></div><div class="admin-tabs"><button class="active" data-admin-tab="questions" type="button">&#39064;&#24211;&#31649;&#29702;</button><button data-admin-tab="course" type="button">&#35838;&#31243;&#31649;&#29702;</button><button data-admin-tab="messages" type="button">&#29992;&#25143;&#30041;&#35328;</button></div><div class="admin-view active" id="adminQuestions"><form id="questionForm" class="question-form"><input type="hidden" id="questionId"><label><span>&#38590;&#24230;</span><select id="questionLevel"><option value="beginner">&#38646;&#22522;&#30784;</option><option value="basic">&#22522;&#30784;</option><option value="advanced">&#36827;&#38454;</option></select></label><label><span>&#30693;&#35782;&#28857;</span><input id="questionTopic" required></label><label class="wide"><span>&#39064;&#30446;</span><textarea id="questionText" required></textarea></label><label class="wide"><span>&#36873;&#39033;&#65288;&#27599;&#34892;&#19968;&#20010;&#65289;</span><textarea id="questionOptions" required></textarea></label><label><span>&#27491;&#30830;&#31572;&#26696;&#24207;&#21495;</span><input id="questionCorrect" type="number" min="1" max="10" value="1" required></label><label><span>&#25490;&#24207;</span><input id="questionPosition" type="number" min="0" value="0"></label><label class="wide"><span>&#35299;&#26512;</span><textarea id="questionExplanation"></textarea></label><label class="check"><input id="questionActive" type="checkbox" checked><span>&#31435;&#21363;&#19978;&#26550;</span></label><div class="admin-form-actions wide"><button type="button" id="questionCancel">&#28165;&#31354;</button><button class="primary" type="submit">&#20445;&#23384;&#39064;&#30446;</button></div></form><div class="admin-list" id="questionList"></div></div><div class="admin-view" id="adminCourse"><p class="admin-course-note">&#35838;&#31243;&#12289;&#23567;&#33410;&#21644;&#32451;&#20064;&#37117;&#26159;&#20174;&#20113;&#31471;&#25968;&#25454;&#24211;&#21160;&#24577;&#35835;&#21462;&#12290;&#22312;&#36825;&#37324;&#21487;&#32534;&#36753;&#31456;&#33410;&#22522;&#26412;&#20449;&#24687;&#65292;&#20855;&#20307;&#25945;&#31243;&#21644;&#39064;&#30446;&#21487;&#36816;&#34892; seed-course.sql &#25209;&#37327;&#23548;&#20837;&#21518;&#32487;&#32493;&#32500;&#25252;&#12290;</p><form id="chapterForm" class="question-form"><input type="hidden" id="chapterId"><label class="wide"><span>&#31456;&#33410;&#21517;&#31216;</span><input id="chapterTitle" required></label><label><span>&#38590;&#24230;</span><select id="chapterLevel"><option value="beginner">&#38646;&#22522;&#30784;</option><option value="basic">&#22522;&#30784;</option><option value="advanced">&#36827;&#38454;</option></select></label><label><span>&#25490;&#24207;</span><input id="chapterPosition" type="number" min="1" value="1" required></label><label><span>&#22270;&#26631;</span><input id="chapterIcon" value="&#128218;"></label><label><span>&#39044;&#35745;&#20998;&#38047;</span><input id="chapterMinutes" type="number" min="1" value="60"></label><label class="wide"><span>&#31456;&#33410;&#20171;&#32461;</span><textarea id="chapterDescription" required></textarea></label><label class="check"><input id="chapterActive" type="checkbox" checked><span>&#31435;&#21363;&#19978;&#26550;</span></label><div class="admin-form-actions wide"><button type="button" id="chapterCancel">&#28165;&#31354;</button><button class="primary" type="submit">&#20445;&#23384;&#31456;&#33410;</button></div></form><div class="admin-list" id="chapterAdminList"></div></div><div class="admin-view" id="adminMessages"><div class="message-filter"><select id="messageStatusFilter"><option value="">&#20840;&#37096;&#29366;&#24577;</option><option value="new">&#26032;&#30041;&#35328;</option><option value="processing">&#22788;&#29702;&#20013;</option><option value="resolved">&#24050;&#35299;&#20915;</option></select><button id="refreshMessages" type="button">&#21047;&#26032;</button></div><div class="admin-list" id="messageList"></div></div></section></div>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="assets/supabase.min.js?v=2.110.8"></script>
-  <script src="supabase-config.js?v=admin-access-3"></script>
-  <script src="app.js?v=admin-access-3"></script>
-  <script src="dynamic-data.js?v=zero-beginner-1"></script>
-  <script src="course-data.js?v=zero-beginner-1"></script>
-  <script src="admin.js?v=admin-access-3"></script>
-  <script src="cloud-auth.js?v=mobile-login-1"></script>
-  <script src="account-profile.js?v=4"></script>
-  <script src="reward.js?v=2"></script>
-  <script src="motion-ui.js?v=1"></script>
+  <script src="supabase-config.js?v=20260725"></script>
+  <script src="site.js?v=20260725"></script>
+  <script src="home.js?v=20260725"></script>
+  <script src="admin.js?v=20260725"></script>
 </body>
 </html>

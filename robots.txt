@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://2002chen.github.io/sitemap.xml
