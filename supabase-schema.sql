@@ -226,9 +226,7 @@ alter table public.section_progress enable row level security;
 alter table public.exercise_attempts enable row level security;
 
 drop policy if exists "profiles self read" on public.profiles;
-drop policy if exists "profiles self update" on public.profiles;
 create policy "profiles self read" on public.profiles for select using (id = auth.uid() or public.is_admin());
-create policy "profiles self update" on public.profiles for update using (id = auth.uid()) with check (id = auth.uid());
 
 drop policy if exists "learning self read" on public.user_learning_data;
 drop policy if exists "learning self insert" on public.user_learning_data;
