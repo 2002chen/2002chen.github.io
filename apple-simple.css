@@ -56,4 +56,4 @@ html{background:#f5f5f7!important}body{color:#1d1d1f!important;background:#f5f5f
   .auth-mobile-brand{margin-bottom:23px!important}
   .auth-copy h2{font-size:30px}
 }
-@media(max-width:650px){.topbar{height:auto!important}.nav{min-height:68px;flex-wrap:wrap;padding:10px 0!important}.navlinks{order:3;width:100%;display:flex!important;overflow-x:auto;margin:0!important;padding-bottom:2px;scrollbar-width:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a{white-space:nowrap}}
+
