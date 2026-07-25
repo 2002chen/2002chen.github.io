@@ -2,14 +2,15 @@
   const $ = id => document.getElementById(id);
   let currentQuestions = [];
   let currentChapters = [];
+  let currentAnnouncements = [];
 
   function client() { return window.learningCloud?.client; }
   async function open() {
     const cloudClient = client();
-    if (!cloudClient) return;
+    if (!cloudClient) { window.site?.toast('管理员后台连接失败，请刷新页面重试。', 'error'); return; }
     const sessionResult = await cloudClient.auth.getSession();
     const user = sessionResult.data.session?.user;
-    if (!user) return;
+    if (!user) { window.site?.openAuth(); return; }
     const roleResult = await cloudClient.from('profiles').select('role').eq('id', user.id).maybeSingle();
     let isAdmin = roleResult.data?.role === 'admin';
     if (!isAdmin) {
@@ -22,9 +23,10 @@
     }
     $('adminPanel').classList.add('open');
     $('adminPanel').setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
     loadQuestions();
   }
-  function close() { $('adminPanel').classList.remove('open'); $('adminPanel').setAttribute('aria-hidden', 'true'); }
+  function close() { $('adminPanel').classList.remove('open'); $('adminPanel').setAttribute('aria-hidden', 'true'); document.body.classList.remove('modal-open'); }
   function clearForm() { $('questionForm').reset(); $('questionId').value = ''; $('questionActive').checked = true; }
 
   async function loadQuestions() {
@@ -75,17 +77,69 @@
   async function loadMessages() {
     let query = client().from('user_messages').select('*').order('created_at', { ascending: false });
     if ($('messageStatusFilter').value) query = query.eq('status', $('messageStatusFilter').value);
-    const { data, error } = await query; if (error) return;
-    $('messageList').innerHTML = (data || []).map(m => `<article class="admin-message"><div class="admin-message-head"><span>${m.message_type}</span><b>${m.title}</b><em>${new Date(m.created_at).toLocaleString('zh-CN')}</em></div><p>${escapeText(m.content)}</p><small>${escapeText(m.sender_name)} · ${escapeText(m.contact || '未留联系方式')}</small><label><span>处理状态</span><select data-message-status="${m.id}"><option value="new" ${m.status === 'new' ? 'selected' : ''}>新留言</option><option value="processing" ${m.status === 'processing' ? 'selected' : ''}>处理中</option><option value="resolved" ${m.status === 'resolved' ? 'selected' : ''}>已解决</option></select></label><label><span>管理员回复</span><textarea data-message-reply="${m.id}">${escapeText(m.admin_reply || '')}</textarea></label><button data-save-message="${m.id}">保存处理结果</button></article>`).join('') || '<p class="empty-state">暂无用户留言。</p>';
+    const { data, error } = await query;
+    if (error) { $('messageList').innerHTML = `<p class="empty-state">留言读取失败：${escapeText(error.message)}</p>`; return; }
+    $('messageList').innerHTML = (data || []).map(m => `<article class="admin-message" data-status="${m.status}"><div class="admin-message-head"><span>${escapeText(m.message_type)}</span><b>${escapeText(m.title)}</b><em>${new Date(m.created_at).toLocaleString('zh-CN')}</em></div><p>${escapeText(m.content)}</p><small>${escapeText(m.sender_name)} · ${escapeText(m.contact || '未留联系方式')}</small><label><span>处理状态</span><select data-message-status="${m.id}"><option value="new" ${m.status === 'new' ? 'selected' : ''}>未读</option><option value="processing" ${m.status === 'processing' ? 'selected' : ''}>已读</option><option value="resolved" ${m.status === 'resolved' ? 'selected' : ''}>已回复</option></select></label><label><span>回复用户</span><textarea data-message-reply="${m.id}" placeholder="回复会显示在用户的学习中心">${escapeText(m.admin_reply || '')}</textarea></label><div class="admin-message-actions"><button type="button" data-read-message="${m.id}">${m.status === 'new' ? '标记已读' : '已读'}</button><button class="primary" type="button" data-save-message="${m.id}">发送回复</button><button class="danger" type="button" data-delete-message="${m.id}">删除留言</button></div></article>`).join('') || '<p class="empty-state">暂无用户留言。</p>';
     document.querySelectorAll('[data-save-message]').forEach(button => button.onclick = () => saveMessage(Number(button.dataset.saveMessage)));
+    document.querySelectorAll('[data-read-message]').forEach(button => button.onclick = () => markMessageRead(Number(button.dataset.readMessage)));
+    document.querySelectorAll('[data-delete-message]').forEach(button => button.onclick = () => deleteMessage(Number(button.dataset.deleteMessage)));
   }
 
-  async function saveMessage(id) { const status = document.querySelector(`[data-message-status="${id}"]`).value; const admin_reply = document.querySelector(`[data-message-reply="${id}"]`).value; const { error } = await client().from('user_messages').update({ status, admin_reply }).eq('id', id); if (!error) loadMessages(); }
+  async function saveMessage(id) {
+    const statusField = document.querySelector(`[data-message-status="${id}"]`);
+    const adminReply = document.querySelector(`[data-message-reply="${id}"]`).value.trim();
+    const status = adminReply ? 'resolved' : statusField.value;
+    const { error } = await client().from('user_messages').update({ status, admin_reply: adminReply }).eq('id', id);
+    if (error) { window.site?.toast(`回复保存失败：${error.message}`, 'error'); return; }
+    window.site?.toast(adminReply ? '回复已发送' : '处理状态已保存', 'success');
+    loadMessages();
+  }
+  async function markMessageRead(id) {
+    const { error } = await client().from('user_messages').update({ status: 'processing' }).eq('id', id);
+    if (error) { window.site?.toast(`标记失败：${error.message}`, 'error'); return; }
+    loadMessages();
+  }
+  async function deleteMessage(id) {
+    if (!confirm('确定删除这条留言吗？删除后无法恢复。')) return;
+    const { error } = await client().from('user_messages').delete().eq('id', id);
+    if (error) { window.site?.toast(`删除失败：${error.message}`, 'error'); return; }
+    window.site?.toast('留言已删除', 'success');
+    loadMessages();
+  }
+  function clearAnnouncementForm() { $('announcementForm').reset(); $('announcementId').value = ''; $('announcementPublished').checked = true; }
+  async function loadAnnouncements() {
+    const { data, error } = await client().from('site_announcements').select('*').order('created_at', { ascending: false });
+    if (error) { $('announcementList').innerHTML = `<p class="empty-state">公告读取失败：${escapeText(error.message)}</p>`; return; }
+    currentAnnouncements = data || [];
+    $('announcementList').innerHTML = currentAnnouncements.map(item => `<article class="announcement-admin-item"><div><small>${item.published ? '已发布' : '未发布'} · ${new Date(item.updated_at || item.created_at).toLocaleString('zh-CN')}</small><b>${escapeText(item.title)}</b><p>${escapeText(item.content)}</p></div><div><button type="button" data-edit-announcement="${item.id}">编辑</button><button class="danger" type="button" data-delete-announcement="${item.id}">删除</button></div></article>`).join('') || '<p class="empty-state">还没有公告。</p>';
+    document.querySelectorAll('[data-edit-announcement]').forEach(button => button.onclick = () => editAnnouncement(Number(button.dataset.editAnnouncement)));
+    document.querySelectorAll('[data-delete-announcement]').forEach(button => button.onclick = () => deleteAnnouncement(Number(button.dataset.deleteAnnouncement)));
+  }
+  function editAnnouncement(id) {
+    const item = currentAnnouncements.find(row => row.id === id); if (!item) return;
+    $('announcementId').value = item.id; $('announcementTitle').value = item.title; $('announcementContent').value = item.content; $('announcementPublished').checked = item.published; $('announcementForm').scrollIntoView({ behavior: 'smooth' });
+  }
+  async function saveAnnouncement(event) {
+    event.preventDefault();
+    const id = $('announcementId').value, published = $('announcementPublished').checked;
+    const row = { title: $('announcementTitle').value.trim(), content: $('announcementContent').value.trim(), published, published_at: published ? new Date().toISOString() : null };
+    const query = id ? client().from('site_announcements').update(row).eq('id', id) : client().from('site_announcements').insert(row);
+    const { error } = await query;
+    if (error) { window.site?.toast(`公告保存失败：${error.message}`, 'error'); return; }
+    clearAnnouncementForm(); window.site?.toast(published ? '公告已发布' : '公告已保存', 'success'); loadAnnouncements();
+  }
+  async function deleteAnnouncement(id) {
+    if (!confirm('确定删除这条公告吗？')) return;
+    const { error } = await client().from('site_announcements').delete().eq('id', id);
+    if (error) { window.site?.toast(`公告删除失败：${error.message}`, 'error'); return; }
+    loadAnnouncements();
+  }
   function escapeText(value) { return String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
   document.querySelectorAll('[data-close-admin]').forEach(el => el.onclick = close);
-  document.querySelectorAll('[data-admin-tab]').forEach(button => button.onclick = () => { const tab = button.dataset.adminTab; document.querySelectorAll('[data-admin-tab]').forEach(x => x.classList.toggle('active', x === button)); $('adminQuestions').classList.toggle('active', tab === 'questions'); $('adminCourse').classList.toggle('active', tab === 'course'); $('adminMessages').classList.toggle('active', tab === 'messages'); if (tab === 'course') loadChapters(); if (tab === 'messages') loadMessages(); });
+  document.querySelectorAll('[data-admin-tab]').forEach(button => button.onclick = () => { const tab = button.dataset.adminTab; document.querySelectorAll('[data-admin-tab]').forEach(x => x.classList.toggle('active', x === button)); $('adminQuestions').classList.toggle('active', tab === 'questions'); $('adminCourse').classList.toggle('active', tab === 'course'); $('adminMessages').classList.toggle('active', tab === 'messages'); $('adminAnnouncements').classList.toggle('active', tab === 'announcements'); if (tab === 'course') loadChapters(); if (tab === 'messages') loadMessages(); if (tab === 'announcements') loadAnnouncements(); });
   $('questionForm').addEventListener('submit', saveQuestion); $('questionCancel').onclick = clearForm; $('refreshMessages').onclick = loadMessages; $('messageStatusFilter').onchange = loadMessages;
   $('chapterForm').addEventListener('submit', saveChapter); $('chapterCancel').onclick = clearChapterForm;
-  window.adminDashboard = { open, close, loadQuestions, loadChapters, loadMessages };
+  $('announcementForm').addEventListener('submit', saveAnnouncement); $('announcementCancel').onclick = clearAnnouncementForm;
+  window.adminDashboard = { open, close, loadQuestions, loadChapters, loadMessages, loadAnnouncements };
 })();

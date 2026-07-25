@@ -8,6 +8,7 @@
     example_code: 'print("你好，Python！")\nprint("这是我的第一段代码")'
   }];
   let chapters = [], sections = [], completed = new Set(), checks = {}, current = null, context = null;
+  let codeWorker = null, codeJobId = 0;
 
   function localData() {
     try { return JSON.parse(localStorage.getItem('python-learning-v2') || '{}'); } catch { return {}; }
@@ -79,6 +80,8 @@
     $('tutorialBody').innerHTML = current.content_html || '<p>本节内容正在准备。</p>';
     $('tutorialCode').textContent = current.example_code || '';
     $('tutorialCodeBox').hidden = !current.example_code;
+    $('tutorialOutput').hidden = true;
+    $('tutorialOutputText').textContent = '';
     const index = sections.indexOf(current);
     $('readerPrevious').disabled = index <= 0;
     $('readerNext').disabled = index >= sections.length - 1 || (!context.session && index >= 0);
@@ -121,11 +124,47 @@
     $('courseProgressBar').style.width = `${percent}%`;
   }
 
+  function executeCode(code) {
+    if (!codeWorker) codeWorker = new Worker('py-worker.js?v=20260725');
+    return new Promise(resolve => {
+      const id = ++codeJobId;
+      const handler = event => {
+        if (event.data.id !== id) return;
+        codeWorker.removeEventListener('message', handler);
+        resolve(event.data);
+      };
+      codeWorker.addEventListener('message', handler);
+      codeWorker.postMessage({ id, code });
+    });
+  }
+
+  async function runExampleCode() {
+    const button = $('runTutorialCode');
+    const output = $('tutorialOutput');
+    const outputText = $('tutorialOutputText');
+    button.disabled = true;
+    button.textContent = '正在运行...';
+    output.hidden = false;
+    outputText.textContent = '首次运行需要加载 Python，请稍候。';
+    try {
+      const result = await executeCode($('tutorialCode').textContent);
+      outputText.textContent = result.output || (result.ok ? '程序运行完成，没有输出。' : '运行失败，请检查代码。');
+      if (result.ok) site.toast('示例运行完成', 'success');
+    } catch {
+      outputText.textContent = 'Python 暂时没有加载成功，请检查网络后重试。';
+    } finally {
+      button.disabled = false;
+      button.textContent = '运行代码';
+    }
+  }
+
   document.querySelectorAll('[data-study-check]').forEach(button => button.onclick = async () => {
     if (!current) return; const id = String(current.id); checks[id] ||= {}; checks[id][button.dataset.studyCheck] = !checks[id][button.dataset.studyCheck]; renderChecks(); await persistChecks();
   });
   $('completeSection').onclick = complete;
   $('copyTutorialCode').onclick = async () => { await navigator.clipboard.writeText($('tutorialCode').textContent); site.toast('代码已复制，建议再亲手输入一次。'); };
+  $('runTutorialCode').onclick = runExampleCode;
+  $('clearTutorialOutput').onclick = () => { $('tutorialOutputText').textContent = ''; $('tutorialOutput').hidden = true; };
   $('trialRegister').onclick = () => site.openAuth();
   $('collapseCatalog').onclick = () => { const catalog = document.querySelector('.catalog'); catalog.classList.toggle('collapsed'); $('chapterList').hidden = catalog.classList.contains('collapsed'); $('collapseCatalog').textContent = catalog.classList.contains('collapsed') ? '展开' : '收起'; };
   load();

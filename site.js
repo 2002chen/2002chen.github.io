@@ -76,6 +76,7 @@
     ['代码实验室', '在线编写并运行 Python', 'lab.html'],
     ['学习中心', '查看进度、日历、能力和徽章', 'learning.html'],
     ['留言与建议', '把问题或功能建议告诉管理员', 'index.html#message'],
+    ['支持作者', '请作者喝杯茶，网站的学习功能始终免费', '#support-author'],
     ['变量', '给数据贴上容易记住的名字', 'tutorial.html?q=变量'],
     ['条件判断', '使用 if、elif 和 else 做选择', 'tutorial.html?q=条件'],
     ['循环', '使用 for 和 while 重复执行', 'tutorial.html?q=循环'],
@@ -106,6 +107,62 @@
       if (event.key === 'Escape') close();
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); open(); }
     });
+  }
+
+  function ensureSupportDialog() {
+    if ($('#supportDialog')) return;
+
+    $$('.site-links').forEach(links => {
+      if ($('[data-open-support]', links)) return;
+      const link = document.createElement('a');
+      link.href = '#support-author';
+      link.dataset.openSupport = '';
+      link.textContent = '支持作者';
+      links.appendChild(link);
+    });
+
+    $$('.footer-links').forEach(group => {
+      if ($('[data-open-support]', group) || group.querySelector('b')?.textContent !== '更多') return;
+      const link = document.createElement('a');
+      link.href = '#support-author';
+      link.dataset.openSupport = '';
+      link.textContent = '支持作者';
+      group.appendChild(link);
+    });
+
+    const dialog = document.createElement('div');
+    dialog.id = 'supportDialog';
+    dialog.className = 'support-dialog';
+    dialog.setAttribute('aria-hidden', 'true');
+    dialog.innerHTML = '<div class="support-backdrop" data-close-support></div><section role="dialog" aria-modal="true" aria-labelledby="supportTitle" aria-describedby="supportLead"><button class="dialog-close" type="button" data-close-support aria-label="关闭支持作者窗口">×</button><div class="support-copy"><p class="eyebrow">支持作者</p><h2 id="supportTitle">请作者喝杯茶</h2><p id="supportLead">网站会一直免费。如果这里的内容帮你少走了一点弯路，可以自愿支持作者。</p><small>支持与否不影响任何学习功能。</small></div><figure><img src="assets/wechat-support.jpg" alt="微信赞赏码"><figcaption>打开微信扫一扫</figcaption></figure></section>';
+    document.body.appendChild(dialog);
+
+    let previousFocus = null;
+    const close = () => {
+      dialog.classList.remove('open');
+      dialog.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      previousFocus?.focus();
+    };
+    const open = event => {
+      event?.preventDefault();
+      previousFocus = document.activeElement;
+      const search = $('#globalSearch');
+      search?.classList.remove('open');
+      search?.setAttribute('aria-hidden', 'true');
+      dialog.classList.add('open');
+      dialog.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      setTimeout(() => $('[data-close-support]', dialog).focus(), 30);
+    };
+    document.addEventListener('click', event => {
+      if (event.target.closest('a[href="#support-author"]')) open(event);
+    });
+    $$('[data-close-support]', dialog).forEach(node => node.addEventListener('click', close));
+    addEventListener('keydown', event => {
+      if (event.key === 'Escape' && dialog.classList.contains('open')) close();
+    });
+    if (location.hash === '#support-author') open();
   }
 
   function ensureMobileTabs() {
@@ -184,6 +241,103 @@
     window.siteOpenAuth = () => { dialog.classList.add('open'); dialog.setAttribute('aria-hidden', 'false'); setTimeout(() => $('#authEmail').focus(), 30); };
   }
 
+  function ensureProfileDialog() {
+    if ($('#profileDialog')) return;
+    const dialog = document.createElement('div');
+    dialog.id = 'profileDialog';
+    dialog.className = 'profile-dialog';
+    dialog.setAttribute('aria-hidden', 'true');
+    dialog.innerHTML = '<div class="profile-backdrop" data-close-profile></div><section role="dialog" aria-modal="true" aria-labelledby="profileTitle"><button class="dialog-close" type="button" data-close-profile aria-label="关闭个人资料窗口">×</button><p class="eyebrow">个人账号</p><h2 id="profileTitle">编辑头像和昵称</h2><p class="muted">资料只显示在当前学习账号中。</p><div class="profile-avatar-editor"><div class="profile-avatar-preview" id="profileAvatarPreview">我</div><label for="profileAvatarInput">选择头像</label><input id="profileAvatarInput" type="file" accept="image/png,image/jpeg,image/webp"></div><form id="profileForm"><label><span>昵称</span><input id="profileNickname" maxlength="24" required></label><div class="profile-email" id="profileEmail"></div><button class="primary wide" id="profileSave" type="submit">保存个人资料</button><p class="form-error" id="profileError" role="status"></p></form></section>';
+    document.body.appendChild(dialog);
+
+    let avatarData = '';
+    let profileState = {};
+    const avatarMarkup = (avatar, name) => avatar ? `<img src="${avatar}" alt="用户头像">` : escapeHtml((name || '学习者').slice(0, 2).toUpperCase());
+    const readState = async () => {
+      if (!client || !session) return {};
+      const result = await client.from('user_learning_data').select('learning_state').eq('user_id', session.user.id).maybeSingle();
+      return result.data?.learning_state || {};
+    };
+    const close = () => {
+      dialog.classList.remove('open');
+      dialog.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    };
+    const open = async () => {
+      if (!session) return window.siteOpenAuth();
+      profileState = await readState();
+      const saved = profileState.account_profile || {};
+      const name = saved.display_name || session.user.user_metadata?.display_name || session.user.email?.split('@')[0] || '学习者';
+      avatarData = saved.avatar_data || '';
+      $('#profileNickname').value = name;
+      $('#profileEmail').textContent = session.user.email || '';
+      $('#profileAvatarPreview').innerHTML = avatarMarkup(avatarData, name);
+      $('#profileAvatarInput').value = '';
+      $('#profileError').textContent = '';
+      dialog.classList.add('open');
+      dialog.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    };
+    $$('[data-close-profile]', dialog).forEach(node => node.onclick = close);
+    $('#profileAvatarInput').onchange = event => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      if (file.size > 8 * 1024 * 1024) { $('#profileError').textContent = '图片不能超过 8MB。'; return; }
+      const reader = new FileReader();
+      reader.onload = () => {
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const size = 192, side = Math.min(image.width, image.height);
+          canvas.width = canvas.height = size;
+          canvas.getContext('2d').drawImage(image, (image.width - side) / 2, (image.height - side) / 2, side, side, 0, 0, size, size);
+          avatarData = canvas.toDataURL('image/jpeg', .82);
+          $('#profileAvatarPreview').innerHTML = avatarMarkup(avatarData, $('#profileNickname').value);
+        };
+        image.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    };
+    $('#profileForm').onsubmit = async event => {
+      event.preventDefault();
+      const name = $('#profileNickname').value.trim();
+      if (!name) return;
+      const button = $('#profileSave');
+      button.disabled = true;
+      const learningState = { ...profileState, account_profile: { display_name: name, avatar_data: avatarData } };
+      const current = await client.from('user_learning_data').select('quiz_state').eq('user_id', session.user.id).maybeSingle();
+      const saved = await client.from('user_learning_data').upsert({ user_id: session.user.id, learning_state: learningState, quiz_state: current.data?.quiz_state || {} });
+      const authResult = saved.error ? null : await client.auth.updateUser({ data: { ...session.user.user_metadata, display_name: name } });
+      button.disabled = false;
+      const error = saved.error || authResult?.error;
+      if (error) { $('#profileError').textContent = error.message || '资料保存失败，请稍后重试。'; return; }
+      session = { ...session, user: authResult.data.user };
+      await paintAccount();
+      close();
+      toast('个人资料已保存', 'success');
+    };
+    addEventListener('keydown', event => { if (event.key === 'Escape' && dialog.classList.contains('open')) close(); });
+    window.siteOpenProfile = open;
+  }
+
+  function openAdminWhenReady() {
+    if (window.adminDashboard) {
+      window.adminDashboard.open();
+      return;
+    }
+    let attempts = 0;
+    const timer = setInterval(() => {
+      attempts += 1;
+      if (window.adminDashboard) {
+        clearInterval(timer);
+        window.adminDashboard.open();
+      } else if (attempts >= 20) {
+        clearInterval(timer);
+        toast('管理员后台加载失败，请刷新页面后重试。', 'error');
+      }
+    }, 100);
+  }
+
   async function paintAccount() {
     const trigger = $('[data-account]');
     const menu = $('#accountMenu');
@@ -196,8 +350,14 @@
     const name = session.user.user_metadata?.display_name || session.user.email?.split('@')[0] || '学习者';
     trigger.innerHTML = `<span>${escapeHtml(name)}</span><i>${escapeHtml(name.slice(0, 2).toUpperCase())}</i>`;
     if (menu) {
-      menu.innerHTML = `<b>${escapeHtml(session.user.email || '')}</b><a href="learning.html">我的学习中心</a><button type="button" id="logoutButton">退出登录</button>`;
+      const profileResult = await client.from('user_learning_data').select('learning_state').eq('user_id', session.user.id).maybeSingle();
+      const savedProfile = profileResult.data?.learning_state?.account_profile || {};
+      const displayName = savedProfile.display_name || name;
+      const avatar = savedProfile.avatar_data || '';
+      trigger.innerHTML = `<span>${escapeHtml(displayName)}</span><i>${avatar ? `<img src="${avatar}" alt="">` : escapeHtml(displayName.slice(0, 2).toUpperCase())}</i>`;
+      menu.innerHTML = `<b>${escapeHtml(session.user.email || '')}</b><button type="button" id="editProfileButton">编辑头像和昵称</button><a href="learning.html">我的学习中心</a><button type="button" id="logoutButton">退出登录</button>`;
       trigger.onclick = event => { event.stopPropagation(); menu.classList.toggle('open'); };
+      $('#editProfileButton').onclick = event => { event.stopPropagation(); menu.classList.remove('open'); window.siteOpenProfile(); };
       $('#logoutButton').onclick = async () => { await client.auth.signOut(); location.href = 'index.html'; };
       document.addEventListener('click', event => { if (!menu.contains(event.target) && event.target !== trigger) menu.classList.remove('open'); });
       const roleResult = await client.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
@@ -207,7 +367,11 @@
         const button = document.createElement('button');
         button.type = 'button';
         button.textContent = '进入管理员后台';
-        button.onclick = () => window.adminDashboard?.open();
+        button.onclick = event => {
+          event.stopPropagation();
+          menu.classList.remove('open');
+          openAdminWhenReady();
+        };
         menu.insertBefore(button, $('#logoutButton'));
       }
     }
@@ -217,8 +381,10 @@
     ensureAccessibilityTools();
     ensureOfflineBanner();
     ensureAuthDialog();
+    ensureProfileDialog();
     bindNavigation();
     ensureSearch();
+    ensureSupportDialog();
     ensureMobileTabs();
     if (client) session = (await client.auth.getSession()).data.session;
     await paintAccount();

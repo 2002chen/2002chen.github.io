@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fafbfd">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8">
   <meta name="description" content="面向完全零基础学习者的 Python 系统教程，从代码是什么开始，边理解边动手。">
   <meta property="og:title" content="Python 系统教程｜小菜鸟带你飞"><meta property="og:description" content="从第一行代码开始，循序渐进学会 Python。"><meta property="og:image" content="https://2002chen.github.io/assets/site-icon.png">
-  <title>Python 系统教程｜小菜鸟带你飞</title><link rel="icon" href="assets/site-icon.png"><link rel="stylesheet" href="site.css?v=20260725">
+  <title>Python 系统教程｜小菜鸟带你飞</title><link rel="icon" href="assets/site-icon.png"><link rel="stylesheet" href="site.css?v=20260725-editorial">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Python 零基础系统教程","description":"从代码是什么开始的 Python 系统教程","provider":{"@type":"Person","name":"陈定栋"}}</script>
 </head>
 <body data-page="tutorial">
   <header class="site-header"><nav class="site-nav shell" aria-label="主要导航"><a class="site-brand" href="index.html"><img src="assets/site-icon.png" alt="小菜鸟带你飞图标"><span>小菜鸟带你飞</span></a><div class="site-links"><a href="index.html">首页</a><a class="active" href="tutorial.html">教程</a><a href="quiz.html">题库</a><a href="lab.html">实验室</a><a class="secondary-link" href="roadmap.html">路线图</a><a href="learning.html">学习中心</a><a href="index.html#message">留言</a></div><div class="nav-actions"><button class="icon-button" type="button" data-open-search aria-label="打开全站搜索">⌕</button><div class="account-wrap"><button class="account-button" type="button" data-account><span>登录 / 注册</span></button><div class="account-menu" id="accountMenu"></div></div><button class="menu-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false"><span></span><span></span><span></span></button></div></nav></header>
   <main id="main">
-    <section class="page-hero shell"><div class="breadcrumbs"><a href="index.html">首页</a><span>›</span><span>系统教程</span></div><div class="page-hero-grid"><div class="hero-copy"><p class="eyebrow">完全零基础学习主线</p><h1>不背术语，<br><em>从第一行代码开始</em></h1><p>每一个新概念都先用生活例子解释，再亲手修改和运行。游客可以完整学完第一节。</p></div><article class="card progress-card"><span class="muted">章节进度</span><b id="courseProgressText">正在加载...</b><div class="progress-track"><i id="courseProgressBar"></i></div><small id="courseAccessText" class="muted">正在确认学习状态</small></article></div></section>
+    <section class="page-hero shell"><div class="breadcrumbs"><a href="index.html">首页</a><span>›</span><span>系统教程</span></div><div class="page-hero-grid"><div class="hero-copy"><p class="eyebrow">Python 系统教程</p><h1>第一节，<br><em>从 print 开始</em></h1><p>新概念会配合例子说明。读完后改一改代码，再运行看看结果。游客可以完整学完第一节。</p></div><article class="card progress-card"><span class="muted">章节进度</span><b id="courseProgressText">正在加载...</b><div class="progress-track"><i id="courseProgressBar"></i></div><small id="courseAccessText" class="muted">正在确认学习状态</small></article></div></section>
     <section class="tutorial-layout shell">
       <aside class="catalog card" aria-label="教程目录"><div class="catalog-head"><b>课程目录</b><button class="text-button" id="collapseCatalog" type="button">收起</button></div><div id="chapterList"><p class="empty-state">正在加载课程...</p></div></aside>
       <article class="reader card">
@@ -19,7 +19,7 @@
           <div class="breadcrumbs" id="readerBreadcrumb"></div>
           <div class="reader-meta"><div><p class="eyebrow" id="readerType">教程小节</p><h2 id="readerTitle"></h2><p class="muted" id="readerSummary"></p></div><span class="pill" id="readerReadTime"></span></div>
           <div class="reader-body" id="tutorialBody"></div>
-          <section class="code-sample" id="tutorialCodeBox"><header><span>示例代码</span><button id="copyTutorialCode" type="button">复制代码</button></header><pre id="tutorialCode"></pre></section>
+          <section class="code-sample" id="tutorialCodeBox"><header><span>示例代码</span><div><button id="copyTutorialCode" type="button">复制代码</button><button class="code-run-button" id="runTutorialCode" type="button">运行代码</button></div></header><pre id="tutorialCode"></pre><div class="tutorial-output" id="tutorialOutput" hidden><div><span>运行结果</span><button id="clearTutorialOutput" type="button">清空</button></div><pre id="tutorialOutputText" aria-live="polite"></pre></div></section>
           <div class="study-checks" aria-label="本节学习检查"><button type="button" data-study-check="understood">我看懂了</button><button type="button" data-study-check="typed">我动手写了</button><button type="button" data-study-check="reviewed">我检查结果了</button></div>
           <div class="reader-actions"><button class="secondary" id="readerPrevious" type="button">← 上一节</button><button class="primary" id="completeSection" type="button">完成本节 ✓</button><button class="secondary" id="readerNext" type="button">下一节 →</button></div>
           <div class="trial-callout" id="trialCallout"><h3>学得不错！保存进度，继续下一课</h3><p>注册免费账户后，手机和电脑可以同步学习记录。</p><button class="primary" type="button" id="trialRegister">注册并继续 →</button></div>
@@ -28,6 +28,6 @@
       </article>
     </section>
   </main>
-  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>编写 · 运行 · 学习 · 进步</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="index.html#message">联系管理员</a></div></div><div class="footer-bottom"><span>© 2026 陈定栋</span><a href="#main">↑ 回到顶部</a></div></div></footer>
-  <script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js?v=20260725"></script><script src="site.js?v=20260725"></script><script src="tutorial.js?v=20260725"></script>
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>一套从零开始的 Python 学习站。</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="index.html#message">联系管理员</a></div></div><div class="footer-bottom"><span>© 2026 陈定栋</span><a href="#main">↑ 回到顶部</a></div></div></footer>
+  <script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js?v=20260725"></script><script src="site.js?v=20260725-editorial"></script><script src="tutorial.js?v=20260725-editorial"></script>
 </body></html>
