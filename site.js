@@ -32,6 +32,24 @@
     })[char]);
   }
 
+  function visitorId() {
+    const key = 'site-visitor-id';
+    let value = localStorage.getItem(key);
+    if (!value) {
+      value = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
+      localStorage.setItem(key, value);
+    }
+    return value;
+  }
+
+  async function trackVisit() {
+    if (!client) return;
+    const payload = { visitor_id: visitorId(), path: `${location.pathname}${location.search}`.slice(0, 200) };
+    if (session?.user?.id) payload.user_id = session.user.id;
+    const { error } = await client.from('site_visits').insert(payload);
+    if (error) console.debug('visit tracking unavailable', error.message);
+  }
+
   function ensureAccessibilityTools() {
     if (!$('#skipLink')) {
       document.body.insertAdjacentHTML('afterbegin', '<a id="skipLink" class="skip-link" href="#main">跳到主要内容</a>');
@@ -345,7 +363,9 @@
       const displayName = savedProfile.display_name || name;
       const avatar = savedProfile.avatar_data || '';
       trigger.innerHTML = `<span>${escapeHtml(displayName)}</span><i>${avatar ? `<img src="${avatar}" alt="">` : escapeHtml(displayName.slice(0, 2).toUpperCase())}</i>`;
-      menu.innerHTML = `<b>${escapeHtml(session.user.email || '')}</b><button type="button" id="editProfileButton">编辑头像和昵称</button><a href="learning.html">我的学习中心</a><button type="button" id="logoutButton">退出登录</button>`;
+      const messageResult = await client.from('user_messages').select('id').eq('user_id', session.user.id).not('admin_reply', 'is', null).neq('admin_reply', '').is('user_read_at', null);
+      const unreadCount = messageResult.data?.length || 0;
+      menu.innerHTML = `<b>${escapeHtml(session.user.email || '')}</b><a class="account-learning-link" href="learning.html">我的学习中心${unreadCount ? `<em>${unreadCount}</em>` : ''}</a><button type="button" id="editProfileButton">编辑头像和昵称</button><button type="button" id="logoutButton">退出登录</button>`;
       trigger.onclick = event => { event.stopPropagation(); menu.classList.toggle('open'); };
       $('#editProfileButton').onclick = event => { event.stopPropagation(); menu.classList.remove('open'); window.siteOpenProfile(); };
       $('#logoutButton').onclick = async () => { await client.auth.signOut(); location.href = 'index.html'; };
@@ -377,6 +397,7 @@
     ensureSupportDialog();
     ensureMobileTabs();
     if (client) session = (await client.auth.getSession()).data.session;
+    trackVisit();
     await paintAccount();
     document.documentElement.classList.add('site-ready');
     return { client, session };

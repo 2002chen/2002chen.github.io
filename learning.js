@@ -24,7 +24,7 @@
         context.client.from('quiz_attempts').select('is_correct,created_at'),
         context.client.from('course_chapters').select('id').eq('active', true),
         context.client.from('course_sections').select('id,chapter_id').eq('active', true),
-        context.client.from('user_messages').select('title,status,admin_reply,created_at').order('created_at', { ascending: false }).limit(10)
+        context.client.from('user_messages').select('id,title,status,admin_reply,user_read_at,created_at').order('created_at', { ascending: false }).limit(10)
       ]);
       completed = progressResult.data?.length || 0; total = sectionsResult.data?.length || 40;
       attempts = attemptsResult.data?.length || 0; correct = (attemptsResult.data || []).filter(item => item.is_correct).length;
@@ -47,6 +47,10 @@
     const streak = calculateStreak(dates); $('streakDays').textContent = `${streak} 天`; localStorage.setItem('python-streak', String(streak)); $('studyTime').textContent = `${completed * 12 + attempts * 2} 分钟`;
     heatmap(dates); paintAbilities(completed, attempts);
     if (localStorage.getItem('python-lab-code-v2')) unlock('first-code'); if (attempts >= 10) unlock('ten-quiz'); if (completed >= 1) unlock('first-section'); if (xp >= 200) unlock('hundred-run');
+    const unreadMessages = messages.filter(message => message.admin_reply && !message.user_read_at);
+    $('messageUnreadCount').textContent = `${unreadMessages.length} 条未读`;
+    $('messageNotifications').innerHTML = unreadMessages.length ? unreadMessages.map(message => `<article class="message-notification"><div><b>${site.escapeHtml(message.title)}</b><small>${new Date(message.created_at).toLocaleDateString('zh-CN')}</small><p>${site.escapeHtml(message.admin_reply)}</p></div><button class="secondary" type="button" data-read-user-message="${message.id}">标记已读</button></article>`).join('') : '<p class="empty-state">暂无新回复。</p>';
+    document.querySelectorAll('[data-read-user-message]').forEach(button => button.onclick = async () => { button.disabled = true; const { error } = await context.client.rpc('mark_message_read', { message_id: Number(button.dataset.readUserMessage) }); if (error) { site.toast(`消息标记失败：${error.message}`, 'error'); button.disabled = false; return; } await load(); });
     if (messages.length) $('messageHistory').innerHTML = messages.map(message => `<article><b>${site.escapeHtml(message.title)}</b><small class="muted">${new Date(message.created_at).toLocaleDateString('zh-CN')} · ${statusText(message.status)}</small>${message.admin_reply ? `<p>管理员回复：${site.escapeHtml(message.admin_reply)}</p>` : ''}</article>`).join('');
     $('nextSuggestion').textContent = completed ? (accuracy < 70 && attempts ? '正确率还有提升空间，建议进入错题重做并复习相关知识点。' : '保持节奏：继续下一节教程，再完成两道练习题。') : '从第一节教程开始，完成一次“理解—动手—检查”。';
   }

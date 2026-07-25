@@ -4,6 +4,28 @@
   let currentChapters = [];
   let currentAnnouncements = [];
 
+  function formatNumber(value) { return Number(value || 0).toLocaleString('zh-CN'); }
+  function pageName(path) {
+    const clean = String(path || '').split('?')[0].replace(/^\//, '');
+    return ({ '': '首页', 'index.html': '首页', 'tutorial.html': '教程', 'quiz.html': '题库', 'lab.html': '实验室', 'learning.html': '学习中心', 'roadmap.html': '路线图' }[clean] || clean || '首页');
+  }
+  function renderAnalytics(data) {
+    const summary = data?.summary || {};
+    const cards = [['访问量', summary.visits, '页面总打开次数'], ['独立访客', summary.unique_visitors, '按浏览器匿名标识去重'], ['登录访问', summary.signed_in_visits, '已登录用户产生的访问'], ['注册用户', summary.registered_users, '当前账号总数'], ['学习活跃', summary.active_learners, '周期内有学习行为'], ['新留言', summary.messages, '周期内收到的留言']];
+    $('analyticsStats').innerHTML = cards.map(([label, value, note]) => `<article class="analytics-stat"><span>${label}</span><b>${formatNumber(value)}</b><small>${note}</small></article>`).join('');
+    const trend = data?.trend || [];
+    const max = Math.max(1, ...trend.map(item => Number(item.visits || 0)));
+    $('analyticsChartHint').textContent = trend.length ? `${trend[0].date} 至 ${trend[trend.length - 1].date}` : '暂无访问记录';
+    $('analyticsChart').innerHTML = trend.length ? `<div class="analytics-bars">${trend.map(item => `<div class="analytics-bar-item" title="${item.date}：${item.visits} 次访问，${item.unique_visitors} 位访客"><div class="analytics-bar" style="height:${Math.max(4, Number(item.visits || 0) / max * 100)}%"><i></i></div><small>${String(item.date).slice(5)}</small></div>`).join('')}</div><div class="analytics-axis"><span>0</span><span>${formatNumber(max)} 次</span></div>` : '<p class="empty-state">执行迁移并积累访问后，这里会显示趋势图。</p>';
+    $('analyticsPages').innerHTML = (data?.top_pages || []).map(item => `<div class="analytics-page-row"><span>${pageName(item.path)}</span><b>${formatNumber(item.visits)}</b></div>`).join('') || '<p class="empty-state">暂无页面数据</p>';
+    $('analyticsRecent').innerHTML = (data?.recent || []).map(item => `<div class="analytics-recent-row"><span>${pageName(item.path)}</span><small>${new Date(item.created_at).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</small><em>${item.signed_in ? '已登录' : '访客'}</em></div>`).join('') || '<p class="empty-state">暂无访问记录</p>';
+  }
+  async function loadAnalytics() {
+    const { data, error } = await client().rpc('admin_site_analytics', { days: Number($('analyticsDays').value) || 30 });
+    if (error) { $('analyticsStats').innerHTML = `<p class="empty-state">数据读取失败：${escapeText(error.message)}。请先执行统计迁移。</p>`; return; }
+    renderAnalytics(data);
+  }
+
   function client() { return window.learningCloud?.client; }
   async function open() {
     const cloudClient = client();
@@ -24,7 +46,8 @@
     $('adminPanel').classList.add('open');
     $('adminPanel').setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
-    loadQuestions();
+    document.querySelectorAll('.admin-view').forEach(view => view.classList.toggle('active', view.id === 'adminAnalytics'));
+    loadAnalytics();
   }
   function close() { $('adminPanel').classList.remove('open'); $('adminPanel').setAttribute('aria-hidden', 'true'); document.body.classList.remove('modal-open'); }
   function clearForm() { $('questionForm').reset(); $('questionId').value = ''; $('questionActive').checked = true; }
@@ -137,10 +160,11 @@
   function escapeText(value) { return String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
   document.querySelectorAll('[data-close-admin]').forEach(el => el.onclick = close);
-  document.querySelectorAll('[data-admin-tab]').forEach(button => button.onclick = () => { const tab = button.dataset.adminTab; document.querySelectorAll('[data-admin-tab]').forEach(x => x.classList.toggle('active', x === button)); $('adminQuestions').classList.toggle('active', tab === 'questions'); $('adminCourse').classList.toggle('active', tab === 'course'); $('adminMessages').classList.toggle('active', tab === 'messages'); $('adminAnnouncements').classList.toggle('active', tab === 'announcements'); if (tab === 'course') loadChapters(); if (tab === 'messages') loadMessages(); if (tab === 'announcements') loadAnnouncements(); });
+  document.querySelectorAll('[data-admin-tab]').forEach(button => button.onclick = () => { const tab = button.dataset.adminTab; document.querySelectorAll('[data-admin-tab]').forEach(x => x.classList.toggle('active', x === button)); $('adminAnalytics').classList.toggle('active', tab === 'analytics'); $('adminQuestions').classList.toggle('active', tab === 'questions'); $('adminCourse').classList.toggle('active', tab === 'course'); $('adminMessages').classList.toggle('active', tab === 'messages'); $('adminAnnouncements').classList.toggle('active', tab === 'announcements'); if (tab === 'analytics') loadAnalytics(); if (tab === 'course') loadChapters(); if (tab === 'messages') loadMessages(); if (tab === 'announcements') loadAnnouncements(); });
   $('questionForm').addEventListener('submit', saveQuestion); $('questionCancel').onclick = clearForm; $('refreshMessages').onclick = loadMessages; $('messageStatusFilter').onchange = loadMessages;
   $('chapterForm').addEventListener('submit', saveChapter); $('chapterCancel').onclick = clearChapterForm;
   $('announcementForm').addEventListener('submit', saveAnnouncement); $('announcementCancel').onclick = clearAnnouncementForm;
-  window.adminDashboard = { open, close, loadQuestions, loadChapters, loadMessages, loadAnnouncements };
+  $('analyticsDays').onchange = loadAnalytics; $('refreshAnalytics').onclick = loadAnalytics;
+  window.adminDashboard = { open, close, loadAnalytics, loadQuestions, loadChapters, loadMessages, loadAnnouncements };
   if (new URLSearchParams(location.search).get('admin') === '1') setTimeout(open, 0);
 })();
