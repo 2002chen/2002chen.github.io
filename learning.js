@@ -46,7 +46,7 @@
     $('chapterCount').textContent = `${chapters}/${totalChapters}`; $('chapterRing').style.setProperty('--score', `${totalChapters ? chapters / totalChapters * 100 : 0}%`);
     const streak = calculateStreak(dates); $('streakDays').textContent = `${streak} 天`; localStorage.setItem('python-streak', String(streak)); $('studyTime').textContent = `${completed * 12 + attempts * 2} 分钟`;
     heatmap(dates); paintAbilities(completed, attempts);
-    if (localStorage.getItem('python-lab-code-v2')) unlock('first-code'); if (attempts >= 10) unlock('ten-quiz'); if (completed >= 1) unlock('first-section'); if (xp >= 200) unlock('hundred-run');
+    if (localStorage.getItem('python-lab-code-v2')) unlock('first-code'); if (attempts >= 10) unlock('ten-quiz'); if (completed >= 1) unlock('first-section'); if (xp >= 200) unlock('hundred-run'); /* V4 */ try { const b = JSON.parse(localStorage.getItem('cr_badges') || '[]'); if (b.includes('first_code_read')) unlock('first_code_read'); if (b.includes('prompt_starter')) unlock('prompt_starter'); if (b.includes('file_sort_theory')) unlock('file_sort_theory'); } catch(e) {}
     const unreadMessages = messages.filter(message => message.admin_reply && !message.user_read_at);
     $('messageNotifications').closest('.message-notice-card')?.classList.toggle('has-unread', unreadMessages.length > 0);
     $('messageUnreadCount').textContent = `${unreadMessages.length} 条未读`;

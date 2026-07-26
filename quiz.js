@@ -1,13 +1,23 @@
 (function () {
   'use strict';
   const $ = id => document.getElementById(id);
+  const sceneQs = window.SCENE_QUESTIONS || [];
   const fallback = [
     { id: 'guest-1', level: 'beginner', topic: 'Python 入门', question_text: 'Python 是什么类型的语言？', options: ['只适合制作网页的语言', '一种易学、用途广泛的编程语言', '只能进行数学计算的软件', '一种操作系统'], correct_index: 1, explanation: 'Python 是一门通用编程语言，常用于自动化、数据分析、网站开发和人工智能。', position: 1 },
     { id: 'guest-2', level: 'beginner', topic: '程序输出', question_text: '在 Python 中，哪个函数用于显示内容？', options: ['show()', 'write()', 'print()', 'display_text()'], correct_index: 2, explanation: 'print() 是 Python 最基础的输出函数，可以把文字和计算结果显示出来。', position: 2 },
     { id: 'guest-3', level: 'beginner', topic: '字符串', question_text: '下列哪个写法表示一段字符串？', options: ['Python', '"Python"', '123', 'True'], correct_index: 1, explanation: '字符串文本需要放在单引号或双引号中。', position: 3 },
     { id: 'guest-4', level: 'basic', topic: '条件判断', question_text: 'if 语句结尾通常需要什么符号？', options: ['分号', '句号', '冒号', '逗号'], correct_index: 2, explanation: 'Python 的 if、for、while 和 def 等语句头通常以冒号结尾。', position: 4 },
     { id: 'guest-5', level: 'advanced', topic: '异常处理', question_text: '捕获异常通常使用什么结构？', options: ['if/else', 'try/except', 'for/in', 'class/def'], correct_index: 1, explanation: 'try 放可能出错的代码，except 负责处理异常。', position: 5 }
-  ];
+  ].concat(sceneQs.map((q, i) => ({
+    id: q.id,
+    level: 'beginner',
+    topic: q.lesson_id || '场景练习',
+    question_text: q.stem,
+    options: q.options,
+    correct_index: q.correct_index,
+    explanation: q.explain,
+    position: 100 + i
+  })));
   let all = [], filtered = [], index = 0, choice = null, checked = false, mode = 'practice', context = null, wrongIds = new Set(), debounce;
   const state = { answered: 0, correct: 0, streak: 0, wrongStreak: 0, xp: 0, examAnswers: new Map() };
 

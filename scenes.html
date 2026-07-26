@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8">
+  <meta name="description" content="看看用 Python+AI 可以解决哪些实际问题——从整理文件到提取信息，手机也能学。">
+  <meta property="og:title" content="能做什么｜小菜鸟带你飞">
+  <meta property="og:description" content="你想解决什么问题？从真实场景开始学 Python+AI。">
+  <meta property="og:image" content="https://2002chen.github.io/assets/site-icon.png">
+  <title>能做什么｜小菜鸟带你飞</title><link rel="icon" href="assets/site-icon.png"><link rel="stylesheet" href="site.css?v=20260725-notifications">
+</head>
+<body data-page="scenes">
+  <header class="site-header"><nav class="site-nav shell" aria-label="主要导航"><a class="site-brand" href="index.html"><img src="assets/site-icon.png" alt="小菜鸟带你飞图标"><span>小菜鸟带你飞</span></a><div class="site-links"><a href="index.html">首页</a><a class="active" href="scenes.html">能做什么</a><a href="tutorial.html">学</a><a href="quiz.html">练</a><a class="secondary-link" href="roadmap.html">路线图</a><a href="learning.html">我的</a><a href="about.html">关于</a></div><div class="nav-actions"><button class="icon-button" type="button" data-open-search aria-label="打开全站搜索">⌕</button><div class="account-wrap"><button class="account-button" type="button" data-account><span>登录 / 注册</span></button><div class="account-menu" id="accountMenu"></div></div><button class="menu-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false"><span></span><span></span><span></span></button></div></nav></header>
+  <main id="main">
+    <section class="page-hero shell">
+      <div class="breadcrumbs"><a href="index.html">首页</a><span>›</span><span>能做什么</span></div>
+      <p class="eyebrow">场景中心</p>
+      <h1>你想解决<br><em>什么问题？</em></h1>
+      <p>每个场景都是一类实际问题。选一个开始，手机就能完成主线。</p>
+    </section>
+    <section class="shell">
+      <div class="scene-grid" id="sceneGrid">
+        <!-- 由 JS 动态生成 -->
+      </div>
+    </section>
+    <section class="section-block alt">
+      <div class="shell" style="text-align:center;">
+        <p class="eyebrow">没找到你的场景？</p>
+        <p style="max-width:500px;margin:0 auto 20px;color:var(--muted);">每个真实问题都可以成为一个场景。留言告诉作者你想解决什么，说不定下一课就是它。</p>
+        <a class="secondary" href="index.html#message">留言给作者</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>用 Python + AI 解决实际问题的学习站。</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">场景教程</a><a href="quiz.html">闯关练习</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="about.html">关于</a></div></div><div class="footer-bottom"><span>© 2026 chendingdong. 小菜鸟带你飞. 保留所有权利。</span><a href="#main">↑ 回到顶部</a></div></div></footer>
+  <script src="assets/supabase.min.js?v=2.110.8"></script><script src="supabase-config.js?v=20260725"></script>
+  <script src="site.js?v=20260725-notifications"></script>
+  <script>
+    (function() {
+      'use strict';
+      const scenes = [
+        { id: 'scene-01', title: '看懂 AI 代码并修改', pain: 'AI 给了代码但看不懂，更不会改', emoji: '👀', device: 'mobile', lesson: 'tutorial.html?lesson=lesson-01' },
+        { id: 'scene-02', title: '写出更好的提示词', pain: '问 AI 效果不好，不知道怎么描述需求', emoji: '✍️', device: 'mobile', lesson: 'tutorial.html?lesson=lesson-02' },
+        { id: 'scene-03', title: '自动整理下载文件夹', pain: '下载文件夹乱糟糟，手动分类太累', emoji: '📁', device: 'both', lesson: 'tutorial.html?lesson=lesson-03' },
+        { id: 'scene-04', title: '批量重命名文件', pain: '几十个文件要统一改名，一个一个改到手软', emoji: '🏷️', device: 'both', lesson: 'tutorial.html?lesson=lesson-04' },
+        { id: 'scene-05', title: '表格去重与清洗', pain: 'Excel 有重复行、格式乱，不会用公式', emoji: '📊', device: 'both', lesson: 'tutorial.html?lesson=lesson-05' },
+        { id: 'scene-06', title: '从文字里提取信息', pain: '一堆文字里要找电话、日期、邮箱，眼都花了', emoji: '🔍', device: 'mobile', lesson: 'tutorial.html?lesson=lesson-06' },
+        { id: 'scene-07', title: '读懂常见报错', pain: '一看到报错就慌，不知道哪行有问题', emoji: '⚠️', device: 'mobile', lesson: 'tutorial.html?lesson=lesson-07' },
+        { id: 'scene-08', title: '做个小工具（电脑加强）', pain: '想做个自己用的小工具但不知从何下手', emoji: '🛠️', device: 'computer', lesson: 'tutorial.html?lesson=lesson-later' }
+      ];
+      const grid = document.getElementById('sceneGrid');
+      if (grid) {
+        grid.innerHTML = scenes.map(s => `
+          <a class="scene-full-card" href="${s.lesson}">
+            <span class="scene-full-emoji">${s.emoji}</span>
+            <div class="scene-full-body">
+              <h3>${s.title}</h3>
+              <p class="scene-full-pain">${s.pain}</p>
+            </div>
+            <span class="device-tag ${s.device}">${s.device === 'mobile' ? '📱 手机' : s.device === 'both' ? '📱💻 双端' : '💻 电脑'}</span>
+          </a>
+        `).join('');
+      }
+    })();
+  </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(reg) {
+        console.log('SW registered');
+      }).catch(function(err) {
+        console.log('SW failed:', err);
+      });
+    });
+  }
+  </script>
+</body>
+</html>

@@ -12,8 +12,12 @@
     const completed = Object.keys(state.completedSections || {}).length;
     const xp = Number(localStorage.getItem('python-xp') || 0);
     const streak = Number(localStorage.getItem('python-streak') || 0);
-    if ($('homeProgress')) $('homeProgress').textContent = `${completed} 节`;
-    if ($('homeXp')) $('homeXp').textContent = `${xp} XP`;
+    /* V4 进度 */
+    let v4Count = 0;
+    try { const p = JSON.parse(localStorage.getItem('cr_progress') || '{}'); v4Count = Object.values(p).filter(v => v.status === 'completed').length; } catch(e) {}
+    const v4xp = Number(localStorage.getItem('cr_xp') || 0);
+    if ($('homeProgress')) $('homeProgress').textContent = v4Count ? `${v4Count} 个` : `${completed} 节`;
+    if ($('homeXp')) $('homeXp').textContent = `${v4xp || xp} XP`;
     if ($('homeStreak')) $('homeStreak').textContent = `${streak} 天`;
   }
 

@@ -88,17 +88,14 @@
   }
 
   const searchItems = [
-    ['系统教程', '从代码是什么开始学习 Python', 'tutorial.html'],
-    ['学习路线图', '查看基础、数据结构、函数、面向对象和项目实战', 'roadmap.html'],
-    ['3000 题库', '按知识点、难度和关键词搜索题目', 'quiz.html'],
-    ['代码实验室', '在线编写并运行 Python', 'lab.html'],
-    ['学习中心', '查看进度、日历、能力和徽章', 'learning.html'],
+    ['场景教程', '用 Python+AI 解决实际问题', 'tutorial.html'],
+    ['学习路线图', '查看各场景的学习路径和电脑加强建议', 'roadmap.html'],
+    ['闯关练习', '按场景和难度练习点选题', 'quiz.html'],
+    ['代码实验室', '在浏览器中运行 Python（建议电脑使用）', 'lab.html'],
+    ['学习中心', '查看进度、XP、连续学习和徽章', 'learning.html'],
+    ['场景中心', '看看能解决哪些实际问题', 'scenes.html'],
     ['留言与建议', '把问题或功能建议告诉管理员', 'index.html#message'],
-    ['支持作者', '请作者喝杯茶，网站的学习功能始终免费', '#support-author'],
-    ['变量', '给数据贴上容易记住的名字', 'tutorial.html?q=变量'],
-    ['条件判断', '使用 if、elif 和 else 做选择', 'tutorial.html?q=条件'],
-    ['循环', '使用 for 和 while 重复执行', 'tutorial.html?q=循环'],
-    ['函数', '把常用步骤封装成工具', 'tutorial.html?q=函数']
+    ['支持作者', '请作者喝杯茶，网站的学习功能始终免费', '#support-author']
   ];
 
   function ensureSearch() {
@@ -184,11 +181,7 @@
   }
 
   function ensureCopyrightLinks() {
-    $$('.footer-links').forEach(group => {
-      if (group.querySelector('b')?.textContent !== '更多' || $('a[href="copyright.html"]', group)) return;
-      group.insertAdjacentHTML('beforeend', '<a href="copyright.html">版权与来源</a>');
-    });
-    $$('.footer-bottom a[href="copyright.html"]').forEach(link => link.remove());
+    /* 已在各页面的 HTML 中直接写入，无需 JS 注入 */
   }
 
   let currentAnnouncementKey = '';
@@ -269,9 +262,10 @@
     tabs.className = 'mobile-tabs';
     tabs.setAttribute('aria-label', '移动端主要导航');
     tabs.innerHTML = [
-      ['tutorial', 'tutorial.html', '▤', '教程'],
-      ['quiz', 'quiz.html', '◎', '题库'],
-      ['lab', 'lab.html', '&lt;/&gt;', '实验室'],
+      ['home', 'index.html', '⌂', '首页'],
+      ['scenes', 'scenes.html', '▤', '能做什么'],
+      ['tutorial', 'tutorial.html', '◉', '学'],
+      ['quiz', 'quiz.html', '◎', '练'],
       ['learning', 'learning.html', '♙', '我的']
     ].map(item => `<a class="${page === item[0] ? 'active' : ''}" href="${item[1]}"><i>${item[2]}</i><span>${item[3]}</span></a>`).join('');
     document.body.appendChild(tabs);

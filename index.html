@@ -1,27 +1,28 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#f3f0e8">
-  <meta name="description" content="小菜鸟带你飞是面向完全零基础学习者的 Python 学习平台，提供系统教程、3000+ 题库和在线代码实验室。">
-  <meta property="og:title" content="小菜鸟带你飞｜零基础 Python 学习平台">
-  <meta property="og:description" content="从第一行代码开始，用教程、实验和题库稳稳学会 Python。">
+  <meta name="description" content="用 Python + AI 解决实际问题的手机学习站。不用登录即可学第一课，手机可完成主线。">
+  <meta property="og:title" content="小菜鸟带你飞｜用 Python+AI 解决实际问题">
+  <meta property="og:description" content="先写出第一行，再慢慢懂 Python。手机也能学懂，有电脑时更能用起来。">
   <meta property="og:image" content="https://2002chen.github.io/assets/site-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://2002chen.github.io/">
-  <title>小菜鸟带你飞｜零基础 Python 学习平台</title>
+  <title>小菜鸟带你飞｜用 Python+AI 解决实际问题</title>
   <link rel="icon" type="image/png" href="assets/site-icon.png">
   <link rel="apple-touch-icon" href="assets/site-icon.png">
-  <link rel="stylesheet" href="site.css?v=20260725-notifications">
+    <link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="site.css?v=20260725-notifications">
 </head>
 <body data-page="home">
   <header class="site-header">
     <nav class="site-nav shell" aria-label="主要导航">
       <a class="site-brand" href="index.html" aria-label="小菜鸟带你飞首页"><img src="assets/site-icon.png" alt="小菜鸟带你飞图标"><span>小菜鸟带你飞</span></a>
       <div class="site-links">
-        <a class="active" href="index.html">首页</a><a href="tutorial.html">教程</a><a href="quiz.html">题库</a><a href="lab.html">实验室</a>
-        <a class="secondary-link" href="roadmap.html">路线图</a><a href="learning.html">学习中心</a><a href="#message">留言</a>
+        <a class="active" href="index.html">首页</a><a href="scenes.html">能做什么</a><a href="tutorial.html">学</a><a href="quiz.html">练</a>
+        <a class="secondary-link" href="roadmap.html">路线图</a><a href="learning.html">我的</a><a href="#message">留言</a>
       </div>
       <div class="nav-actions">
         <button class="icon-button" type="button" data-open-search aria-label="打开全站搜索">⌕</button>
@@ -33,46 +34,128 @@
 
   <main id="main">
     <section class="announcement-shell shell" id="announcementShell" hidden aria-live="polite"><div class="announcement-content"><span>站点公告</span><button class="announcement-trigger" id="announcementOpen" type="button" aria-haspopup="dialog"><b id="announcementBannerTitle"></b><span id="announcementSummary"></span><i>查看完整公告</i></button><small id="announcementTime"></small></div><button type="button" id="dismissAnnouncement" aria-label="关闭公告">×</button></section>
+
+    <!-- Hero -->
     <section class="home-hero shell">
       <div class="hero-copy">
-        <p class="eyebrow">零基础 Python 课程</p>
+        <p class="eyebrow">手机可学 · 零基础</p>
         <h1>先写出第一行，<br><em>再慢慢懂 Python。</em></h1>
-        <p class="hero-lead">教程从最基本的概念讲起。每学一点，就在浏览器里改一行代码，再用题目检查是否理解。</p>
-        <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html"><span>开始第一节</span></a><a class="secondary" href="roadmap.html">先看课程安排</a></div>
-        <p class="trial-note">不用登录也能完成第一节，并使用代码实验室。</p>
+        <p class="hero-lead">你不需要成为程序员。用 Python + AI 解决重复又烦人的小事。手机也能学懂；有电脑时更能用起来。</p>
+        <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html?lesson=lesson-01"><span>从第一个小问题开始</span></a><a class="secondary" href="scenes.html">看看能解决哪些问题</a></div>
+        <p class="trial-note">不用登录也能完成第一节。手机可学主线。</p>
       </div>
-      <aside class="hero-note" aria-label="第一节代码示例">
-        <div class="hero-note-head"><span>第一节</span><small>hello.py</small></div>
-        <pre><code><span>01</span> print("你好，Python")
-<span>02</span> name = "小菜鸟"
-<span>03</span> print("你好，" + name)</code></pre>
-        <p>先运行，再试着换成自己的名字。写代码就是从这样的小改动开始。</p>
+      <aside class="hero-note" aria-label="第一课代码展示">
+        <div class="hero-note-head"><span>第一节</span><small>看懂并修改 AI 写的代码</small></div>
+        <pre><code><span>01</span> for i in range(5):
+<span>02</span>     print(i * 2)</code></pre>
+        <p>让电脑从 0 数到 4，每次把数字乘以 2 再显示。手机即可完成。</p>
       </aside>
     </section>
 
-    <section class="learning-entry shell" aria-labelledby="entryTitle">
-      <header><p class="eyebrow">学习入口</p><h2 id="entryTitle">三部分，各有用途</h2></header>
-      <nav class="feature-grid" aria-label="核心学习模块">
-        <a class="feature-card" href="tutorial.html"><span class="feature-number">01</span><div><h3>系统教程</h3><p>从代码是什么开始。每节包含讲解、示例和练习。</p></div><em>40 节</em></a>
-        <a class="feature-card" href="quiz.html"><span class="feature-number">02</span><div><h3>题库</h3><p>按章节和难度练习，提交后直接查看解析。</p></div><em>3000+ 题</em></a>
-        <a class="feature-card" href="lab.html"><span class="feature-number">03</span><div><h3>代码实验室</h3><p>浏览器内运行 Python，不需要先安装开发环境。</p></div><em>立即运行</em></a>
-      </nav>
-    </section>
-
-    <section class="section-block alt">
-      <div class="shell">
-        <div class="section-head"><div><p class="eyebrow">学习顺序</p><h2>一次只往前走一小段</h2></div><p>读完一节就运行示例，再做几道对应的题。进度会自动留在学习中心。</p></div>
-        <div class="path-grid"><div class="path-step"><i>1</i><b>打开教程</b><small>从第一章开始</small></div><span class="path-arrow">→</span><div class="path-step"><i>2</i><b>动手实验</b><small>修改并运行</small></div><span class="path-arrow">→</span><div class="path-step"><i>3</i><b>刷题巩固</b><small>即时看解析</small></div><span class="path-arrow">→</span><div class="path-step"><i>4</i><b>查看进度</b><small>记录学习成果</small></div></div>
+    <!-- 场景 4 卡片 -->
+    <section class="scene-cards-section shell" aria-labelledby="sceneCardsTitle">
+      <header><p class="eyebrow">从实际问题开始</p><h2 id="sceneCardsTitle">你遇到的烦心事，这里都有解法</h2></header>
+      <div class="scene-card-grid">
+        <a class="scene-card" href="tutorial.html?lesson=lesson-01">
+          <span class="scene-icon">👀</span>
+          <h3>看懂并修改 AI 写的代码</h3>
+          <p class="scene-desc">全程手机可完成</p>
+          <span class="scene-tag mobile">手机</span>
+        </a>
+        <a class="scene-card" href="scenes.html#scene-batch-file">
+          <span class="scene-icon">📁</span>
+          <h3>自动整理文件和照片</h3>
+          <p class="scene-desc">原理手机可学；真整理建议电脑</p>
+          <span class="scene-tag both">双端</span>
+        </a>
+        <a class="scene-card" href="scenes.html#scene-excel-clean">
+          <span class="scene-icon">📊</span>
+          <h3>Excel/表格清洗</h3>
+          <p class="scene-desc">学会说清需求并检查结果</p>
+          <span class="scene-tag both">双端</span>
+        </a>
+        <a class="scene-card" href="scenes.html#scene-batch-rename">
+          <span class="scene-icon">🏷️</span>
+          <h3>批量重命名文件</h3>
+          <p class="scene-desc">手机学规则；电脑真改名</p>
+          <span class="scene-tag mobile">手机</span>
+        </a>
       </div>
     </section>
 
+    <!-- 和传统不同 -->
+    <section class="section-block alt contrast-block">
+      <div class="shell">
+        <div class="section-head"><div><p class="eyebrow">和传统不同</p><h2>不只学语法，而是解决真问题</h2></div></div>
+        <div class="contrast-grid">
+          <div class="contrast-card">
+            <span class="contrast-old">❌ 传统教学</span>
+            <p>先背语法术语，再写hello world，和现实脱节。</p>
+          </div>
+          <div class="contrast-card highlight">
+            <span class="contrast-new">✅ 这里的方式</span>
+            <p>先给真实烦心事，再用 AI 风格短代码解决，每一步都有人话解释。</p>
+          </div>
+          <div class="contrast-card">
+            <span class="contrast-old">❌ 传统教学</span>
+            <p>必须用电脑、装环境，手机上只能看视频。</p>
+          </div>
+          <div class="contrast-card highlight">
+            <span class="contrast-new">✅ 这里的方式</span>
+            <p>手机可完成主线；电脑实践为加强，不是门槛。</p>
+          </div>
+          <div class="contrast-card">
+            <span class="contrast-old">❌ 传统教学</span>
+            <p>遇到问题只能自己搜，没人告诉你问AI什么。</p>
+          </div>
+          <div class="contrast-card highlight">
+            <span class="contrast-new">✅ 这里的方式</span>
+            <p>每课提供提示词卡，复制到 AI 即可获得个性化讲解。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 路径 4 步 -->
+    <section class="section-block">
+      <div class="shell">
+        <div class="section-head"><div><p class="eyebrow">学习路径</p><h2>一次只往前走一小段</h2></div><p>读完一节就复制提示词去 AI 试，再回站做检查题，形成「学—试—检」闭环。</p></div>
+        <div class="path-grid">
+          <div class="path-step"><i>1</i><b>打开教程</b><small>从第一个问题开始</small></div><span class="path-arrow">→</span>
+          <div class="path-step"><i>2</i><b>复制提示词到 AI</b><small>通义/豆包/ChatGPT 都行</small></div><span class="path-arrow">→</span>
+          <div class="path-step"><i>3</i><b>回站做检查题</b><small>点选即可，即时看解析</small></div><span class="path-arrow">→</span>
+          <div class="path-step"><i>4</i><b>查看进度</b><small>记录学习成果</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 适合谁 -->
+    <section class="section-block alt">
+      <div class="shell">
+        <div class="section-head"><div><p class="eyebrow">适合谁</p><h2>只要你想用代码解决实际小问题</h2></div></div>
+        <div class="audience-tags">
+          <span class="audience-tag">完全零基础</span>
+          <span class="audience-tag">文科生</span>
+          <span class="audience-tag">上班族想自动化重复工作</span>
+          <span class="audience-tag">学生想做课程项目</span>
+          <span class="audience-tag">想用好 AI 但不懂代码</span>
+          <span class="audience-tag">手机学习爱好者</span>
+        </div>
+        <div class="hero-actions" style="margin-top:32px;justify-content:center;">
+          <a class="primary" href="tutorial.html?lesson=lesson-01"><span>从第一个小问题开始</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 学习记录 -->
     <section class="section-block">
       <div class="shell">
         <div class="section-head"><div><p class="eyebrow">学习记录</p><h2>上次学到哪里，这里记着</h2></div><a class="secondary" href="learning.html">查看学习记录</a></div>
-        <div class="home-data"><article class="card data-card"><span>已完成教程</span><b id="homeProgress">0 节</b></article><article class="card data-card"><span>学习能量</span><b id="homeXp">0 XP</b></article><article class="card data-card"><span>连续学习</span><b id="homeStreak">0 天</b></article></div>
+        <div class="home-data"><article class="card data-card"><span>已解决的小问题</span><b id="homeProgress">0 个</b></article><article class="card data-card"><span>学习能量</span><b id="homeXp">0 XP</b></article><article class="card data-card"><span>连续学习</span><b id="homeStreak">0 天</b></article></div>
       </div>
     </section>
 
+    <!-- 留言 -->
     <section class="section-block alt" id="message">
       <div class="shell">
         <div class="section-head"><div><p class="eyebrow">留言与反馈</p><h2>有问题，直接写给作者</h2></div><p>只需填写标题和内容。登录后可以在学习中心查看回复。</p></div>
@@ -93,7 +176,7 @@
 
   <div class="announcement-dialog" id="announcementDialog" aria-hidden="true" hidden><div class="announcement-backdrop" data-close-announcement></div><section role="dialog" aria-modal="true" aria-labelledby="announcementDialogTitle"><button class="dialog-close" type="button" data-close-announcement aria-label="关闭公告详情">×</button><p class="eyebrow">站点公告</p><h2 id="announcementDialogTitle"></h2><time id="announcementDialogTime"></time><article id="announcementFullContent"></article></section></div>
 
-  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>一套从零开始的 Python 学习站。</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">系统教程</a><a href="quiz.html">3000 题库</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="#message">联系管理员</a></div></div><div class="footer-bottom"><span>© 2026 陈定栋</span><a href="#main">↑ 回到顶部</a></div></div></footer>
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>用 Python + AI 解决实际问题的学习站。</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">场景教程</a><a href="quiz.html">闯关练习</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="about.html">关于</a><a href="#message">联系管理员</a></div></div><div class="footer-bottom"><span>© 2026 chendingdong. 小菜鸟带你飞. 保留所有权利。</span><a href="#main">↑ 回到顶部</a></div></div></footer>
 
   <div class="admin-panel" id="adminPanel" aria-hidden="true"><div class="admin-backdrop" data-close-admin></div><section class="admin-drawer"><div class="admin-head"><div><p class="eyebrow">管理员后台</p><h2>内容、数据与留言管理</h2></div><button class="icon-button" data-close-admin type="button" aria-label="关闭管理员后台">×</button></div><div class="admin-tabs"><button class="active" data-admin-tab="analytics" type="button">数据看板</button><button data-admin-tab="questions" type="button">题库管理</button><button data-admin-tab="course" type="button">课程管理</button><button data-admin-tab="messages" type="button">用户留言</button><button data-admin-tab="announcements" type="button">站点公告</button></div>
     <div class="admin-view active" id="adminAnalytics"><div class="analytics-toolbar"><div><p class="eyebrow">站点数据</p><h3>访问与学习概况</h3></div><label><span>统计周期</span><select id="analyticsDays"><option value="7">近 7 天</option><option value="30" selected>近 30 天</option><option value="90">近 90 天</option></select></label><button class="secondary" id="refreshAnalytics" type="button">刷新数据</button></div><div class="analytics-stats" id="analyticsStats"><p class="empty-state">正在读取数据…</p></div><div class="analytics-chart-wrap"><div class="analytics-chart-head"><div><h3>访问趋势</h3><p>每日访问量与独立访客</p></div><span id="analyticsChartHint"></span></div><div class="analytics-chart" id="analyticsChart" role="img" aria-label="每日访问量趋势图"></div></div><div class="analytics-lower"><section><div class="analytics-section-head"><h3>热门页面</h3><span>按访问量排序</span></div><div class="analytics-pages" id="analyticsPages"></div></section><section><div class="analytics-section-head"><h3>最近访问</h3><span>最近 12 条</span></div><div class="analytics-recent" id="analyticsRecent"></div></section></div></div>
@@ -108,5 +191,17 @@
   <script src="site.js?v=20260725-notifications"></script>
   <script src="home.js?v=20260725-announcement"></script>
   <script src="admin.js?v=20260725-announcement"></script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(reg) {
+      console.log('SW registered');
+    }).catch(function(err) {
+      console.log('SW failed:', err);
+    });
+  });
+}
+</script>
 </body>
 </html>
