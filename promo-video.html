@@ -6,290 +6,246 @@
 <title>小菜鸟带你飞 · 介绍视频</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#111;color:#fff;overflow:hidden;user-select:none}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#111;color:#fff;overflow:hidden}
 #stage{width:100vw;height:100vh;position:relative}
 .scene{position:absolute;inset:0;display:grid;place-items:center;padding:30px;opacity:0;transition:opacity .5s;pointer-events:none}
 .scene.active{opacity:1;pointer-events:auto}
-.scene h1{font-size:clamp(1.5rem,4vw,3rem);line-height:1.25;margin-bottom:14px;text-align:center}
-.scene h1 em{color:#f4a261;font-style:normal}
-.scene h2{font-size:clamp(1rem,2.5vw,1.5rem);color:#ccc;font-weight:400;text-align:center;max-width:600px;line-height:1.7}
-.scene p{font-size:clamp(.9rem,2vw,1.2rem);color:#bbb;max-width:650px;line-height:1.7;text-align:center}
 
-/* Phone frame for website previews */
-.phone-frame{width:375px;height:700px;max-width:90vw;max-height:70vh;border:3px solid #333;border-radius:24px;overflow:hidden;background:#f3f0e8;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.phone-frame iframe{width:414px;height:850px;border:0;transform:scale(.906);transform-origin:top left;pointer-events:none}
+/* Text styles */
+h1{font-size:clamp(1.6rem,3.5vw,2.8rem);line-height:1.3;text-align:center;max-width:800px}
+h1 em{color:#f4a261;font-style:normal}
+h2{font-size:clamp(1rem,2.2vw,1.4rem);color:#ccc;font-weight:400;text-align:center;max-width:650px;line-height:1.8}
+.script{font-size:clamp(.85rem,1.8vw,1.1rem);color:#aaa;text-align:center;max-width:580px;line-height:2;margin-top:12px}
+.script em{color:#fff;font-style:normal}
+
+/* Phone frame */
+.phone-frame{width:375px;height:660px;max-width:85vw;max-height:62vh;border:3px solid #333;border-radius:24px;overflow:hidden;background:#f3f0e8;box-shadow:0 20px 60px rgba(0,0,0,.5);flex-shrink:0}
 .phone-notch{width:80px;height:6px;background:#333;border-radius:3px;margin:10px auto}
+.phone-frame iframe{width:414px;height:800px;border:0;transform:scale(.906);transform-origin:top left}
 
-/* Desktop preview */
-.desktop-frame{width:800px;height:500px;max-width:90vw;max-height:60vh;border:3px solid #333;border-radius:8px;overflow:hidden;background:#f3f0e8;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.desktop-frame iframe{width:860px;height:580px;border:0;transform:scale(.93);transform-origin:top left;pointer-events:none}
-.desktop-bar{display:flex;align-items:center;gap:6px;padding:6px 10px;background:#2a2a2a}
-.desktop-bar span{width:10px;height:10px;border-radius:50%;display:inline-block}
-.desktop-bar span:nth-child(1){background:#ff5f57}
-.desktop-bar span:nth-child(2){background:#febc2e}
-.desktop-bar span:nth-child(3){background:#28c840}
-.desktop-bar small{color:#888;margin-left:8px;font-size:.7rem}
-
-/* Layout modes */
-.layout-split{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;max-width:1100px;width:100%}
-.layout-split .text-side{text-align:left}
-.layout-split .text-side h1,.layout-split .text-side p{text-align:left}
-.layout-stack{display:flex;flex-direction:column;align-items:center;gap:20px}
+/* Layouts */
+.split{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;max-width:1000px;width:100%}
+.split .left{text-align:left}
+.split .left h1,.split .left h2,.split .left .script{text-align:left}
+.stack{display:flex;flex-direction:column;align-items:center;gap:18px}
 
 /* Elements */
-.tag{display:inline-block;padding:4px 14px;border-radius:16px;font-size:.8rem;margin:3px}
+.tag{display:inline-block;padding:5px 14px;border-radius:16px;font-size:.8rem;margin:3px}
 .tag.orange{background:#f4a26133;color:#f4a261;border:1px solid #f4a26155}
 .tag.blue{background:#5e9eff33;color:#5e9eff;border:1px solid #5e9eff55}
-.badge-list{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:550px}
-.badge-row{display:flex;align-items:center;gap:10px;padding:10px 18px;background:#222;border-radius:10px;font-size:.95rem;margin:4px}
-.badge-row i{font-size:1.2rem}
-.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:600px}
-.check-item{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#222;border-radius:10px;font-size:.9rem}
-.check-item.good{border-left:3px solid #28c840}
-.check-item.bad{border-left:3px solid #666;opacity:.6}
-.stat-row{display:flex;gap:24px}
+.row{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#222;border-radius:10px;font-size:.9rem;text-align:left}
+.row i{font-size:1.1rem;flex-shrink:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:620px}
+.cmp{display:flex;align-items:center;gap:8px;padding:14px 18px;background:#222;border-radius:10px;font-size:.9rem;text-align:left}
+.cmp.bad{opacity:.5;border-left:2px solid #666}
+.cmp.good{border-left:3px solid #28c840}
 .stat{text-align:center}
-.stat b{display:block;font-size:1.8rem;color:#f4a261}
-.stat span{font-size:.75rem;color:#888}
+.stat b{display:block;font-size:1.6rem;color:#f4a261}
+.stat span{font-size:.7rem;color:#888}
+.stats{display:flex;gap:28px}
 
 /* Controls */
-#progress{position:fixed;bottom:0;left:0;height:3px;background:#f4a261;z-index:99;transition:width .3s}
-#timer{position:fixed;top:10px;right:16px;font-size:.78rem;color:#555;z-index:99}
-#sceneLabel{position:fixed;top:10px;left:16px;font-size:.72rem;color:#555;z-index:99}
-#nav{position:fixed;bottom:20px;right:20px;display:flex;gap:6px;z-index:99}
-#nav button{width:36px;height:36px;border-radius:50%;border:1px solid #444;background:#1a1a1a;color:#ccc;font-size:.9rem;cursor:pointer}
-#nav button:hover{background:#333}
-#subtitle{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#000000dd;padding:10px 22px;border-radius:6px;max-width:550px;text-align:center;font-size:1rem;z-index:5;transition:opacity .3s;pointer-events:none}
-#watermark{position:fixed;bottom:16px;left:16px;color:#333;font-size:.7rem;z-index:99}
+#bar{position:fixed;bottom:0;left:0;height:3px;background:#f4a261;z-index:99;transition:width .3s}
+#timer{position:fixed;top:8px;right:14px;font-size:.7rem;color:#444;z-index:99}
+#label{position:fixed;top:8px;left:14px;font-size:.7rem;color:#444;z-index:99}
+#nav{position:fixed;bottom:16px;right:16px;display:flex;gap:5px;z-index:99}
+#nav button{width:34px;height:34px;border-radius:50%;border:1px solid #444;background:#1a1a1a;color:#aaa;font-size:.8rem;cursor:pointer}
+#sub{position:fixed;bottom:64px;left:50%;transform:translateX(-50%);background:#000000dd;padding:8px 20px;border-radius:6px;max-width:520px;text-align:center;font-size:.9rem;z-index:5;transition:opacity .3s;pointer-events:none}
+#wm{position:fixed;bottom:12px;left:12px;color:#333;font-size:.65rem;z-index:99}
 </style>
 </head>
 <body>
 
-<div id="progress"></div>
-<div id="timer">00:00</div>
-<div id="sceneLabel">1/10</div>
-<div id="watermark">2002chen.github.io</div>
-<div id="subtitle" style="opacity:0"></div>
+<div id="bar"></div><div id="timer">00:00</div><div id="label">1/14</div><div id="wm">2002chen.github.io</div>
+<div id="sub" style="opacity:0"></div>
 
 <div id="stage">
 
-<!-- 1: Hook - 痛点 -->
-<div class="scene" data-scene="0">
-  <div class="layout-split">
-    <div class="text-side">
-      <h1>你的电脑桌面<br><em>是不是也乱成这样？</em></h1>
-      <p style="margin-top:12px">下载文件夹几百个文件乱成一团<br>2000行Excel每周手动筛<br>200张照片一张一张改名</p>
-    </div>
-    <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/" loading="lazy"></iframe></div>
+<!-- Part 1A: 桌面乱不乱 -->
+<div class="scene"><div class="split">
+  <div class="left">
+    <h1>你的电脑桌面，<br><em>是不是也乱成这样？</em></h1>
+    <div class="script">下载文件夹里几百个文件乱成一团<br>领导让你找一张发票你翻了半个小时<br>每周五下午收到一个2000行的Excel让你手动筛<br>200张照片要一张一张改名</div>
   </div>
-</div>
+  <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/"></iframe></div>
+</div></div>
 
-<!-- 2: 这些活不难 -->
-<div class="scene" data-scene="1">
-  <div class="layout-stack">
-    <h1>这些活，<em>不难。</em></h1>
-    <h2>但是它烦、它重复、它消耗你。<br>其实电脑几秒钟就能搞定。<br><br><em>不需要你成为程序员。</em></h2>
-    <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/" loading="lazy"></iframe></div>
+<!-- Part 1B: 这些活难吗 -->
+<div class="scene"><div class="stack">
+  <h1>这些活吧，你说它难，<em>它不难。</em></h1>
+  <h2>但是它烦、它重复、它消耗你。<br><br>但你知道吗——<br><em>这些事情，电脑几秒钟就能搞定。</em><br>不需要你成为程序员，不需要你背代码。</h2>
+</div></div>
+
+<!-- Part 1C: 我做了一个网站 -->
+<div class="scene"><div class="stack">
+  <h1>我做了个网站，<br><em>专门帮普通人解决这个问题。</em></h1>
+  <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/"></iframe></div>
+</div></div>
+
+<!-- Part 2A: 网站介绍 -->
+<div class="scene"><div class="split">
+  <div class="left">
+    <h1>这个网站叫<br><em>"小菜鸟带你飞"</em></h1>
+    <div class="script">名字听起来挺可爱的对吧？<br>因为它的定位就是给"小菜鸟"用的。<br>你可能觉得编程很难，是程序员才干的事。<br><em>其实不是这样。现在有 AI 了。</em></div>
   </div>
-</div>
+  <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/"></iframe></div>
+</div></div>
 
-<!-- 3: 小菜鸟带你飞 -->
-<div class="scene" data-scene="2">
-  <div class="layout-split">
-    <div class="text-side">
-      <h1 style="font-size:2.5rem">🐤 小菜鸟带你飞</h1>
-      <p style="font-size:1.2rem;margin-top:10px">专门帮<em>普通人</em>用 AI+Python<br>解决重复又烦人的工作</p>
-      <div style="margin-top:16px">
-        <span class="tag orange">📱 手机就能学</span>
-        <span class="tag blue">🤖 AI写代码，你来读</span>
-      </div>
-    </div>
-    <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/" loading="lazy"></iframe></div>
+<!-- Part 2B: AI写代码你来读 -->
+<div class="scene"><div class="stack">
+  <h1>AI 可以帮你写代码。<br><em>你不需要会写，</em></h1>
+  <h2>你只需要能<em>看懂</em> AI 写的代码在干什么、<br>怎么改一下让它帮你干活。<br><br>这个网站教的就是这个。</h2>
+</div></div>
+
+<!-- Part 2C: 手机就能学 -->
+<div class="scene"><div class="stack">
+  <h1>而且全部课程<br><em>用手机就能学。</em></h1>
+  <h2>不用电脑，不用安装软件，<br>打开手机就能上。</h2>
+  <div class="tags"><span class="tag orange">📱 手机完成主线</span><span class="tag blue">💻 电脑为加强</span></div>
+</div></div>
+
+<!-- Part 3A: 核心功能 - 能做什么 -->
+<div class="scene"><div class="split">
+  <div class="left">
+    <h1>第一个<br><em>"能做什么"</em></h1>
+    <div class="script">不像传统编程课那样列"第一章变量""第二章数据类型"<br>而是直接告诉你能解决什么问题：<br>整理文件、处理表格、批量改名、提取信息……<br><em>你想要解决什么，就点什么。</em></div>
   </div>
-</div>
+  <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/scenes.html"></iframe></div>
+</div></div>
 
-<!-- 4: 能做什么 - 场景中心 -->
-<div class="scene" data-scene="3">
-  <div class="layout-split">
-    <div class="text-side">
-      <h1>能<em>做什么？</em></h1>
-      <div class="badge-list" style="justify-content:flex-start;margin-top:16px">
-        <div class="badge-row"><i>👀</i> 看懂AI代码并修改</div>
-        <div class="badge-row"><i>✍️</i> 写出更好的提示词</div>
-        <div class="badge-row"><i>📁</i> 自动整理文件和照片</div>
-        <div class="badge-row"><i>📊</i> Excel/表格清洗</div>
-        <div class="badge-row"><i>🏷️</i> 批量重命名文件</div>
-        <div class="badge-row"><i>🔍</i> 从文字里提取信息</div>
-      </div>
-    </div>
-    <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/scenes.html" loading="lazy"></iframe></div>
+<!-- Part 3B: 学 -->
+<div class="scene"><div class="split">
+  <div class="left">
+    <h1>第二个<br><em>"学"</em></h1>
+    <div class="script">点进去就是真正的课程。<br>每节课 10 到 15 分钟。<br>先给你看一个你肯定会遇到的生活场景，<br>然后让 AI 写代码解决它，一行一行讲给你听，<br>最后做几道选择题巩固一下。<br><em>全是选择题，不需要你写代码。</em></div>
   </div>
-</div>
+  <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/tutorial.html?lesson=lesson-01"></iframe></div>
+</div></div>
 
-<!-- 5: 怎么学 - 课程页面 -->
-<div class="scene" data-scene="4">
-  <div class="layout-split">
-    <div class="text-side">
-      <h1>怎么<em>学？</em></h1>
-      <p style="margin-top:12px">每节课 <em>10~15 分钟</em>，全是选择题<br>手机就能操作，不用写代码</p>
-      <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px">
-        <div class="badge-row"><i>💡</i> 先给你看一个真实生活场景</div>
-        <div class="badge-row"><i>🤖</i> 让AI写代码解决问题</div>
-        <div class="badge-row"><i>📖</i> 一行一行人话解释</div>
-        <div class="badge-row"><i>✏️</i> 点选练习，即时看解析</div>
-      </div>
-    </div>
-    <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/tutorial.html?lesson=lesson-01" loading="lazy"></iframe></div>
+<!-- Part 3C: 练 -->
+<div class="scene"><div class="split">
+  <div class="left">
+    <h1>第三个<br><em>"练"</em></h1>
+    <div class="script">学完之后来练一练。<br>全是点选的，手机上操作很方便。<br>练完之后自动生成错题本，<br><em>哪里不会练哪里。</em></div>
   </div>
-</div>
+  <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/quiz.html"></iframe></div>
+</div></div>
 
-<!-- 6: 跟别的有什么不同 -->
-<div class="scene" data-scene="5">
-  <div class="layout-stack">
-    <h1>跟别的编程课<br><em>有什么不同？</em></h1>
-    <div class="check-grid">
-      <div class="check-item bad">❌ 传统：装软件、配环境、Hello World</div>
-      <div class="check-item good">✅ 这里：打开手机就能学</div>
-      <div class="check-item bad">❌ 传统：背语法、默写代码</div>
-      <div class="check-item good">✅ 这里：看懂AI写的代码、会改就行</div>
-      <div class="check-item bad">❌ 传统：学两月不知道能干啥</div>
-      <div class="check-item good">✅ 这里：每节课解决一个真实问题</div>
-    </div>
+<!-- Part 3D: 我的 -->
+<div class="scene"><div class="split">
+  <div class="left">
+    <h1>第四个<br><em>"我的"</em></h1>
+    <div class="script">这里能看到你的学习进度、<br>连续学习了几天、<br>拿到了多少成就和 XP。<br>每学完一节课还能生成一张成就卡片，<br><em>分享到朋友圈或者小红书。</em></div>
   </div>
-</div>
+  <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/learning.html"></iframe></div>
+</div></div>
 
-<!-- 7: 适合谁 -->
-<div class="scene" data-scene="6">
-  <div class="layout-stack">
+<!-- Part 4A: 跟别的编程课有什么不同 -->
+<div class="scene"><div class="stack">
+  <h1>跟别的编程课<br><em>有什么不同？</em></h1>
+  <div class="grid2" style="margin-top:12px">
+    <div class="cmp bad"><span>❌</span> 打开电脑、装软件、装环境配路径、从 Hello World 开始学，学两个月还不知道自己能干什么。然后很多人就放弃了。</div>
+    <div class="cmp good"><span>✅</span> 手机就能学，不需要电脑。</div>
+    <div class="cmp bad"><span>❌</span> 教你怎么写代码，背语法。</div>
+    <div class="cmp good"><span>✅</span> 不教你怎么写代码，教你怎么看懂 AI 写的代码、怎么改。</div>
+    <div class="cmp bad"><span>❌</span> 学完不知道能干什么。</div>
+    <div class="cmp good"><span>✅</span> 每节课解决一个真实问题。学完这节课，你马上就能用。</div>
+  </div>
+</div></div>
+
+<!-- Part 4B: 你不需要成为程序员 -->
+<div class="scene"><div class="stack">
+  <h1>你不需要成为程序员，<br><em>你只需要会用 AI 这个工具。</em></h1>
+</div></div>
+
+<!-- Part 5: 适合哪些人 -->
+<div class="scene"><div class="split">
+  <div class="left">
     <h1>适合<em>哪些人？</em></h1>
-    <div class="badge-list" style="margin-top:12px">
-      <div class="badge-row">📊 经常跟Excel打交道</div>
-      <div class="badge-row">📁 电脑文件乱成一团</div>
-      <div class="badge-row">🤖 听说过AI能写代码但看不懂</div>
-      <div class="badge-row">😞 学过编程但放弃了</div>
-      <div class="badge-row">⏰ 想提升效率又不想花几个月学编程</div>
+    <div class="script" style="margin-top:12px">如果你符合下面任何一条，<br>这个网站就是为你做的：</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+      <div class="row"><i>👉</i> 经常跟 Excel 打交道，重复操作做到手酸</div>
+      <div class="row"><i>👉</i> 电脑文件乱成一团，整理起来很头疼</div>
+      <div class="row"><i>👉</i> 听说过 AI 能写代码，但自己看不懂</div>
+      <div class="row"><i>👉</i> 学过编程但放弃了，觉得太难</div>
+      <div class="row"><i>👉</i> 想提高工作效率，但又不想花几个月学一门"编程"</div>
     </div>
-    <p style="margin-top:20px;font-size:1.1rem">这些人不是需要"学会编程"<br>而是需要<em>"解决问题"</em></p>
+    <div class="script" style="margin-top:12px">这些人其实不是需要"学会编程"<br>而是需要 <em>"解决问题"</em></div>
   </div>
-</div>
+  <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/"></iframe></div>
+</div></div>
 
-<!-- 8: 学习数据展示 -->
-<div class="scene" data-scene="7">
-  <div class="layout-split">
-    <div class="text-side">
-      <h1>你的进步<br><em>都看得见</em></h1>
-      <div class="stat-row" style="margin-top:16px">
-        <div class="stat"><b>XP</b><span>学习能量</span></div>
-        <div class="stat"><b>🎖️</b><span>成就徽章</span></div>
-        <div class="stat"><b>🔥</b><span>连续学习</span></div>
-      </div>
-      <p style="margin-top:14px">每完成一节课自动记录进度<br>生成成就卡片，分享到朋友圈</p>
-    </div>
-    <div class="phone-frame"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/learning.html" loading="lazy"></iframe></div>
+<!-- Part 6: CTA -->
+<div class="scene"><div class="stack">
+  <h1 style="font-size:2.5rem">所以我做了这个网站</h1>
+  <h2>把它放在这里，<em>免费。</em></h2>
+  <div class="script">第一节课不用注册就能上，花 10 分钟试试看。<br>看完之后你可能会发现——<br><em>哦，原来代码就是这么一回事，我也能看懂。</em></div>
+  <div style="margin-top:16px;padding:12px 28px;background:#222;border-radius:12px">
+    <p style="color:#f4a261;font-size:1rem;margin:0">🐤 2002chen.github.io</p>
+    <p style="color:#555;font-size:.75rem;margin:2px 0 0">搜"小菜鸟带你飞"</p>
   </div>
+</div></div>
+
+<!-- Part 6B: 我是陈定栋 -->
+<div class="scene"><div class="stack">
+  <h1>我是陈定栋</h1>
+  <h2><em>我们在小菜鸟带你飞见。</em></h2>
+  <div class="phone-frame" style="width:200px;height:300px"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/"></iframe></div>
+</div></div>
+
 </div>
 
-<!-- 9: CTA -->
-<div class="scene" data-scene="8">
-  <div class="layout-stack">
-    <h1 style="font-size:2.5rem">🎁 免费</h1>
-    <h2><em>第一节课不用注册</em><br>花 10 分钟试试看</h2>
-    <p style="margin-top:20px;font-size:1.3rem">你会发现——<br><em>原来代码就是这么一回事，我也能看懂。</em></p>
-    <div style="margin-top:24px;padding:16px 28px;background:#222;border-radius:12px;text-align:center">
-      <p style="font-size:1.1rem;color:#f4a261;margin:0">🐤 2002chen.github.io</p>
-      <p style="font-size:.8rem;color:#666;margin:4px 0 0">搜"小菜鸟带你飞"</p>
-    </div>
-  </div>
-</div>
-
-<!-- 10: 结尾 -->
-<div class="scene" data-scene="9">
-  <div class="layout-stack">
-    <h1>我是陈定栋<br><em>我们在小菜鸟带你飞见</em></h1>
-    <div class="phone-frame" style="width:200px;height:320px"><div class="phone-notch"></div><iframe src="https://2002chen.github.io/" loading="lazy"></iframe></div>
-  </div>
-</div>
-
-</div><!-- /stage -->
-
-<div id="nav">
-  <button id="prevBtn">◀</button>
-  <button id="playBtn">▶</button>
-  <button id="nextBtn">▶</button>
-</div>
+<div id="nav"><button id="prev">◀</button><button id="play">▶</button><button id="next">▶</button></div>
 
 <script>
-const scenes = document.querySelectorAll('.scene');
-const total = scenes.length;
-let current = 0, playing = false, autoTimer = null;
-let startTime = 0, elapsed = 0;
+const S = document.querySelectorAll('.scene');
+const T = S.length;
+let cur = 0, on = false, tmr = null, st = 0, el = 0;
 
-const durations = [5,4,6,10,10,9,7,8,7,4];
-const subs = {
-  0: [{t:0,d:5,t:'你的电脑桌面，是不是也乱成这样？'}],
-  1: [{t:0,d:4,t:'这些活不难。但它烦、它重复、它消耗你。'}],
-  2: [{t:0,d:6,t:'小菜鸟带你飞——专门帮普通人用AI+Python解决重复又烦人的工作'}],
-  3: [{t:0,d:10,t:'整理文件、处理表格、批量改名、提取信息……你要解决什么，就点什么'}],
-  4: [{t:0,d:5,t:'每节课10到15分钟。全是选择题，不用写代码'},{t:5,d:5,t:'先看场景→AI写代码→逐行讲解→做几道题巩固'}],
-  5: [{t:0,d:9,t:'不教写代码。教看懂AI写的代码、会改就行。每节课解决一个真实问题'}],
-  6: [{t:0,d:7,t:'如果你经常跟Excel打交道、文件乱、想用AI——这就是为你做的'}],
-  7: [{t:0,d:8,t:'每完成一课自动记录，生成成就卡片。你的进步都看得见'}],
-  8: [{t:0,d:7,t:'第一节课免费不用注册。花10分钟试试看，你也能看懂代码'}],
-  9: [{t:0,d:4,t:'我是陈定栋。我们在小菜鸟带你飞见'}]
+const D = [5,4,5,6,5,4,8,10,8,8,8,5,5,5,3]; // seconds per scene
+const SUB = {
+0:[{t:0,d:5,t:'你的电脑桌面，是不是也乱成这样？'}],
+1:[{t:0,d:4,t:'这些活不难。但是它烦、它重复、它消耗你。'}],
+2:[{t:0,d:5,t:'我做了个网站，专门帮普通人解决这个问题。'}],
+3:[{t:0,d:6,t:'这个网站叫"小菜鸟带你飞"。名字听起来挺可爱的对吧？'}],
+4:[{t:0,d:5,t:'AI可以帮你写代码。你不需要会写，只需要能看懂、会改。'}],
+5:[{t:0,d:4,t:'而且全部课程用手机就能学。不用电脑，不用安装软件。'}],
+6:[{t:0,d:8,t:'第一个"能做什么"——直接告诉你能解决什么问题：整理文件、处理表格、批量改名、提取信息'}],
+7:[{t:0,d:10,t:'第二个"学"。每节课10到15分钟。全是选择题，不需要你写代码。'}],
+8:[{t:0,d:8,t:'第三个"练"。全是点选的，手机上操作很方便。自动生成错题本。'}],
+9:[{t:0,d:8,t:'第四个"我的"。学习进度、连续学习天数、成就和XP。每学完还能生成成就卡片。'}],
+10:[{t:0,d:8,t:'跟别的编程课有什么不同？手机就能学。不教写代码，教你看懂AI写的代码。'}],
+11:[{t:0,d:5,t:'你不需要成为程序员，你只需要会用AI这个工具。'}],
+12:[{t:0,d:5,t:'如果你经常跟Excel打交道、文件乱、想用AI但看不懂代码——这就是为你做的。'}],
+13:[{t:0,d:5,t:'第一节课免费，不用注册。花10分钟试试看。原来代码就是这么一回事，我也能看懂。'}],
+14:[{t:0,d:3,t:'我是陈定栋。我们在小菜鸟带你飞见。'}],
 };
 
-function show(i) {
-  scenes.forEach((s,idx) => s.classList.toggle('active', idx===i));
-  current = i;
-  document.getElementById('progress').style.width = ((i+1)/total*100)+'%';
-  document.getElementById('sceneLabel').textContent = (i+1)+'/'+total;
-}
+function show(i){S.forEach((s,x)=>s.classList.toggle('active',x===i));cur=i;document.getElementById('bar').style.width=((i+1)/T*100)+'%';document.getElementById('label').textContent=(i+1)+'/'+T}
+function fmt(s){let m=Math.floor(s/60),sec=Math.floor(s%60);return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')}
 
-function fmt(sec) {
-  const m=Math.floor(sec/60), s=Math.floor(sec%60);
-  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-}
-
-function playScene() {
-  if (current >= total) { stop(); return; }
-  show(current);
-  const dur = durations[current];
-  const sub = subs[current] || [];
-  const subtitle = document.getElementById('subtitle');
-  sub.forEach(s => {
-    setTimeout(() => { subtitle.style.opacity='1'; subtitle.textContent=s.txt; }, s.t*1000);
-    setTimeout(() => { subtitle.style.opacity='0'; }, (s.t+s.d)*1000*.9);
+function run(){
+  if(cur>=T){stop();return}
+  show(cur);
+  const sb=document.getElementById('sub');
+  (SUB[cur]||[]).forEach(s=>{
+    setTimeout(()=>{sb.style.opacity='1';sb.textContent=s.txt},s.t*1000);
+    setTimeout(()=>{sb.style.opacity='0'},(s.t+s.d)*1000*.85);
   });
-  autoTimer = setTimeout(() => {
-    subtitle.style.opacity='0';
-    current++; playScene();
-  }, dur*1000);
+  tmr=setTimeout(()=>{sb.style.opacity='0';cur++;run()},D[cur]*1000);
 }
+function play(){if(on)return;on=true;document.getElementById('play').textContent='⏸';st=Date.now();upT();run()}
+function stop(){on=false;clearTimeout(tmr);document.getElementById('play').textContent='▶';document.getElementById('sub').style.opacity='0';el+=(Date.now()-st)/1000}
+setInterval(()=>{if(on)document.getElementById('timer').textContent=fmt(el+(Date.now()-st)/1000)},200);
 
-function play() {
-  if (playing) return;
-  playing=true; document.getElementById('playBtn').textContent='⏸';
-  startTime=Date.now();
-  updateTimer(); playScene();
+document.getElementById('play').onclick=()=>on?stop():play();
+document.getElementById('prev').onclick=()=>{stop();cur=Math.max(0,cur-1);show(cur)}
+document.getElementById('next').onclick=()=>{stop();cur=Math.min(T-1,cur+1);show(cur)}
+document.onkeydown=e=>{
+  if(e.key==='ArrowRight'){stop();cur=Math.min(T-1,cur+1);show(cur)}
+  if(e.key==='ArrowLeft'){stop();cur=Math.max(0,cur-1);show(cur)}
+  if(e.key===' '){e.preventDefault();on?stop():play()}
 }
-function stop() {
-  playing=false; clearTimeout(autoTimer);
-  document.getElementById('playBtn').textContent='▶';
-  document.getElementById('subtitle').style.opacity='0';
-  elapsed+=(Date.now()-startTime)/1000;
-}
-let ti = setInterval(() => {
-  if (playing) document.getElementById('timer').textContent=fmt(elapsed+(Date.now()-startTime)/1000);
-}, 200);
-
-document.getElementById('playBtn').onclick = () => playing?stop():play();
-document.getElementById('prevBtn').onclick = () => { stop(); current=Math.max(0,current-1); show(current); };
-document.getElementById('nextBtn').onclick = () => { stop(); current=Math.min(total-1,current+1); show(current); };
-document.onkeydown = e => {
-  if (e.key==='ArrowRight') { stop(); current=Math.min(total-1,current+1); show(current); }
-  if (e.key==='ArrowLeft') { stop(); current=Math.max(0,current-1); show(current); }
-  if (e.key===' ') { e.preventDefault(); playing?stop():play(); }
-};
 show(0);
 </script>
 </body>
