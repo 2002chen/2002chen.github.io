@@ -1,0 +1,22 @@
+﻿{
+  "name": "小菜鸟带你飞",
+  "short_name": "小菜鸟",
+  "description": "零基础 Python 学习平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f0e8",
+  "theme_color": "#20221f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

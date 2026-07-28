@@ -15,7 +15,7 @@
   function unlock(selector) { document.querySelector(`[data-badge="${selector}"]`)?.classList.add('unlocked'); }
   async function load() {
     const context = await site.ready, local = localState();
-    let completed = Object.keys(local.completedSections || {}).length, total = 40, attempts = 0, correct = 0, dates = [], messages = [], chapters = 0, totalChapters = 8;
+    let completed = Object.keys(local.completedSections || {}).length, total = 40, attempts = 0, correct = 0, dates = [], messages = [], chapters = 0, totalChapters = 20;
     const xp = Number(localStorage.getItem('python-xp') || 0);
     if (context.session) {
       $('accountLead').textContent = `${context.session.user.email} · 学习数据已从云端同步`;
