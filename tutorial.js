@@ -257,7 +257,6 @@
 
   /* ---- 初始化 ---- */
   async function init() {
-    await site.ready;
     updateProgressUI();
 
     /* 检查 URL 参数 */
@@ -274,6 +273,10 @@
       $('readerEmpty').hidden = false;
       $('readerContent').hidden = true;
     }
+
+    /* Authentication loads independently; the course must remain usable offline. */
+    await site.ready;
+    updateTrialCallout();
   }
 
   init();

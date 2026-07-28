@@ -18,6 +18,7 @@ const urlsToCache = [
   '/supabase.min.js',
   '/manifest.json',
   '/install.html',
+  '/v41-course.js',
   '/assets/site-icon.png'
 ];
 
