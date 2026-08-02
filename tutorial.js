@@ -55,6 +55,10 @@
     currentLesson = lesson;
     currentStepIndex = 0;
     lessonQuizState = {};
+    localStorage.setItem('cr_last_lesson', lesson.id);
+    const lessonUrl = new URL(location.href);
+    lessonUrl.searchParams.set('lesson', lesson.id);
+    history.replaceState(null, '', lessonUrl);
     renderLessonReader();
     updateProgressUI();
   }
@@ -80,7 +84,11 @@
       } else if (step.type === 'result') {
         html += `<div class="lesson-block result-block"><h3>🎯 本节结果</h3>${step.content}</div>`;
       } else if (step.type === 'code_block') {
-        html += `<div class="lesson-block code-block"><h3>💻 短代码</h3><pre class="lesson-code"><code>${escapeHtml(step.lines)}</code></pre><div class="lesson-plain-talk"><b>人话：</b>${step.plain_talk}</div></div>`;
+        html += `<div class="lesson-block code-block"><h3>💻 短代码</h3><pre class="lesson-code"><code>${escapeHtml(step.lines)}</code></pre>`;
+        if (step.output) html += `<div class="lesson-output"><b>预期输出</b><pre>${escapeHtml(step.output)}</pre></div>`;
+        html += `<div class="lesson-plain-talk"><b>人话：</b>${step.plain_talk}</div></div>`;
+      } else if (step.type === 'walkthrough') {
+        html += `<div class="lesson-walkthrough"><h3>👣 跟着做</h3><ol>${(step.items || []).map(item => `<li>${item}</li>`).join('')}</ol></div>`;
       } else if (step.type === 'prompt_card') {
         html += `<div class="lesson-block prompt-card-block"><h3>🤖 提示词卡</h3>`;
         if (step.bad) {
@@ -90,6 +98,8 @@
         html += `</div>`;
       } else if (step.type === 'quiz_inline') {
         html += `<div class="lesson-block quiz-inline-block"><h3>✏️ 练习</h3><div class="inline-quiz-list" data-quiz-ids="${(step.quiz_ids || []).join(',')}"></div></div>`;
+      } else if (step.type === 'common_mistake') {
+        html += `<div class="common-mistake"><h3>⚠️ 常见错误</h3>${step.content}</div>`;
       } else if (step.type === 'summary') {
         html += `<div class="lesson-block summary-block"><h3>✅ 小结</h3>${step.content}</div>`;
       } else if (step.type === 'computer_only') {
@@ -152,6 +162,12 @@
     /* 完成按钮 */
     $('completeSection').onclick = () => {
       if (done) return;
+      const unanswered = (lesson.quiz_ids || []).filter(questionId => lessonQuizState[questionId] === undefined);
+      if (unanswered.length) {
+        site.toast(`请先完成本节 ${unanswered.length} 道检查题`);
+        document.querySelector('.quiz-inline-block')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
       const now = Date.now();
       const p = getProgress();
       p[lesson.id] = { status: 'completed', score: calcQuizScore(), ts: now };
@@ -169,7 +185,7 @@
     /* 学习检查 */
     document.querySelectorAll('[data-study-check]').forEach(btn => {
       btn.onclick = () => {
-        btn.classList.toggle('checked');
+        btn.classList.toggle('done');
         site.toast('已记录');
       };
     });
@@ -208,7 +224,7 @@
           /* 重新渲染 */
           renderInlineQuizzes();
           /* 检查是否全部答完 */
-          const allAnswered = container.querySelectorAll('.inline-quiz-item').length === container.querySelectorAll('.iq-option[disabled]').length;
+          const allAnswered = ids.every(questionId => lessonQuizState[questionId] !== undefined);
           if (allAnswered) {
             const correct = container.querySelectorAll('.iq-option.correct').length;
             const total = container.querySelectorAll('.inline-quiz-item').length;

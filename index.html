@@ -21,7 +21,7 @@
     <nav class="site-nav shell" aria-label="主要导航">
       <a class="site-brand" href="index.html" aria-label="小菜鸟带你飞首页"><img src="assets/site-icon.png" alt="小菜鸟带你飞图标"><span>小菜鸟带你飞</span></a>
       <div class="site-links">
-        <a class="active" href="index.html">首页</a><a href="scenes.html">能做什么</a><a href="tutorial.html">学</a><a href="quiz.html">练</a>
+        <a class="active" href="index.html">首页</a><a href="scenes.html">能做什么</a><a href="tutorial.html">实战课</a><a href="python.html">Python基础</a><a href="quiz.html">练</a>
         <a class="secondary-link" href="roadmap.html">路线图</a><a href="install.html">装到桌面</a><a href="learning.html">我的</a><a href="#message">留言</a>
       </div>
       <div class="nav-actions">
@@ -41,7 +41,7 @@
         <p class="eyebrow">手机可学 · 零基础</p>
         <h1>先写出第一行，<br><em>再慢慢懂 Python。</em></h1>
         <p class="hero-lead">你不需要成为程序员。用 Python + AI 解决重复又烦人的小事。手机也能学懂；有电脑时更能用起来。</p>
-        <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html?lesson=lesson-01"><span>从第一个小问题开始</span></a><a class="secondary" href="scenes.html">看看能解决哪些问题</a></div>
+        <div class="hero-actions"><a class="primary" id="startLearning" href="tutorial.html?lesson=v41-chapter-01"><span>从第一个小问题开始</span></a><a class="secondary" href="python.html">系统学习 Python 基础</a></div>
         <p class="trial-note">不用登录也能完成第一节。手机可学主线。</p>
       </div>
       <aside class="hero-note" aria-label="第一课代码展示">
@@ -52,15 +52,20 @@
       </aside>
     </section>
 
+    <section class="course-track-intro shell" aria-labelledby="trackTitle">
+      <article><p class="eyebrow">路线一 · 从问题出发</p><h2 id="trackTitle">Python + AI 场景实战</h2><p>用整理文件、清洗表格、提取文本等真实任务，学习需求、提示词、代码阅读、安全执行和结果验收。</p><a href="tutorial.html?lesson=v41-chapter-01">开始 22 章实战课程 →</a></article>
+      <article><p class="eyebrow">路线二 · 系统打基础</p><h2>Python 编程基础</h2><p>12 章 36 节，从输出和变量学到函数、类、文件、测试与 Web 入门，专注编程本身。</p><a href="python.html">进入 Python 基础课程 →</a></article>
+    </section>
+
     <!-- 场景 4 卡片 -->
     <section class="scene-cards-section shell" aria-labelledby="sceneCardsTitle">
       <header><p class="eyebrow">从实际问题开始</p><h2 id="sceneCardsTitle">你遇到的烦心事，这里都有解法</h2></header>
       <div class="scene-card-grid">
-        <a class="scene-card" href="tutorial.html?lesson=lesson-01">
+        <a class="scene-card" href="tutorial.html?lesson=v41-chapter-01">
           <span class="scene-icon">👀</span>
-          <h3>看懂并修改 AI 写的代码</h3>
+          <h3>先改一行代码，看到第一个结果</h3>
           <p class="scene-desc">全程手机可完成</p>
-          <span class="scene-tag mobile">手机</span>
+          <span class="scene-tag both">双端</span>
         </a>
         <a class="scene-card" href="scenes.html#scene-batch-file">
           <span class="scene-icon">📁</span>
@@ -142,7 +147,7 @@
           <span class="audience-tag">手机学习爱好者</span>
         </div>
         <div class="hero-actions" style="margin-top:32px;justify-content:center;">
-          <a class="primary" href="tutorial.html?lesson=lesson-01"><span>从第一个小问题开始</span></a>
+          <a class="primary" href="tutorial.html?lesson=v41-chapter-01"><span>从第一个小问题开始</span></a>
         </div>
       </div>
     </section>
@@ -158,7 +163,7 @@
     <!-- 留言 -->
     <section class="section-block alt" id="message">
       <div class="shell">
-        <div class="section-head"><div><p class="eyebrow">留言与反馈</p><h2>有问题，直接写给作者</h2></div><p>只需填写标题和内容。登录后可以在学习中心查看回复。</p></div>
+        <div class="section-head"><div><p class="eyebrow">留言与反馈</p><h2>有问题，直接写给作者</h2></div><p>登录后提交留言，并可在学习中心查看回复；这样能确保回复只对你可见。</p></div>
         <div class="message-layout">
           <article class="card message-intro"><h3>想说什么？</h3><p class="muted">可以从模板开始，称呼、类型和联系方式都不是必填项。</p><div class="template-buttons"><button type="button" data-message-template="功能建议">功能建议</button><button type="button" data-message-template="遇到问题">遇到问题</button><button type="button" data-message-template="想夸一下">想夸一下</button></div><p><b>隐私说明</b><br><span class="muted">你的留言只有当前账号和管理员可见，请不要填写密码或身份证等敏感信息。</span></p></article>
           <form class="card message-form form-grid" id="messageForm">
@@ -167,7 +172,7 @@
             <label><span>称呼（可选）</span><input id="messageName" maxlength="30" placeholder="怎么称呼你"></label>
             <label><span>类型（可选）</span><select id="messageType"><option>功能建议</option><option>遇到问题</option><option>想夸一下</option><option>其他反馈</option></select></label>
             <label class="full"><span>联系方式（可选）</span><input id="messageContact" maxlength="80" placeholder="邮箱或其他方式"></label>
-            <button class="primary full" id="submitMessage" type="submit">发送给管理员 →</button>
+            <button class="primary full" id="submitMessage" type="submit">登录后发送给管理员 →</button>
           </form>
         </div>
       </div>
@@ -176,7 +181,7 @@
 
   <div class="announcement-dialog" id="announcementDialog" aria-hidden="true" hidden><div class="announcement-backdrop" data-close-announcement></div><section role="dialog" aria-modal="true" aria-labelledby="announcementDialogTitle"><button class="dialog-close" type="button" data-close-announcement aria-label="关闭公告详情">×</button><p class="eyebrow">站点公告</p><h2 id="announcementDialogTitle"></h2><time id="announcementDialogTime"></time><article id="announcementFullContent"></article></section></div>
 
-  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>用 Python + AI 解决实际问题的学习站。</p></div><div class="footer-links"><b>开始学习</b><a href="tutorial.html">场景教程</a><a href="quiz.html">闯关练习</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="about.html">关于</a><a href="#message">联系管理员</a></div></div><div class="footer-bottom"><span>© 2026 chendingdong. 小菜鸟带你飞. 保留所有权利。</span><a href="#main">↑ 回到顶部</a></div></div></footer>
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div><div class="footer-brand">小菜鸟带你飞</div><p>系统学 Python，也用 Python + AI 解决实际问题。</p></div><div class="footer-links"><b>开始学习</b><a href="python.html">Python 编程基础</a><a href="tutorial.html">Python+AI 实战</a><a href="quiz.html">闯关练习</a><a href="lab.html">代码实验室</a></div><div class="footer-links"><b>更多</b><a href="roadmap.html">学习路线图</a><a href="learning.html">学习中心</a><a href="about.html">关于</a><a href="#message">联系管理员</a></div></div><div class="footer-bottom"><span>© 2026 chendingdong. 小菜鸟带你飞. 保留所有权利。</span><a href="#main">↑ 回到顶部</a></div></div></footer>
 
   <div class="admin-panel" id="adminPanel" aria-hidden="true"><div class="admin-backdrop" data-close-admin></div><section class="admin-drawer"><div class="admin-head"><div><p class="eyebrow">管理员后台</p><h2>内容、数据与留言管理</h2></div><button class="icon-button" data-close-admin type="button" aria-label="关闭管理员后台">×</button></div><div class="admin-tabs"><button class="active" data-admin-tab="analytics" type="button">数据看板</button><button data-admin-tab="questions" type="button">题库管理</button><button data-admin-tab="course" type="button">课程管理</button><button data-admin-tab="messages" type="button">用户留言</button><button data-admin-tab="announcements" type="button">站点公告</button></div>
     <div class="admin-view active" id="adminAnalytics"><div class="analytics-toolbar"><div><p class="eyebrow">站点数据</p><h3>访问与学习概况</h3></div><label><span>统计周期</span><select id="analyticsDays"><option value="7">近 7 天</option><option value="30" selected>近 30 天</option><option value="90">近 90 天</option></select></label><button class="secondary" id="refreshAnalytics" type="button">刷新数据</button></div><div class="analytics-stats" id="analyticsStats"><p class="empty-state">正在读取数据…</p></div><div class="analytics-chart-wrap"><div class="analytics-chart-head"><div><h3>访问趋势</h3><p>每日访问量与独立访客</p></div><span id="analyticsChartHint"></span></div><div class="analytics-chart" id="analyticsChart" role="img" aria-label="每日访问量趋势图"></div></div><div class="analytics-lower"><section><div class="analytics-section-head"><h3>热门页面</h3><span>按访问量排序</span></div><div class="analytics-pages" id="analyticsPages"></div></section><section><div class="analytics-section-head"><h3>最近访问</h3><span>最近 12 条</span></div><div class="analytics-recent" id="analyticsRecent"></div></section></div></div>
@@ -190,7 +195,6 @@
   <script src="supabase-config.js?v=20260725"></script>
   <script src="site.js?v=20260725-notifications"></script>
   <script src="home.js?v=20260725-announcement"></script>
-  <script src="admin.js?v=20260725-announcement"></script>
 
 <script>
 if ('serviceWorker' in navigator) {

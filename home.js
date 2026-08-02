@@ -24,13 +24,14 @@
   site.ready.then(({ client, session }) => {
     renderLocalStats();
     const start = $('startLearning');
-    if (start && session) {
-      const last = localStorage.getItem('python-last-section');
+    if (start) {
+      const last = localStorage.getItem('cr_last_lesson');
       if (last) {
-        start.href = `tutorial.html?section=${encodeURIComponent(last)}`;
+        start.href = `tutorial.html?lesson=${encodeURIComponent(last)}`;
         start.querySelector('span').textContent = '继续上次学习 →';
       }
     }
+    if ($('submitMessage')) $('submitMessage').textContent = session ? '发送给管理员 →' : '登录后发送给管理员 →';
     if (client && session) client.rpc('weekly_learning_leaderboard').then(({ data, error }) => {
       if (error || !data?.length) return;
       document.querySelector('.proof-strip')?.insertAdjacentHTML('beforeend', `<br><span class="muted">本周之星：${site.escapeHtml(data[0].learner_alias)} · ${data[0].activity_count} 次学习</span>`);
@@ -51,11 +52,13 @@
     $('messageForm')?.addEventListener('submit', async event => {
       event.preventDefault();
       if (!site.requireAuth('登录后可以提交留言并查看管理员回复。')) return;
+      const activeSession = site.session;
+      if (!activeSession) return;
       const button = $('submitMessage');
       button.disabled = true;
       const payload = {
-        user_id: session.user.id,
-        sender_name: $('messageName').value.trim() || session.user.user_metadata?.display_name || '学习者',
+        user_id: activeSession.user.id,
+        sender_name: $('messageName').value.trim() || activeSession.user.user_metadata?.display_name || '学习者',
         message_type: $('messageType').value || '功能建议',
         title: $('messageTitle').value.trim(),
         content: $('messageContent').value.trim(),

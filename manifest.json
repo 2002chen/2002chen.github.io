@@ -1,7 +1,8 @@
-﻿{
+{
   "name": "小菜鸟带你飞",
   "short_name": "小菜鸟",
-  "description": "零基础 Python 学习平台",
+  "id": "/",
+  "description": "系统学习 Python，并用 Python + AI 解决实际问题",
   "start_url": "https://2002chen.github.io/",
   "scope": "https://2002chen.github.io/",
   "display": "standalone",
@@ -12,12 +13,19 @@
     {
       "src": "assets/pwa-icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "assets/pwa-icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
+  ],
+  "shortcuts": [
+    { "name": "Python 基础", "url": "/python.html", "icons": [{ "src": "/assets/pwa-icon-192.png", "sizes": "192x192" }] },
+    { "name": "Python+AI 实战", "url": "/tutorial.html", "icons": [{ "src": "/assets/pwa-icon-192.png", "sizes": "192x192" }] },
+    { "name": "代码实验室", "url": "/lab.html", "icons": [{ "src": "/assets/pwa-icon-192.png", "sizes": "192x192" }] }
   ]
 }

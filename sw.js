@@ -1,63 +1,86 @@
-﻿// 小菜鸟带你飞 - Service Worker
-const CACHE_NAME = 'xiaocainiao-v1.0.0';
-const urlsToCache = [
+// 小菜鸟带你飞 - Service Worker
+const CACHE_NAME = 'xiaocainiao-v2.0.0';
+const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/tutorial.html',
+  '/python.html',
+  '/scenes.html',
   '/quiz.html',
   '/lab.html',
   '/learning.html',
   '/roadmap.html',
+  '/install.html',
+  '/about.html',
   '/404.html',
   '/site.css',
+  '/site.js',
+  '/supabase-config.js',
   '/home.js',
+  '/site-lessons.js',
+  '/v41-course.js',
   '/tutorial.js',
+  '/tutorial-course.js',
+  '/python.js',
   '/quiz.js',
   '/lab.js',
+  '/py-worker.js',
   '/learning.js',
-  '/supabase.min.js',
+  '/assets/supabase.min.js',
   '/manifest.json',
-  '/install.html',
-  '/v41-course.js',
-  '/assets/site-icon.png'
+  '/assets/pwa-icon-192.png',
+  '/assets/pwa-icon-512.png'
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function(cache) {
-      console.log('缓存中...');
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(PRECACHE_URLS))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      if (response) return response;
-      return fetch(event.request).then(function(response) {
-        if (!response || response.status !== 200 || response.type !== 'basic') {
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(cacheNames => Promise.all(cacheNames
+        .filter(cacheName => cacheName !== CACHE_NAME)
+        .map(cacheName => caches.delete(cacheName))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+  const requestUrl = new URL(request.url);
+  if (requestUrl.origin !== self.location.origin) return;
+
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          if (response.ok) caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
           return response;
+        })
+        .catch(async () => (await caches.match(request, { ignoreSearch: true })) || (await caches.match('/404.html')))
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(request, { ignoreSearch: true }).then(cachedResponse => {
+      const networkUpdate = fetch(request).then(response => {
+        if (response.ok && response.type === 'basic') {
+          caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
         }
-        var responseToCache = response.clone();
-        caches.open(CACHE_NAME).then(function(cache) {
-          cache.put(event.request, responseToCache);
-        });
         return response;
       });
-    }).catch(function() {
-      return caches.match('/404.html');
-    })
-  );
-});
-
-self.addEventListener('activate', function(event) {
-  event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function(name) { return name !== CACHE_NAME; })
-        .map(function(name) { return caches.delete(name); })
-      );
+      if (cachedResponse) {
+        event.waitUntil(networkUpdate.catch(() => undefined));
+        return cachedResponse;
+      }
+      return networkUpdate;
     })
   );
 });

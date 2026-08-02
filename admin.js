@@ -166,5 +166,4 @@
   $('announcementForm').addEventListener('submit', saveAnnouncement); $('announcementCancel').onclick = clearAnnouncementForm;
   $('analyticsDays').onchange = loadAnalytics; $('refreshAnalytics').onclick = loadAnalytics;
   window.adminDashboard = { open, close, loadAnalytics, loadQuestions, loadChapters, loadMessages, loadAnnouncements };
-  if (new URLSearchParams(location.search).get('admin') === '1') setTimeout(open, 0);
 })();

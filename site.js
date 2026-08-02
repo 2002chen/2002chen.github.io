@@ -89,6 +89,7 @@
 
   const searchItems = [
     ['场景教程', '用 Python+AI 解决实际问题', 'tutorial.html'],
+    ['Python 编程基础', '12 章 36 节系统学习 Python', 'python.html'],
     ['学习路线图', '查看各场景的学习路径和电脑加强建议', 'roadmap.html'],
     ['闯关练习', '按场景和难度练习点选题', 'quiz.html'],
     ['代码实验室', '在浏览器中运行 Python（建议电脑使用）', 'lab.html'],
@@ -263,8 +264,8 @@
     tabs.setAttribute('aria-label', '移动端主要导航');
     tabs.innerHTML = [
       ['home', 'index.html', '⌂', '首页'],
-      ['scenes', 'scenes.html', '▤', '能做什么'],
-      ['tutorial', 'tutorial.html', '◉', '学'],
+      ['tutorial', 'tutorial.html', '◉', '实战'],
+      ['python', 'python.html', 'PY', 'Python'],
       ['quiz', 'quiz.html', '◎', '练'],
       ['learning', 'learning.html', '♙', '我的']
     ].map(item => `<a class="${page === item[0] ? 'active' : ''}" href="${item[1]}"><i>${item[2]}</i><span>${item[3]}</span></a>`).join('');
@@ -417,7 +418,17 @@
       window.adminDashboard.open();
       return;
     }
-    location.href = 'index.html?admin=1';
+    if (!$('#adminPanel')) {
+      location.href = 'index.html?admin=1';
+      return;
+    }
+    if (document.querySelector('script[data-admin-module]')) return;
+    const script = document.createElement('script');
+    script.src = 'admin.js?v=20260802-course';
+    script.dataset.adminModule = 'true';
+    script.onload = () => window.adminDashboard?.open();
+    script.onerror = () => toast('管理员模块加载失败，请刷新后重试。', 'error');
+    document.body.appendChild(script);
   }
 
   function paintUnreadReplies(unreadCount) {
@@ -507,6 +518,7 @@
     if (client) session = (await client.auth.getSession()).data.session;
     trackVisit();
     await paintAccount();
+    if (new URLSearchParams(location.search).get('admin') === '1' && session) openAdminWhenReady();
     await refreshAnnouncement();
     if (client) setInterval(refreshAnnouncement, 30000);
     if (session) {

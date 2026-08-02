@@ -15,6 +15,11 @@
   function unlock(selector) { document.querySelector(`[data-badge="${selector}"]`)?.classList.add('unlocked'); }
   async function load() {
     const context = await site.ready, local = localState();
+    let scenarioProgress = {}, pythonCoreProgress = {};
+    try { scenarioProgress = JSON.parse(localStorage.getItem('cr_progress') || '{}'); } catch {}
+    try { pythonCoreProgress = JSON.parse(localStorage.getItem('python-core-progress-v1') || '{}'); } catch {}
+    const scenarioCompleted = Object.values(scenarioProgress).filter(item => item?.status === 'completed').length;
+    const pythonCoreCompleted = Object.keys(pythonCoreProgress).length;
     let completed = Object.keys(local.completedSections || {}).length, total = 40, attempts = 0, correct = 0, dates = [], messages = [], chapters = 0, totalChapters = 20;
     const xp = Number(localStorage.getItem('python-xp') || 0);
     if (context.session) {
@@ -41,10 +46,13 @@
       dates = Object.keys(local.completedSections || {}).map(() => new Date().toISOString());
       attempts = Number(localStorage.getItem('python-local-attempts') || 0); correct = Number(localStorage.getItem('python-local-correct') || 0);
     }
-    const percent = total ? Math.round(completed / total * 100) : 0, accuracy = attempts ? Math.round(correct / attempts * 100) : 0;
-    $('sectionProgress').textContent = `${completed}/${total}`; $('accuracy').textContent = `${accuracy}%`; $('overallProgress').textContent = `${percent}%`; $('overallProgressBar').style.width = `${percent}%`; $('progressDetail').textContent = `${completed}/${total} 节已完成`;
-    $('chapterCount').textContent = `${chapters}/${totalChapters}`; $('chapterRing').style.setProperty('--score', `${totalChapters ? chapters / totalChapters * 100 : 0}%`);
-    const streak = calculateStreak(dates); $('streakDays').textContent = `${streak} 天`; localStorage.setItem('python-streak', String(streak)); $('studyTime').textContent = `${completed * 12 + attempts * 2} 分钟`;
+    const combinedCompleted = scenarioCompleted + pythonCoreCompleted;
+    const combinedTotal = 58;
+    const percent = Math.round(combinedCompleted / combinedTotal * 100), accuracy = attempts ? Math.round(correct / attempts * 100) : 0;
+    const completedPythonChapters = Array.from({ length: 12 }, (_, chapterIndex) => chapterIndex + 1).filter(chapterNumber => [1, 2, 3].every(sectionNumber => pythonCoreProgress[`original-section-${chapterNumber}-${sectionNumber}`])).length;
+    $('sectionProgress').textContent = `${scenarioCompleted}/22`; $('pythonCoreProgress').textContent = `${pythonCoreCompleted}/36`; $('accuracy').textContent = `${accuracy}%`; $('overallProgress').textContent = `${percent}%`; $('overallProgressBar').style.width = `${percent}%`; $('progressDetail').textContent = `实战 ${scenarioCompleted}/22 · Python 基础 ${pythonCoreCompleted}/36`;
+    $('chapterCount').textContent = `${completedPythonChapters}/12`; $('chapterRing').style.setProperty('--score', `${completedPythonChapters / 12 * 100}%`);
+    const streak = calculateStreak(dates); $('streakDays').textContent = `${streak} 天`; localStorage.setItem('python-streak', String(streak)); $('studyTime').textContent = `${scenarioCompleted * 20 + pythonCoreCompleted * 12 + attempts * 2} 分钟`;
     heatmap(dates); paintAbilities(completed, attempts);
     if (localStorage.getItem('python-lab-code-v2')) unlock('first-code'); if (attempts >= 10) unlock('ten-quiz'); if (completed >= 1) unlock('first-section'); if (xp >= 200) unlock('hundred-run'); /* V4 */ try { const b = JSON.parse(localStorage.getItem('cr_badges') || '[]'); if (b.includes('first_code_read')) unlock('first_code_read'); if (b.includes('prompt_starter')) unlock('prompt_starter'); if (b.includes('file_sort_theory')) unlock('file_sort_theory'); } catch(e) {}
     const unreadMessages = messages.filter(message => message.admin_reply && !message.user_read_at);
