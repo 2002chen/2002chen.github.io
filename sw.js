@@ -1,5 +1,5 @@
 // 小菜鸟带你飞 - Service Worker
-const CACHE_NAME = 'xiaocainiao-v2.0.0';
+const CACHE_NAME = 'xiaocainiao-v2.1.1';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -18,7 +18,7 @@ const PRECACHE_URLS = [
   '/supabase-config.js',
   '/home.js',
   '/site-lessons.js',
-  '/v41-course.js',
+  '/mobile-course.js',
   '/tutorial.js',
   '/tutorial-course.js',
   '/python.js',
@@ -30,6 +30,10 @@ const PRECACHE_URLS = [
   '/manifest.json',
   '/assets/pwa-icon-192.png',
   '/assets/pwa-icon-512.png'
+  ,'/assets/course/start-on-phone.webp'
+  ,'/assets/course/expense-helper.webp'
+  ,'/assets/course/check-ai-result.webp'
+  ,'/assets/course/tutorial-mobile-real.webp'
 ];
 
 self.addEventListener('install', event => {

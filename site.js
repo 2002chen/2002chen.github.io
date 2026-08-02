@@ -88,7 +88,7 @@
   }
 
   const searchItems = [
-    ['场景教程', '用 Python+AI 解决实际问题', 'tutorial.html'],
+    ['手机零基础实战课', '12 节微课，点选、运行、看反馈', 'tutorial.html'],
     ['Python 编程基础', '12 章 36 节系统学习 Python', 'python.html'],
     ['学习路线图', '查看各场景的学习路径和电脑加强建议', 'roadmap.html'],
     ['闯关练习', '按场景和难度练习点选题', 'quiz.html'],
