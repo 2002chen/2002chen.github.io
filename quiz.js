@@ -112,7 +112,9 @@
       $('questionOptions').innerHTML = ''; $('submitAnswer').disabled = true; return;
     }
     $('submitAnswer').disabled = checked && mode !== 'exam';
-    $('submitAnswer').textContent = mode === 'exam' && index === filtered.length - 1 ? '交卷并查看结果' : checked ? '已提交' : '提交答案';
+    $('submitAnswer').textContent = mode === 'exam'
+      ? (index === filtered.length - 1 ? '交卷并查看结果' : '保存并下一题')
+      : (checked ? '已提交' : '提交答案');
     $('questionTopic').textContent = row.topic; $('questionDifficulty').textContent = levelText(row.level); $('questionText').textContent = row.question_text;
     $('questionOptions').innerHTML = (row.options || []).map((option, optionIndex) => {
       const correct = checked && optionIndex === row.correct_index, wrong = checked && optionIndex === choice && choice !== row.correct_index;
@@ -129,7 +131,7 @@
     if (mode === 'exam') {
       state.examAnswers.set(String(row.id), choice);
       if (index < filtered.length - 1) { index++; choice = state.examAnswers.get(String(question().id)) ?? null; render(); return; }
-      gradeExam(); return;
+      await gradeExam(); return;
     }
     if (checked) return;
     checked = true;
@@ -153,27 +155,85 @@
     $('feedbackText').textContent = row.explanation || '结合正确答案，再检查一次题目中的关键词。';
     $('reviewLink').textContent = `相关知识点：${row.topic} →`;
     $('reviewLink').href = `tutorial.html?q=${encodeURIComponent(row.topic)}`;
+    $('reviewLink').onclick = null;
     if (state.wrongStreak >= 3) $('feedbackText').textContent += ` 你已经连续 3 题未答对，建议先复习“${row.topic}”再继续。`;
   }
 
-  function gradeExam() {
-    let correct = 0;
-    filtered.forEach(row => { if (state.examAnswers.get(String(row.id)) === row.correct_index) correct++; });
-    state.answered += filtered.length; state.correct += correct; state.xp += correct * 10; awardXp(correct * 10);
-    site.toast(`交卷完成：答对 ${correct}/${filtered.length} 题`, correct === filtered.length ? 'success' : '');
-    mode = 'practice'; document.querySelectorAll('[data-mode]').forEach(button => button.classList.toggle('active', button.dataset.mode === mode));
-    filtered = all; index = 0; choice = null; checked = false; state.examAnswers.clear(); render();
+  function showExamResult(correct, total) {
+    const box = $('questionFeedback');
+    box.className = `feedback show ${correct === total ? 'correct' : 'wrong'}`;
+    $('feedbackTitle').textContent = `考试完成：答对 ${correct}/${total} 题`;
+    $('feedbackText').textContent = `本次获得 ${correct * 10} XP。答错或未作答的题目已经加入错题本。`;
+    $('reviewLink').textContent = correct === total ? '继续练习 →' : '去错题本重做 →';
+    $('reviewLink').href = '#';
+    $('reviewLink').onclick = event => {
+      event.preventDefault();
+      if (correct === total) box.className = 'feedback';
+      else switchMode('wrong');
+    };
+  }
+
+  async function gradeExam() {
+    const results = filtered.map(row => {
+      const selected = state.examAnswers.get(String(row.id));
+      return { row, selected, correct: selected === row.correct_index };
+    });
+    const total = results.length;
+    const correct = results.filter(result => result.correct).length;
+    results.forEach(result => {
+      if (result.correct) wrongIds.delete(String(result.row.id));
+      else wrongIds.add(String(result.row.id));
+    });
+    saveWrong();
+    localStorage.setItem('python-local-attempts', String(Number(localStorage.getItem('python-local-attempts') || 0) + total));
+    localStorage.setItem('python-local-correct', String(Number(localStorage.getItem('python-local-correct') || 0) + correct));
+    state.answered += total; state.correct += correct; state.xp += correct * 10; awardXp(correct * 10);
+    site.toast(`交卷完成：答对 ${correct}/${total} 题`, correct === total ? 'success' : '');
+    mode = 'practice'; syncModeUi(); state.examAnswers.clear(); applyFilters(); showExamResult(correct, total);
+    if (context.session) {
+      const attempts = results.filter(result => Number.isInteger(result.selected) && !String(result.row.id).startsWith('guest-')).map(result => ({
+        user_id: context.session.user.id,
+        question_id: result.row.id,
+        selected_index: result.selected,
+        is_correct: result.correct
+      }));
+      if (attempts.length) await context.client.from('quiz_attempts').insert(attempts);
+    }
   }
   function awardXp(amount) { if (!amount) return; localStorage.setItem('python-xp', String(Number(localStorage.getItem('python-xp') || 0) + amount)); }
   function updateStats() {
     const percent = state.answered ? Math.round(state.correct / state.answered * 100) : 0;
     $('answeredCount').textContent = state.answered; $('correctCount').textContent = state.correct; $('streakCount').textContent = state.streak; $('xpCount').textContent = state.xp; $('scorePercent').textContent = `${percent}%`; $('scoreRing').style.setProperty('--score', `${percent}%`);
   }
-  function switchMode(next) {
-    mode = next; state.examAnswers.clear();
+  function syncModeUi() {
     document.querySelectorAll('[data-mode]').forEach(button => button.classList.toggle('active', button.dataset.mode === mode));
-    $('modeHelp').textContent = { practice: '做一题看一题解析，没有时间限制。', exam: '随机抽取 10 题，交卷后统一查看成绩。', wrong: '只显示历史错题，集中攻克薄弱点。' }[mode];
+    $('modeHelp').textContent = { practice: '做一题看一题解析，没有时间限制。', exam: '从当前筛选中随机抽取最多 10 题，交卷后统一查看成绩。', wrong: '只显示历史错题，集中攻克薄弱点。' }[mode];
+    $('randomQuestion').disabled = mode === 'exam';
+  }
+  function switchMode(next) {
+    mode = next; state.examAnswers.clear(); syncModeUi();
     applyFilters();
+  }
+
+  function resetExamForFilterChange() {
+    const hadProgress = mode === 'exam' && (state.examAnswers.size > 0 || choice !== null || index > 0);
+    state.examAnswers.clear();
+    if (hadProgress) site.toast('筛选已更新，考试从第一题重新开始。');
+    applyFilters();
+  }
+
+  function rememberExamChoice() {
+    const row = question();
+    if (mode === 'exam' && row && choice !== null) state.examAnswers.set(String(row.id), choice);
+  }
+
+  function moveQuestion(nextIndex) {
+    if (nextIndex < 0 || nextIndex >= filtered.length) return;
+    rememberExamChoice();
+    index = nextIndex;
+    choice = mode === 'exam' ? state.examAnswers.get(String(question().id)) ?? null : null;
+    checked = false;
+    render();
   }
 
   async function loadDiscussions() {
@@ -193,13 +253,13 @@
     $('discussionContent').value = ''; loadDiscussions(); site.toast('讨论已发布', 'success');
   }
 
-  $('levelFilter').onchange = () => { refreshTopicOptions(); applyFilters(); }; $('topicFilter').onchange = applyFilters;
-  $('questionSearch').oninput = () => { clearTimeout(debounce); debounce = setTimeout(applyFilters, 300); };
+  $('levelFilter').onchange = () => { refreshTopicOptions(); resetExamForFilterChange(); }; $('topicFilter').onchange = resetExamForFilterChange;
+  $('questionSearch').oninput = () => { clearTimeout(debounce); debounce = setTimeout(resetExamForFilterChange, 300); };
   document.querySelectorAll('[data-mode]').forEach(button => button.onclick = () => switchMode(button.dataset.mode));
   $('submitAnswer').onclick = submit;
-  $('nextQuestion').onclick = () => { if (index < filtered.length - 1) { index++; choice = mode === 'exam' ? state.examAnswers.get(String(question().id)) ?? null : null; checked = false; render(); } };
-  $('previousQuestion').onclick = () => { if (index > 0) { index--; choice = mode === 'exam' ? state.examAnswers.get(String(question().id)) ?? null : null; checked = false; render(); } };
-  $('randomQuestion').onclick = () => { if (filtered.length) { index = Math.floor(Math.random() * filtered.length); choice = null; checked = false; render(); } };
+  $('nextQuestion').onclick = () => moveQuestion(index + 1);
+  $('previousQuestion').onclick = () => moveQuestion(index - 1);
+  $('randomQuestion').onclick = () => { if (filtered.length) moveQuestion(Math.floor(Math.random() * filtered.length)); };
   $('discussion').ontoggle = () => { if ($('discussion').open) loadDiscussions(); };
   $('discussionForm').onsubmit = postDiscussion;
   let touchStart = 0;

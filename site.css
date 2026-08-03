@@ -272,9 +272,11 @@ input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shado
 .question-options button { display: grid; grid-template-columns: 38px 1fr auto; align-items: center; gap: 12px; min-height: 54px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 2px; text-align: left; background: var(--surface); }
 .question-options button i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--surface-alt); font-style: normal; }
 .question-options button:hover, .question-options button.selected { border-color: var(--blue); background: #f3f8fd; }
-.question-options button.selected::after { content: "✓"; color: var(--blue); font-weight: 850; }
+.question-options button.selected::after { content: "已选"; color: var(--blue); font-size: .75rem; font-weight: 850; }
 .question-options button.correct { border-color: var(--success); background: #effaf4; }
 .question-options button.wrong { border-color: var(--danger); background: #fff3f3; }
+.question-options button.correct::after { content: "✓"; color: var(--success); font-size: 1rem; font-weight: 850; }
+.question-options button.wrong::after { content: "×"; color: var(--danger); font-size: 1.2rem; font-weight: 850; }
 .feedback { display: none; margin-top: 20px; padding: 20px; border-radius: var(--radius); background: var(--surface-alt); }
 .feedback.show { display: block; }
 .feedback.correct { border-left: 4px solid var(--success); }

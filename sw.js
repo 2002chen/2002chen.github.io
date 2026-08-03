@@ -1,5 +1,5 @@
 // 小菜鸟带你飞 - Service Worker
-const CACHE_NAME = 'xiaocainiao-v2.1.2';
+const CACHE_NAME = 'xiaocainiao-v2.1.4';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -73,7 +73,7 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith(
-    caches.match(request, { ignoreSearch: true }).then(cachedResponse => {
+    caches.match(request).then(cachedResponse => {
       const networkUpdate = fetch(request).then(response => {
         if (response.ok && response.type === 'basic') {
           caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
