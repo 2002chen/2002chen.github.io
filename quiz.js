@@ -6,8 +6,21 @@
     { id: 'guest-1', level: 'beginner', topic: 'Python 入门', question_text: 'Python 是什么类型的语言？', options: ['只适合制作网页的语言', '一种易学、用途广泛的编程语言', '只能进行数学计算的软件', '一种操作系统'], correct_index: 1, explanation: 'Python 是一门通用编程语言，常用于自动化、数据分析、网站开发和人工智能。', position: 1 },
     { id: 'guest-2', level: 'beginner', topic: '程序输出', question_text: '在 Python 中，哪个函数用于显示内容？', options: ['show()', 'write()', 'print()', 'display_text()'], correct_index: 2, explanation: 'print() 是 Python 最基础的输出函数，可以把文字和计算结果显示出来。', position: 2 },
     { id: 'guest-3', level: 'beginner', topic: '字符串', question_text: '下列哪个写法表示一段字符串？', options: ['Python', '"Python"', '123', 'True'], correct_index: 1, explanation: '字符串文本需要放在单引号或双引号中。', position: 3 },
+    { id: 'guest-6', level: 'beginner', topic: '变量', question_text: '哪一行代码把数字 5 保存到变量 minutes？', options: ['minutes == 5', 'minutes = 5', 'print(minutes = 5)', '5 = minutes'], correct_index: 1, explanation: '单个等号用于赋值，把右侧的 5 保存到左侧变量 minutes。', position: 6 },
+    { id: 'guest-7', level: 'beginner', topic: '整数', question_text: '下面哪个值是 Python 整数？', options: ['"12"', '12', '12.5', 'True'], correct_index: 1, explanation: '没有引号、没有小数点的 12 是整数。', position: 7 },
+    { id: 'guest-8', level: 'beginner', topic: '注释', question_text: 'Python 单行注释通常以什么符号开始？', options: ['#', '//', '<!--', '*'], correct_index: 0, explanation: '# 后面的内容通常用于给人阅读，不会作为普通代码执行。', position: 8 },
     { id: 'guest-4', level: 'basic', topic: '条件判断', question_text: 'if 语句结尾通常需要什么符号？', options: ['分号', '句号', '冒号', '逗号'], correct_index: 2, explanation: 'Python 的 if、for、while 和 def 等语句头通常以冒号结尾。', position: 4 },
-    { id: 'guest-5', level: 'advanced', topic: '异常处理', question_text: '捕获异常通常使用什么结构？', options: ['if/else', 'try/except', 'for/in', 'class/def'], correct_index: 1, explanation: 'try 放可能出错的代码，except 负责处理异常。', position: 5 }
+    { id: 'guest-9', level: 'basic', topic: '列表', question_text: '列表 colors = ["红", "绿", "蓝"] 中，colors[0] 是什么？', options: ['红', '绿', '蓝', '0'], correct_index: 0, explanation: 'Python 列表下标从 0 开始，所以 colors[0] 是第一项“红”。', position: 9 },
+    { id: 'guest-10', level: 'basic', topic: '循环', question_text: 'for amount in expenses: 表示什么？', options: ['删除 expenses', '依次取出每一笔支出', '只处理第一笔', '创建一个函数'], correct_index: 1, explanation: 'for 会按顺序遍历列表，每轮把当前项目放进 amount。', position: 10 },
+    { id: 'guest-11', level: 'basic', topic: '列表长度', question_text: 'len([12, 8, 15]) 的结果是多少？', options: ['3', '12', '15', '35'], correct_index: 0, explanation: 'len() 统计列表项目数量，这个列表有三项。', position: 11 },
+    { id: 'guest-12', level: 'basic', topic: '字典', question_text: '字典主要使用什么组织数据？', options: ['键和值', '只有下标', '只有文字', '文件夹'], correct_index: 0, explanation: '字典使用 key:value，也就是键和值来组织数据。', position: 12 },
+    { id: 'guest-13', level: 'basic', topic: '比较运算', question_text: '判断两个值是否相等通常使用哪个运算符？', options: ['=', '==', '!=', '>='], correct_index: 1, explanation: '== 用于比较是否相等，单个 = 用于赋值。', position: 13 },
+    { id: 'guest-5', level: 'advanced', topic: '异常处理', question_text: '捕获异常通常使用什么结构？', options: ['if/else', 'try/except', 'for/in', 'class/def'], correct_index: 1, explanation: 'try 放可能出错的代码，except 负责处理异常。', position: 5 },
+    { id: 'guest-14', level: 'advanced', topic: '函数', question_text: '函数使用 return 的主要作用是什么？', options: ['显示所有代码', '把结果交回调用位置', '创建循环', '捕获异常'], correct_index: 1, explanation: 'return 会结束函数并把结果返回给调用位置。', position: 14 },
+    { id: 'guest-15', level: 'advanced', topic: '文件操作', question_text: '使用 with open(...) 的主要好处是什么？', options: ['自动管理文件关闭', '让文件永久只读', '自动删除文件', '不用指定文件名'], correct_index: 0, explanation: 'with 代码块结束后会自动关闭文件，更安全。', position: 15 },
+    { id: 'guest-16', level: 'advanced', topic: '类与对象', question_text: 'class 在 Python 中通常用于什么？', options: ['定义一类对象的蓝图', '显示文字', '导入 JSON', '结束程序'], correct_index: 0, explanation: '类描述一类对象共有的属性和行为。', position: 16 },
+    { id: 'guest-17', level: 'advanced', topic: 'JSON', question_text: 'JSON 最常见的用途是什么？', options: ['交换和保存结构化数据', '绘制图片', '安装 Python', '替代所有数据库'], correct_index: 0, explanation: 'JSON 是常见的结构化文本数据格式。', position: 17 },
+    { id: 'guest-18', level: 'advanced', topic: '测试', question_text: '测试程序时，哪种做法最可靠？', options: ['只看代码长度', '使用已知预期结果的样例', '只问 AI 是否正确', '运行一次不报错即可'], correct_index: 1, explanation: '用已知答案的输入检查实际输出，才能验证程序行为。', position: 18 }
   ].concat(sceneQs.map((q, i) => ({
     id: q.id,
     level: 'beginner',
@@ -26,20 +39,55 @@
   function levelText(value) { return { beginner: '零基础', basic: '基础', advanced: '进阶' }[value] || value; }
   function question() { return filtered[index] || null; }
 
+  function normalizeLevel(value) {
+    const key = String(value || '').trim().toLowerCase();
+    return {
+      beginner: 'beginner', easy: 'beginner', starter: 'beginner', '零基础': 'beginner', '入门': 'beginner',
+      basic: 'basic', medium: 'basic', intermediate: 'basic', '基础': 'basic',
+      advanced: 'advanced', hard: 'advanced', expert: 'advanced', '进阶': 'advanced'
+    }[key] || key;
+  }
+
+  function mergeQuestionBanks(remoteQuestions) {
+    const merged = new Map();
+    [...fallback, ...(remoteQuestions || [])].forEach(row => {
+      const normalized = { ...row, level: normalizeLevel(row.level) };
+      merged.set(String(normalized.id), normalized);
+    });
+    return [...merged.values()].sort((a, b) => String(a.level).localeCompare(String(b.level)) || Number(a.position || 0) - Number(b.position || 0));
+  }
+
+  function refreshLevelOptions() {
+    const counts = { beginner: 0, basic: 0, advanced: 0 };
+    all.forEach(row => { if (counts[row.level] !== undefined) counts[row.level]++; });
+    const selected = $('levelFilter').value;
+    $('levelFilter').innerHTML = `<option value="">全部难度（${all.length}）</option>` + ['beginner', 'basic', 'advanced'].map(level => `<option value="${level}">${levelText(level)}（${counts[level]}）</option>`).join('');
+    $('levelFilter').value = selected;
+  }
+
+  function refreshTopicOptions() {
+    const level = $('levelFilter').value;
+    const current = $('topicFilter').value;
+    const topics = [...new Set(all.filter(row => !level || row.level === level).map(row => row.topic))].sort();
+    $('topicFilter').innerHTML = '<option value="">全部知识点</option>' + topics.map(topic => `<option value="${site.escapeHtml(topic)}">${site.escapeHtml(topic)}</option>`).join('');
+    $('topicFilter').value = topics.includes(current) ? current : '';
+  }
+
   async function load() {
     context = await site.ready; wrongIds = readWrong();
+    let remoteQuestions = [];
     if (context.client && context.session) {
       const [questions, attempts] = await Promise.all([
         context.client.from('questions').select('*').eq('active', true).order('level').order('position').limit(3000),
         context.client.from('quiz_attempts').select('question_id,is_correct').eq('is_correct', false).limit(3000)
       ]);
-      if (!questions.error && questions.data?.length) all = questions.data;
+      if (!questions.error && questions.data?.length) remoteQuestions = questions.data;
       (attempts.data || []).forEach(row => wrongIds.add(String(row.question_id)));
     }
-    if (!all.length) all = fallback;
+    all = mergeQuestionBanks(remoteQuestions);
     $('cloudCount').textContent = all.length;
-    const topics = [...new Set(all.map(row => row.topic))].sort();
-    $('topicFilter').innerHTML = '<option value="">全部知识点</option>' + topics.map(topic => `<option value="${site.escapeHtml(topic)}">${site.escapeHtml(topic)}</option>`).join('');
+    refreshLevelOptions();
+    refreshTopicOptions();
     applyFilters();
   }
 
@@ -145,7 +193,7 @@
     $('discussionContent').value = ''; loadDiscussions(); site.toast('讨论已发布', 'success');
   }
 
-  $('levelFilter').onchange = applyFilters; $('topicFilter').onchange = applyFilters;
+  $('levelFilter').onchange = () => { refreshTopicOptions(); applyFilters(); }; $('topicFilter').onchange = applyFilters;
   $('questionSearch').oninput = () => { clearTimeout(debounce); debounce = setTimeout(applyFilters, 300); };
   document.querySelectorAll('[data-mode]').forEach(button => button.onclick = () => switchMode(button.dataset.mode));
   $('submitAnswer').onclick = submit;

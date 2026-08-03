@@ -1,5 +1,5 @@
 // 小菜鸟带你飞 - Service Worker
-const CACHE_NAME = 'xiaocainiao-v2.1.1';
+const CACHE_NAME = 'xiaocainiao-v2.1.2';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
